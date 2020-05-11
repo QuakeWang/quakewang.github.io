@@ -1,60 +1,91 @@
-<!doctype html>
-<html lang="en-us">
+<!DOCTYPE html>
+<html lang="">
   <head>
-    <title>404 Page not found // AKA二夕</title>
-    <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.70.0" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="author" content="AKA二夕" />
-    <meta name="description" content="" />
-    <link rel="stylesheet" href="https://quakewang.github.io/css/main.min.f90f5edd436ec7b74ad05479a05705770306911f721193e7845948fb07fe1335.css" />
-
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="404 Page not found"/>
-<meta name="twitter:description" content="This is my blog based on the boilerplate of Hugo. I want to share some notes about study here,and some interesting things about my life."/>
+    <title>404 Page not found - AKA二夕</title>
+    
+    <meta name="description" content="This is my blog based on the boilerplate of Hugo. I want to share some notes about study here,and some interesting things about my life.">
+    <meta name="author" content="AKA二夕">
+    
+    <link href="https://quakewang.github.io/an-old-hope.min.css" rel="stylesheet">
+    <link href="https://quakewang.github.io/style.css" rel="stylesheet">
+    
+    <link rel="apple-touch-icon" href="https://quakewang.github.io/apple-touch-icon.png">
+    <link rel="icon" href="https://quakewang.github.io/favicon.ico">
+    <meta name="generator" content="Hugo 0.70.0" />
+    
+    <link rel="alternate" type="application/atom+xml" href="https://quakewang.github.io/index.xml" title="AKA二夕">
+    
+    
+    <script>
+      function setTheme() {
+        const time = new Date();
 
-    <meta property="og:title" content="404 Page not found" />
-<meta property="og:description" content="This is my blog based on the boilerplate of Hugo. I want to share some notes about study here,and some interesting things about my life." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://quakewang.github.io/404.html" />
+        const prev = localStorage.getItem('date');
+        const date = String(time.getMonth() + 1) + '.' + String(time.getDate());
 
+        const now = time.getTime();
+        let sunrise;
+        let sunset;
 
+        function setBodyClass() {
+          if (now > sunrise && now < sunset) return;
+          document.body.classList.add('dark');
+        }
 
+        if (date !== prev) {
+          fetch('https://api.ipgeolocation.io/astronomy?apiKey=5ed37d85103e4defa5df4c5298ed5215')
+            .then(res => res.json())
+            .then(data => {
+              sunrise = data.sunrise.split(':').map(Number);
+              sunset = data.sunset.split(':').map(Number);
+            })
+            .catch(() => {
+              sunrise = [7, 0];
+              sunset = [19, 0];
+            })
+            .finally(() => {
+              sunrise = time.setHours(sunrise[0], sunrise[1], 0);
+              sunset = time.setHours(sunset[0], sunset[1], 0);
+              setBodyClass();
+              localStorage.setItem('sunrise', sunrise);
+              localStorage.setItem('sunset', sunset);
+            });
+          localStorage.setItem('date', date);
+        } else {
+          sunrise = Number(localStorage.getItem('sunrise'));
+          sunset = Number(localStorage.getItem('sunset'));
+          setBodyClass();
+        }
+      }
+    </script>
   </head>
-  <body>
-    <header class="app-header">
-      <a href="https://quakewang.github.io"><img class="app-header-avatar" src="https://avatars1.githubusercontent.com/u/45645138?s=400&amp;u=d03cf416a355c2408b283e6937e834a7d557baf3&amp;v=4" alt="AKA二夕" /></a>
-      <h1>AKA二夕</h1>
-      <p>This is my blog based on the boilerplate of Hugo. I want to share some notes about study here,and some interesting things about my life.</p>
-      <div class="app-header-social">
-        
-          <a target="_blank" href="https://github.com/QuakeWang" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
-  <title>github</title>
-  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-</svg></a>
-        
-          <a target="_blank" href="https://space.bilibili.com/282825157" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-link">
-  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-</svg></a>
-        
-      </div>
+  <body class="list">
+    <script>
+      setTheme();
+    </script>
+    <header class="header">
+      <nav class="nav">
+        <p class="logo"><a href="https://quakewang.github.io">AKA二夕</a></p>
+      </nav>
     </header>
-    <main class="app-container">
-      
-  <div class="error-404">
-    <h1 class="error-404-title">O<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-frown">
-  <title>frown</title>
-  <circle cx="12" cy="12" r="10"></circle><path d="M16 16s-1.5-2-4-2-4 2-4 2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line>
-</svg>ps... </h1>
-    <p>The link you followed may be broken, or the page may have been removed.</p>
-    <a href="/">Go home <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-arrow-right">
-  <title>arrow-right</title>
-  <line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline>
-</svg></a>
-  </div>
+    <main class="main">
 
-    </main>
-  </body>
+<div class="not-found">404</div></main>
+<footer class="footer">
+  <span>&copy; 2020 <a href="https://quakewang.github.io">AKA二夕</a></span>
+  <span>&middot;</span>
+  <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
+  <span>&middot;</span>
+  <span>Theme️ <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper</a></span>
+</footer>
+<script src="https://quakewang.github.io/highlight.min.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+</body>
 </html>
+
