@@ -1,29 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>My New Hugo Site</title>
-    <link>http://example.org/</link>
-    <description>Recent content on My New Hugo Site</description>
+    <title>Meghna</title>
+    <link>https://quakewang.github.io/</link>
+    <description>Recent content on Meghna</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 10 May 2020 21:55:40 +0800</lastBuildDate>
+    <copyright>copyright &amp;copy; 2019 [gethugothemes](https://gethugothemes.com) all right reserved</copyright>
     
-	<atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://quakewang.github.io/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Hello World ! Hello Blog !</title>
-      <link>http://example.org/post/hello/</link>
-      <pubDate>Sun, 10 May 2020 21:55:40 +0800</pubDate>
-      
-      <guid>http://example.org/post/hello/</guid>
-      <description>前言 大政的Blog就这样稀里糊涂的开通了。
- 有时候闲着无聊，总想着写点什么，可能是乱七八糟的想法，可能是一段书评，也有可能是一段歌词。因为相对于话语的直白，文字能表达的情感是更加细腻的，它也可以将有些事情一直保存下去。
-也有可能是我天生就有点内向，甚至比较丧，不太喜欢说话。
- 当时之所以想开通Blog最主要是想督促自己保持学习的习惯，并且可以在这里记录一些关于学习的笔记。也有一部分原因是在这段时间接触了许多之前没有接触过的人和事，总想着这些美好的事和可爱的人更应该被文字所记录，而不是埋藏在我的心里。
-所以博客的内容可能是一串代码，一行文字，一条书评，一段歌词，或许是一句心里话。
-我既做不上神明，那当个野兽也好。</description>
-    </item>
     
   </channel>
 </rss>
