@@ -156,7 +156,7 @@
 <h3 id="创建并输出原始二维数组">创建并输出原始二维数组</h3>
 <h4 id="创建原始的二维数组"><em>创建原始的二维数组：</em></h4>
 <p><strong>代码实现如下：</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">	        <span style="color:#75715e">// 0表示没有棋子，1表示黑子，2表示白子
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">	      <span style="color:#75715e">// 0表示没有棋子，1表示黑子，2表示白子
 </span><span style="color:#75715e"></span>        <span style="color:#66d9ef">int</span> chessArr1<span style="color:#f92672">[][]</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[</span>10<span style="color:#f92672">][</span>10<span style="color:#f92672">];</span><span style="color:#75715e">// 创建一个原始的二维数组 10*10
 </span><span style="color:#75715e"></span>        chessArr1<span style="color:#f92672">[</span>1<span style="color:#f92672">][</span>3<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span>
         chessArr1<span style="color:#f92672">[</span>1<span style="color:#f92672">][</span>4<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> 2<span style="color:#f92672">;</span>
@@ -183,7 +183,7 @@
             <span style="color:#f92672">}</span>
         <span style="color:#f92672">}</span>
 </code></pre></div><h4 id="创建对应的二维数组"><em>创建对应的二维数组</em></h4>
-<p>​		在基本介绍中，我们可知，稀疏数组一共有三列，前两列分别存储非0数值所在的行数与列数，第三列表示非0数值所在的值；而其列数由非0数据决定，行数 = 非0数据的个数 + 1（第一行），所以第一行需要单独赋值。</p>
+<p>​		在基本介绍中，我们可知，稀疏数组一共有三列，前两列分别存储非0数值所在的行数与列数，第三列表示非0数值所在的值；而其行数由非0数据的个数决定，行数 = 非0数据的个数 + 1（第一行），所以第一行需要单独赋值。</p>
 <p><strong>代码实现如下：</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">        <span style="color:#66d9ef">int</span> sparseArr<span style="color:#f92672">[][]</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[</span>sum <span style="color:#f92672">+</span> 1<span style="color:#f92672">][</span>3<span style="color:#f92672">];</span>
         <span style="color:#75715e">// 给稀疏数组赋值
