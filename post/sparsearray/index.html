@@ -12,11 +12,11 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="数据结构--稀疏数组"/>
-<meta name="twitter:description" content="稀疏数组  基本介绍 实际需求 假设一个五子棋盘，用1表示黑子，2表示白子，0表示空白区域，那么则可以把该棋盘利用二维数组实现。如下：
+<meta name="twitter:description" content="稀疏数组  一、基本介绍 1、实际需求 假设一个五子棋盘，用1表示黑子，2表示白子，0表示空白区域，那么则可以把该棋盘利用二维数组实现。如下：
 0 0 0 2 0 0 0 0 0 0 0 0 0 0 1 2 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 那么在上述这个二维数组中，除了1和2之外，其余的都是0。这些0我们并不关心，但是却占据大量的空间，因此可以使用稀疏数组来保存该数组。"/>
 
     <meta property="og:title" content="数据结构--稀疏数组" />
-<meta property="og:description" content="稀疏数组  基本介绍 实际需求 假设一个五子棋盘，用1表示黑子，2表示白子，0表示空白区域，那么则可以把该棋盘利用二维数组实现。如下：
+<meta property="og:description" content="稀疏数组  一、基本介绍 1、实际需求 假设一个五子棋盘，用1表示黑子，2表示白子，0表示空白区域，那么则可以把该棋盘利用二维数组实现。如下：
 0 0 0 2 0 0 0 0 0 0 0 0 0 0 1 2 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 那么在上述这个二维数组中，除了1和2之外，其余的都是0。这些0我们并不关心，但是却占据大量的空间，因此可以使用稀疏数组来保存该数组。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://quakewang.github.io/post/sparsearray/" />
@@ -68,8 +68,8 @@
     <div class="post-content">
       <h1 id="稀疏数组">稀疏数组</h1>
 <hr>
-<h2 id="基本介绍">基本介绍</h2>
-<h3 id="实际需求">实际需求</h3>
+<h2 id="一基本介绍">一、基本介绍</h2>
+<h3 id="1实际需求">1、实际需求</h3>
 <p>假设一个五子棋盘，用1表示黑子，2表示白子，0表示空白区域，那么则可以把该棋盘利用二维数组实现。如下：</p>
 <pre><code class="language-0" data-lang="0">              0 0 0 2 0 0 0 0 0 0 0
               0 0 0 1 2 0 0 0 0 0 0
@@ -82,7 +82,7 @@
               0 0 0 0 0 0 0 0 0 0 0
               0 0 0 0 0 0 0 0 0 0 0
 </code></pre><p>那么在上述这个二维数组中，除了1和2之外，其余的都是0。这些0我们并不关心，但是却占据大量的空间，因此可以使用<strong>稀疏数组</strong>来保存该数组。</p>
-<h3 id="相关概念">相关概念</h3>
+<h3 id="2相关概念">2、相关概念</h3>
 <p>基本介绍：当一个数组中大部分元素为0，或者为同一个值的数组时，可以使用稀疏数组来保存该数组。具体形式如下：</p>
 <table>
 <thead>
@@ -152,9 +152,9 @@
 </table>
 <p>​</p>
 <hr>
-<h2 id="算法实现">算法实现</h2>
-<h3 id="创建并输出原始二维数组">创建并输出原始二维数组</h3>
-<h4 id="创建原始的二维数组"><em>创建原始的二维数组：</em></h4>
+<h2 id="二算法实现">二、算法实现</h2>
+<h3 id="1创建并输出原始二维数组">1、创建并输出原始二维数组</h3>
+<h4 id="创建原始的二维数组"><em>①创建原始的二维数组：</em></h4>
 <p><strong>代码实现如下：</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">	      <span style="color:#75715e">// 0表示没有棋子，1表示黑子，2表示白子
 </span><span style="color:#75715e"></span>        <span style="color:#66d9ef">int</span> chessArr1<span style="color:#f92672">[][]</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[</span>10<span style="color:#f92672">][</span>10<span style="color:#f92672">];</span><span style="color:#75715e">// 创建一个原始的二维数组 10*10
@@ -162,7 +162,7 @@
         chessArr1<span style="color:#f92672">[</span>1<span style="color:#f92672">][</span>4<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> 2<span style="color:#f92672">;</span>
         chessArr1<span style="color:#f92672">[</span>2<span style="color:#f92672">][</span>3<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span>
         chessArr1<span style="color:#f92672">[</span>0<span style="color:#f92672">][</span>3<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> 2<span style="color:#f92672">;</span>				
-</code></pre></div><h4 id="打印输出原始的二维数组"><em>打印输出原始的二维数组：</em></h4>
+</code></pre></div><h4 id="打印输出原始的二维数组"><em>②打印输出原始的二维数组：</em></h4>
 <p><strong>代码实现如下：</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> row <span style="color:#f92672">:</span> chessArr1<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
             <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> data <span style="color:#f92672">:</span> row<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
@@ -170,8 +170,8 @@
             <span style="color:#f92672">}</span>
             System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">();</span>
         <span style="color:#f92672">}</span>
-</code></pre></div><h3 id="将二维数组转换成稀疏数组">将二维数组转换成稀疏数组</h3>
-<h4 id="先遍历二维数组记录非0数值的个数"><em>先遍历二维数组，记录非0数值的个数</em></h4>
+</code></pre></div><h3 id="2将二维数组转换成稀疏数组">2、将二维数组转换成稀疏数组</h3>
+<h4 id="先遍历二维数组记录非0数值的个数"><em>①先遍历二维数组，记录非0数值的个数</em></h4>
 <p>​		遍历二维数组，并记录非0数据的个数，可用于创建稀疏数组时，对其第一行赋值。</p>
 <p><strong>代码实现如下：</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">        <span style="color:#66d9ef">int</span> sum <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span><span style="color:#75715e">// 用于记录非0数值的个数
@@ -182,7 +182,7 @@
                 <span style="color:#f92672">}</span>
             <span style="color:#f92672">}</span>
         <span style="color:#f92672">}</span>
-</code></pre></div><h4 id="创建对应的二维数组"><em>创建对应的二维数组</em></h4>
+</code></pre></div><h4 id="创建对应的二维数组"><em>②创建对应的二维数组</em></h4>
 <p>​		在基本介绍中，我们可知，稀疏数组一共有三列，前两列分别存储非0数值所在的行数与列数，第三列表示非0数值所在的值；而其行数由非0数据的个数决定，行数 = 非0数据的个数 + 1（第一行），所以第一行需要单独赋值。</p>
 <p><strong>代码实现如下：</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">        <span style="color:#66d9ef">int</span> sparseArr<span style="color:#f92672">[][]</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[</span>sum <span style="color:#f92672">+</span> 1<span style="color:#f92672">][</span>3<span style="color:#f92672">];</span>
@@ -190,7 +190,7 @@
 </span><span style="color:#75715e"></span>        sparseArr<span style="color:#f92672">[</span>0<span style="color:#f92672">][</span>0<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> 10<span style="color:#f92672">;</span>
         sparseArr<span style="color:#f92672">[</span>0<span style="color:#f92672">][</span>1<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> 10<span style="color:#f92672">;</span>
         sparseArr<span style="color:#f92672">[</span>0<span style="color:#f92672">][</span>2<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> sum<span style="color:#f92672">;</span>
-</code></pre></div><h4 id="遍历二维数组将非0的值存放到-sparsearr-中"><em>遍历二维数组，将非0的值存放到 sparseArr 中</em></h4>
+</code></pre></div><h4 id="遍历二维数组将非0的值存放到-sparsearr-中"><em>③遍历二维数组，将非0的值存放到 sparseArr 中</em></h4>
 <p>​		在存放非0数据的时候，需要用到临时变量count用于记录。遍历的时候，可以利用双重for循环进行遍历，每当发现一个非0数据的时候，count++; 并且对其所在的位置和值进行赋值。</p>
 <p><strong>代码实现如下：</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">        <span style="color:#66d9ef">int</span> count <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span><span style="color:#75715e">// count用于记录是第几个非0数据
@@ -204,23 +204,23 @@
                 <span style="color:#f92672">}</span>
             <span style="color:#f92672">}</span>
         <span style="color:#f92672">}</span>
-</code></pre></div><h4 id="打印输出稀疏数组"><em>打印输出稀疏数组</em></h4>
+</code></pre></div><h4 id="打印输出稀疏数组"><em>④打印输出稀疏数组</em></h4>
 <p><strong>代码实现如下：</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">				<span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> sparseArr<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%d\t%d\t%d\t\n&#34;</span><span style="color:#f92672">,</span>sparseArr<span style="color:#f92672">[</span>i<span style="color:#f92672">][</span>0<span style="color:#f92672">],</span>sparseArr<span style="color:#f92672">[</span>i<span style="color:#f92672">][</span>1<span style="color:#f92672">],</span>sparseArr<span style="color:#f92672">[</span>i<span style="color:#f92672">][</span>2<span style="color:#f92672">]);</span>
         <span style="color:#f92672">}</span>
-</code></pre></div><h3 id="将稀疏数组恢复成原始的二维数组">将稀疏数组恢复成原始的二维数组</h3>
-<h4 id="先读取稀疏数组的第一行根据第一行的数据创建原始的二维数组"><em>先读取稀疏数组的第一行，根据第一行的数据，创建原始的二维数组</em></h4>
+</code></pre></div><h3 id="3将稀疏数组恢复成原始的二维数组">3、将稀疏数组恢复成原始的二维数组</h3>
+<h4 id="先读取稀疏数组的第一行根据第一行的数据创建原始的二维数组"><em>①先读取稀疏数组的第一行，根据第一行的数据，创建原始的二维数组</em></h4>
 <p>​		将稀疏数组恢复成原始的二维数组，实际上是一个逆过程。我们可以根据稀疏数组第一行的row和col来创建二维数组的大小</p>
 <p><strong>代码实现如下：</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">			<span style="color:#66d9ef">int</span> chessArr2<span style="color:#f92672">[][]</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[</span>sparseArr<span style="color:#f92672">[</span>0<span style="color:#f92672">][</span>0<span style="color:#f92672">]][</span>sparseArr<span style="color:#f92672">[</span>0<span style="color:#f92672">][</span>1<span style="color:#f92672">]];</span>
-</code></pre></div><h4 id="再读取稀疏数组后后几行的数据--从第二行开始"><em>再读取稀疏数组后后几行的数据</em>  <strong>（从第二行开始！！！）</strong></h4>
+</code></pre></div><h4 id="再读取稀疏数组后后几行的数据--从第二行开始"><em>②再读取稀疏数组后后几行的数据</em>  <strong>（从第二行开始！！！）</strong></h4>
 <p>​		因为稀疏数组实际存储有效数据是从第二行开始的，所以在读取数据的时候，应该要从第二行开始！！！即int i  = 1; 读取所有非0数据即可，其余的位置，默认值为0。</p>
 <p><strong>代码实现如下：</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">			<span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> sparseArr<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
             chessArr2<span style="color:#f92672">[</span>sparseArr<span style="color:#f92672">[</span>i<span style="color:#f92672">][</span>0<span style="color:#f92672">]][</span>sparseArr<span style="color:#f92672">[</span>i<span style="color:#f92672">][</span>1<span style="color:#f92672">]]</span> <span style="color:#f92672">=</span> sparseArr<span style="color:#f92672">[</span>i<span style="color:#f92672">][</span>2<span style="color:#f92672">];</span>
         <span style="color:#f92672">}</span>
-</code></pre></div><h4 id="输出恢复后的二维数组"><em>输出恢复后的二维数组</em></h4>
+</code></pre></div><h4 id="输出恢复后的二维数组"><em>③输出恢复后的二维数组</em></h4>
 <p><strong>代码实现如下：</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">			<span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> row <span style="color:#f92672">:</span> chessArr2<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
             <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> data <span style="color:#f92672">:</span> row<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
@@ -229,9 +229,9 @@
             System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">();</span>
         <span style="color:#f92672">}</span>
 </code></pre></div><hr>
-<h2 id="结束语">结束语：</h2>
+<h2 id="三结束语">三、结束语：</h2>
 <p>​		第一次写偏向于技术性的博客，关于内容排版以及问题描述可能存在许多不足之处，以后会慢慢改进。起初打算利用图解实现该过程，在实际算法实现的时候，发现该内容比较简单，所以采用了文字描述！</p>
-<p>​		源码我已push到我的Github仓库，<a href="https://github.com/QuakeWang/DataStructes">数据结构</a>，小伙伴们，如果发现有哪些不足之处，或者需要改善的内容，可以提交pr！！！</p>
+<p>​		源码我已push到我的Github仓库，<a href="https://github.com/QuakeWang/DataStructes">数据结构</a>，小伙伴们，如果发现有哪些不足之处，或者需要改善的内容，可以提交pr噢！！！</p>
 
     </div>
     <div class="post-footer">
