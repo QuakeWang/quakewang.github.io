@@ -7,10 +7,26 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <copyright>All rights reserved - 2020</copyright>
-    <lastBuildDate>Thu, 21 May 2020 21:26:33 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 21 May 2020 23:10:50 +0800</lastBuildDate>
     
 	<atom:link href="https://quakewang.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>数据结构--数组模拟队列</title>
+      <link>https://quakewang.github.io/post/2020/05/21/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%95%B0%E7%BB%84%E6%A8%A1%E6%8B%9F%E9%98%9F%E5%88%97/</link>
+      <pubDate>Thu, 21 May 2020 23:10:50 +0800</pubDate>
+      
+      <guid>https://quakewang.github.io/post/2020/05/21/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%95%B0%E7%BB%84%E6%A8%A1%E6%8B%9F%E9%98%9F%E5%88%97/</guid>
+      <description>数组模拟队列  一、基本介绍 1、队列介绍：   队列是只允许在一段进行插入操作，而在另一端进行删除操作的线性表，可以使用数组或是链表来实现。
+  遵循先入先出的原则，允许插入的一段称为队尾，允许删除的一段称队头。
+  2、举例说明： 队列在我们的日常生活中，使用相当广泛，例如在银行排队，再比如用键盘进行各种字母或数字的输入，到显示器上如记事本软件上的输出，遵循的都是先入先出的原则。
+二、算法实现 1、所需元素及其方法 在实现数组模拟队列的时候，我们需要先定义一个ArrayQueue类来存放所需的元素以及相关方法，所需元素有：数组arr[]：用于存放数据，模拟队列；数组的最大容量maxSize；队列头front；以及队列尾rear。需要的相关方法有：判断队列是否为满；判断队列是否为空；入队列；出队列；显示队列；以及显示队列的头数据。
+代码实现如下：
+private int maxSize;// 表示数组的最大容量  private int front;// 队列头  private int rear;// 队列尾  private int[] arr;// 该数组用于存放数据，模拟队列 2、初始化相关变量 在初始化相关变量的时候，我们可以使用构造器，传入一个数组的最大容量maxSize，这时数组可以存放maxSize的数据，但数组下标的范围为arr[0]&amp;ndash;arr[maxSize - 1]。为front和rear赋值为-1，即队列的前一个位置。
+代码实现如下：
+// 创建队列的构造器  public ArrayQueue(int maxSize) { this.maxSize = maxSize; arr = new int[maxSize]; front = -1;// 指向队列头部，front是指向队列头的前一个位置  rear = -1;// 指向队列的尾部，rear是队列最后一个数据  } 3、判断队列是否为满 ​	在添加数据时，队列头front保持不动，队列尾rear通过后移，从而实现数据入队列。所以在添加数据过程中，rear所指向的下标在不断变大。在初始化数组最大容量的时候，我们提到数组的最大下标为arr[maxSize - 1]，所以当rear指向arr[maxSize - 1]时，则队列为满。即rear == arr[maxSize - 1]。</description>
+    </item>
     
     <item>
       <title>数据结构--数组模拟队列</title>
@@ -19,7 +35,7 @@
       
       <guid>https://quakewang.github.io/post/2020/05/21/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%95%B0%E7%BB%84%E6%A8%A1%E6%8B%9F%E9%98%9F%E5%88%97/</guid>
       <description>数组模拟队列  一、基本介绍 1、队列介绍：   队列是只允许在一段进行插入操作，而在另一端进行删除操作的线性表，可以使用数组或是链表来实现。
-  遵循先入先出的原则，允许插入的一段称为队尾，允许删除的一段称队头。
+  遵循先入先出的原则，允许插入的一端称为队尾，允许删除的一端称队头。
   2、举例说明： 队列在我们的日常生活中，使用相当广泛，例如在银行排队，再比如用键盘进行各种字母或数字的输入，到显示器上如记事本软件上的输出，遵循的都是先入先出的原则。
 二、算法实现 1、所需元素及其方法 在实现数组模拟队列的时候，我们需要先定义一个ArrayQueue类来存放所需的元素以及相关方法，所需元素有：数组arr[]：用于存放数据，模拟队列；数组的最大容量maxSize；队列头front；以及队列尾rear。需要的相关方法有：判断队列是否为满；判断队列是否为空；入队列；出队列；显示队列；以及显示队列的头数据。
 代码实现如下：

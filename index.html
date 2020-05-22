@@ -108,6 +108,140 @@
 </li>
 <li>
 <p>遵循<strong>先入先出</strong>的原则，允许插入的一段称为队尾，允许删除的一段称队头。</p>
+<p><img src="F:%5C%E5%9B%BE%E8%A7%A3%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%5C%E6%95%B0%E7%BB%84%E6%A8%A1%E6%8B%9F%E9%98%9F%E5%88%97%5C2.1FIFO.jpg" alt="图一"></p>
+</li>
+</ol>
+<h3 id="2举例说明">2、举例说明：</h3>
+<p>队列在我们的日常生活中，使用相当广泛，例如在银行排队，再比如用键盘进行各种字母或数字的输入，到显示器上如记事本软件上的输出，遵循的都是<strong>先入先出</strong>的原则。</p>
+<h2 id="二算法实现">二、算法实现</h2>
+<h3 id="1所需元素及其方法">1、所需元素及其方法</h3>
+<p>在实现数组模拟队列的时候，我们需要先定义一个<strong>ArrayQueue</strong>类来存放所需的元素以及相关方法，所需元素有：数组<strong>arr[]</strong>：用于存放数据，模拟队列；数组的最大容量<strong>maxSize</strong>；队列头<strong>front</strong>；以及队列尾<strong>rear</strong>。需要的相关方法有：判断队列是否为满；判断队列是否为空；入队列；出队列；显示队列；以及显示队列的头数据。</p>
+<p><strong>代码实现如下：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">	<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> maxSize<span style="color:#f92672">;</span><span style="color:#75715e">// 表示数组的最大容量
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> front<span style="color:#f92672">;</span><span style="color:#75715e">// 队列头
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> rear<span style="color:#f92672">;</span><span style="color:#75715e">// 队列尾
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> arr<span style="color:#f92672">;</span><span style="color:#75715e">// 该数组用于存放数据，模拟队列
+</span></code></pre></div><h3 id="2初始化相关变量">2、初始化相关变量</h3>
+<p>在初始化相关变量的时候，我们可以使用构造器，传入一个数组的最大容量<strong>maxSize</strong>，这时数组可以存放maxSize的数据，但数组下标的范围为<strong>arr[0]&ndash;arr[maxSize - 1]</strong>。为front和rear赋值为-1，即队列的前一个位置。</p>
+<p><strong>代码实现如下：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#75715e">// 创建队列的构造器
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">ArrayQueue</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> maxSize<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">maxSize</span> <span style="color:#f92672">=</span> maxSize<span style="color:#f92672">;</span>
+        arr <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[</span>maxSize<span style="color:#f92672">];</span>
+        front <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>1<span style="color:#f92672">;</span><span style="color:#75715e">// 指向队列头部，front是指向队列头的前一个位置
+</span><span style="color:#75715e"></span>        rear <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>1<span style="color:#f92672">;</span><span style="color:#75715e">// 指向队列的尾部，rear是队列最后一个数据
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+</code></pre></div><h3 id="3判断队列是否为满">3、判断队列是否为满</h3>
+<p>​		在添加数据时，队列头front保持不动，队列尾rear通过后移，从而实现数据入队列。所以在添加数据过程中，rear所指向的下标在<em>不断变大</em>。在初始化数组最大容量的时候，我们提到数组的最大下标为arr[maxSize - 1]，所以当rear指向arr[maxSize - 1]时，则队列为满。即<strong>rear == arr[maxSize - 1]</strong>。</p>
+<p><strong>代码实现如下：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#75715e">// 判断队列是否为满
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">isFull</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> rear <span style="color:#f92672">==</span> maxSize <span style="color:#f92672">-</span> 1<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><h3 id="4判断队列是否为空">4、判断队列是否为空</h3>
+<p>​		在初始状态下，front和rear均指向下标为-1的<strong>同一个位置</strong>，这时队列没有任何数据，为空；在出队列过程中，rear指针保持不变，front后移，当front和rear指向<strong>同一个下标</strong>的时候，表示所有数据已经全部出队列。所以当<strong>rear == front</strong>时，队列空。</p>
+<p><strong>代码实现如下：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#75715e">// 判断队列是否为空
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">isEmpty</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> front <span style="color:#f92672">==</span> rear<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><h3 id="5添加数据到队列">5、添加数据到队列</h3>
+<p>在添加数据时，头指针front保持不动，每添加一个数据需要通过rear后移来实现入队列。之前在初始化的时候，我们可知rear的初始值为-1，即队列的前一个位置，所以我们需要先后移rear，让rear指向需要添加数据的位置，然后对其赋值。在添加数据之前，我们应该首先判断队列是否为满，防止出现指针越界的情况。（<em>注：rear如果初始值为0，则需要先赋值，再后移，从而指向下一个需要添加数据的位置</em>）</p>
+<p><img src="F:%5C%E5%9B%BE%E8%A7%A3%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%5C%E6%95%B0%E7%BB%84%E6%A8%A1%E6%8B%9F%E9%98%9F%E5%88%97%5C2.2%E5%85%A5%E9%98%9F%E5%88%97.jpg" alt="入队列"></p>
+<p><strong>代码实现如下：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#75715e">// 添加数据到队列
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addQueue</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> n<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// 首先判断队列是否为满
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>isFull<span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;该队列已满，无法添加任何数据~&#34;</span><span style="color:#f92672">);</span>
+            <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        rear<span style="color:#f92672">++;</span><span style="color:#75715e">// 让rear后移
+</span><span style="color:#75715e"></span>        arr<span style="color:#f92672">[</span>rear<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> n<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><h3 id="6取出队列的数据">6、取出队列的数据</h3>
+<p>在取出数据是，尾指针rear保持不动，每次取出一个数据，需要通过front后移来实现出队列。之前在初始化的时候，我们可知front的初始值为-1，即队列的前一个位置，所以我们需要先后移front，让front指向需要取出数据的位置，然后对其赋值。在取出数据之前，我们应该先判断队列是否为空，这里可以使用通过抛出异常的方法进行处理。取出过程如图所示：</p>
+<p><img src="F:%5C%E5%9B%BE%E8%A7%A3%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%5C%E6%95%B0%E7%BB%84%E6%A8%A1%E6%8B%9F%E9%98%9F%E5%88%97%5C2.3%E5%87%BA%E9%98%9F%E5%88%97.jpg" alt="出队列"></p>
+<p><strong>代码实现如下：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#75715e">// 获取队列的数据，出队列
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getQueue</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// 首先判断队列是否为空
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>isEmpty<span style="color:#f92672">())</span> <span style="color:#f92672">{</span><span style="color:#75715e">// 这里可以通过抛出异常处理
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> RuntimeException<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;该队列为空，无法取出任何数据&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+        front<span style="color:#f92672">++;</span><span style="color:#75715e">// 让front后移
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> arr<span style="color:#f92672">[</span>front<span style="color:#f92672">];</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><h3 id="7显示队列所有数据">7、显示队列所有数据</h3>
+<p>我们可以通过for循环遍历该数组，在遍历之前需要先判断队列是否为空。</p>
+<p><strong>代码实现如下：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#75715e">// 显示队列所有数据
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">showQueue</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// 先判断是否为空
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>isEmpty<span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;该队列为空，无数据可显示~&#34;</span><span style="color:#f92672">);</span>
+            <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#75715e">// 遍历
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> arr<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;arr[%d]=%d\n&#34;</span><span style="color:#f92672">,</span> i<span style="color:#f92672">,</span> arr<span style="color:#f92672">[</span>i<span style="color:#f92672">]);</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><h3 id="8显示队列头的信息">8、显示队列头的信息</h3>
+<p>需要注意的是，我们这里只显示头队列的信息，而不是取出数据，因此并不需要后移任何指针。可以通过返回队列的头指针来实现。因为front是指向队列的前一个位置，所以在返回头指针的时候，需要<strong>front + 1</strong>。在显示队列头信息的时候，需要确保队列不为空，因此可以通过抛出异常来进行处理。</p>
+<p><strong>代码实现如下：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#75715e">// 显示头队列的信息，注意不是取出数据
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">headQueue</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// 先判断是否为空
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>isEmpty<span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> RuntimeException<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;队列为空，无数据可显示&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> arr<span style="color:#f92672">[</span>front <span style="color:#f92672">+</span> 1<span style="color:#f92672">];</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><h2 id="三结束语">三、结束语</h2>
+<p>至此，我们了解了关于数组模拟队列的相关操作，但在具体使用过程中，我们会发现其中的问题，当把数据再取出后，这个位置就不能再添加其他数据，因此我们可以考虑到使用取模的方式来实现循环使用的效果。在下一篇博客将会更新关于数组模拟环形队列的操作。本次内容源代码已经push到github ——&gt; <a href="https://github.com/QuakeWang/DataStructes">数据结构</a>。</p>
+<blockquote>
+<p>《大话数据结构》——程杰</p>
+<p>图解数据结构与算法——韩顺平</p>
+</blockquote>
+
+          </section>
+      </p>
+      
+    </section>
+    <footer class="post-meta">
+        
+            <img class="author-thumb" src="https://quakewang.github.io/images/user.png" alt="Author image" nopin="nopin" />
+        
+        
+            AKA二夕
+        
+        
+        <time class="post-date" datetime="2020-05-21T23:10:50&#43;08:00">
+            21 May 2020
+        </time>
+    </footer>
+</article>
+
+    
+        
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="https://quakewang.github.io/post/2020/05/21/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%95%B0%E7%BB%84%E6%A8%A1%E6%8B%9F%E9%98%9F%E5%88%97/">数据结构--数组模拟队列</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+          <section class="post-content">
+            <h1 id="数组模拟队列">数组模拟队列</h1>
+<hr>
+<h2 id="一基本介绍">一、基本介绍</h2>
+<h3 id="1队列介绍">1、队列介绍：</h3>
+<ol>
+<li>
+<p>队列是只允许在一段进行插入操作，而在另一端进行删除操作的线性表，可以使用<strong>数组</strong>或是<strong>链表</strong>来实现。</p>
+</li>
+<li>
+<p>遵循<strong>先入先出</strong>的原则，允许插入的一端称为队尾，允许删除的一端称队头。</p>
 <p><img src="http://m.qpic.cn/psc?/V10waJ0c27gq6v/cTSKLfDpG3rewGH76tPscW5yupecWDkYrNpUjl8ns0tpn76s3vuQ55WSPawqt11AlC9bVuu8nGMqM*MbAm5gig!!/b&amp;bo=pAWkAQAAAAARBzQ!&amp;rf=viewer_4&amp;t=5" alt="1"></p>
 </li>
 </ol>
