@@ -7,34 +7,34 @@
 
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Hugo 主题 MemE</title>
-        <link>https://example.com/</link>
+        <title>AKA二夕</title>
+        <link>https://quakewang.github.io/</link>
         <description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description>
         <generator>Hugo 0.71.1 https://gohugo.io/</generator>
         
             <language>zh-CN</language>
         
         
-            <managingEditor>reuixiy@gmail.com (reuixiy)</managingEditor>
+            <managingEditor>wangfuzheng0814@foxmial.com (AKA二夕)</managingEditor>
         
         
-            <webMaster>reuixiy@gmail.com (reuixiy)</webMaster>
+            <webMaster>wangfuzheng0814@foxmial.com (AKA二夕)</webMaster>
         
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Tue, 26 May 2020 16:49:35 &#43;0800</lastBuildDate>
+        <lastBuildDate>Tue, 26 May 2020 16:52:16 &#43;0800</lastBuildDate>
         
-            <atom:link rel="self" type="application/rss&#43;xml" href="https://example.com/rss.xml" />
+            <atom:link rel="self" type="application/rss&#43;xml" href="https://quakewang.github.io/rss.xml" />
         
         
             <item>
                 <title>数据结构--数组模拟队列</title>
-                <link>https://example.com/post/arrayqueue/</link>
-                <guid isPermaLink="true">https://example.com/post/arrayqueue/</guid>
+                <link>https://quakewang.github.io/post/arrayqueue/</link>
+                <guid isPermaLink="true">https://quakewang.github.io/post/arrayqueue/</guid>
                 <pubDate>Thu, 21 May 2020 21:26:33 &#43;0800</pubDate>
                 
-                    <author>reuixiy@gmail.com (reuixiy)</author>
+                    <author>wangfuzheng0814@foxmial.com (AKA二夕)</author>
                 
                 <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
                 
@@ -266,11 +266,11 @@
         
             <item>
                 <title>数据结构--稀疏数组</title>
-                <link>https://example.com/post/sparsearray/</link>
-                <guid isPermaLink="true">https://example.com/post/sparsearray/</guid>
+                <link>https://quakewang.github.io/post/sparsearray/</link>
+                <guid isPermaLink="true">https://quakewang.github.io/post/sparsearray/</guid>
                 <pubDate>Fri, 15 May 2020 14:45:36 &#43;0800</pubDate>
                 
-                    <author>reuixiy@gmail.com (reuixiy)</author>
+                    <author>wangfuzheng0814@foxmial.com (AKA二夕)</author>
                 
                 <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
                 
@@ -559,11 +559,11 @@
         
             <item>
                 <title>Hello World ! Hello Blog !</title>
-                <link>https://example.com/post/hello/</link>
-                <guid isPermaLink="true">https://example.com/post/hello/</guid>
+                <link>https://quakewang.github.io/post/hello/</link>
+                <guid isPermaLink="true">https://quakewang.github.io/post/hello/</guid>
                 <pubDate>Sun, 10 May 2020 21:55:40 &#43;0800</pubDate>
                 
-                    <author>reuixiy@gmail.com (reuixiy)</author>
+                    <author>wangfuzheng0814@foxmial.com (AKA二夕)</author>
                 
                 <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
                 
