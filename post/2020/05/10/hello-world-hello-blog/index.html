@@ -99,7 +99,7 @@
 </span><span style="color:#75715e"></span>        rear <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>rear <span style="color:#f92672">+</span> 1<span style="color:#f92672">)</span> <span style="color:#f92672">%</span> maxSize<span style="color:#f92672">;</span><span style="color:#75715e">// 将rear后移，这里必须考虑取模
 </span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
 </code></pre></div><h3 id="6出队列">6、出队列</h3>
-<p>~~之前由于头指针指向队列的前一个位置，所以先后移，到达需要取出数据的位置，从而返回即可。~~但此时头指针所在的位置就是需要取出的位置，如果直接返回则无法进行后移，如果先后移，则取出的数据就是下一个位置的数据。我们可以做一下处理，从而达到想要的效果：</p>
+<p><del>之前由于头指针指向队列的前一个位置，所以先后移，到达需要取出数据的位置，从而返回即可</del> 。但此时头指针所在的位置就是需要取出的位置，如果直接返回则无法进行后移，如果先后移，则取出的数据就是下一个位置的数据。我们可以做一下处理，从而达到想要的效果：</p>
 <ol>
 <li>先把front对应的值保留到一个临时变量；</li>
 <li>将front后移，考虑取模</li>
