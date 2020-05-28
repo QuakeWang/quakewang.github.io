@@ -7,10 +7,24 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <copyright>All rights reserved - 2020</copyright>
-    <lastBuildDate>Thu, 21 May 2020 21:26:33 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 27 May 2020 13:49:32 +0800</lastBuildDate>
     
 	<atom:link href="https://quakewang.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>数据结构--数组模拟环形队列</title>
+      <link>https://quakewang.github.io/post/2020/05/27/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%95%B0%E7%BB%84%E6%A8%A1%E6%8B%9F%E7%8E%AF%E5%BD%A2%E9%98%9F%E5%88%97/</link>
+      <pubDate>Wed, 27 May 2020 13:49:32 +0800</pubDate>
+      
+      <guid>https://quakewang.github.io/post/2020/05/27/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%95%B0%E7%BB%84%E6%A8%A1%E6%8B%9F%E7%8E%AF%E5%BD%A2%E9%98%9F%E5%88%97/</guid>
+      <description>数组模拟环形队列  一、前言 在上一篇博客中我们介绍了如何使用数组模拟队列，但在使用的过程中会出现“假溢出”的现象。即取出数据的位置，无法再次存储数据，没有达到复用的效果。其实分析一下，我们不难发现，每次入队列的过程中，是通过后移rear来实现的，当rear移动到队列的最后的位置时，即使前面有空的位置，但添加数据，会出现指针越界的情况。针对这种情况，可以通过使用取模的方式来达到循环的效果。
+ 二、算法实现 1、初始化相关变量 需要的相关变量仍然是：数组、数组的最大容量、队列头和队列尾。但这次我们对front和rear做以下调整：front由原来指向队列的前一个位置，改变为队列对的第一个位置，也就是队列中第一个数据所在的位置，其初始值为0；rear从原来指向队列的最后一个数据调整为，现在的rear指向队列的最后一个数据的后一个位置，其初始值为0。这样这个队列就必须空出一个位置作为约定，实际数组可存储的数据个数为maxSize - 1。
+代码实现如下：
+private int maxSize;// 表示数组的最大容量  private int front;// 指向队列的第一个元素，初始值是0，也就是队列的第一个元素  private int rear;// 指向队列的最后一个元素的后一个位置，空出一个位置作为约定，初始值为0  private int[] arr;// 该数组用于存放数据，模拟队列  // 构造器  public CircleArray(int maxSize) { this.maxSize = maxSize; arr = new int[maxSize]; front = 0; rear = 0; } 2、判断队列是否为满 我们对front和rear的定义做了调整，所以判断队列满的方法也做出相应的改变，即==当尾指针下一个位置是头指针==的时候，表示队列满。（在前面提到rear指向队列最后一个元素的后一个位置，队列始终保持一个空的位置用于判断队列是否为满）由于是环形队列，所以rear可能比front大，也可能比front小，所以尽管它们只相差一个位置就是满的情况，但也可能是整整相差一圈。所以队列满的条件为**(rear + 1) % maxSize == front**。(*这里取模的目的就是为了整合rear和front大小为一个问题*)
+代码实现如下：
+// 判断队列是否为满  public boolean isFull() { return (rear + 1) % maxSize == front; } 3、判断队列是否为空 因为front和rear的初始值相同，所以判断队列空的方法与之前一样。</description>
+    </item>
     
     <item>
       <title>数据结构--数组模拟队列</title>

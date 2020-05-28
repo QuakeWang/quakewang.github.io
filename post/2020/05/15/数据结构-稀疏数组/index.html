@@ -39,6 +39,134 @@
   
 <article class="post post">
     <header class="post-header">
+        <h2 class="post-title"><a href="https://quakewang.github.io/post/2020/05/27/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%95%B0%E7%BB%84%E6%A8%A1%E6%8B%9F%E7%8E%AF%E5%BD%A2%E9%98%9F%E5%88%97/">数据结构--数组模拟环形队列</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+          <section class="post-content">
+            <h1 id="数组模拟环形队列">数组模拟环形队列</h1>
+<hr>
+<h2 id="一前言">一、前言</h2>
+<p>在上一篇博客中我们介绍了如何使用数组模拟队列，但在使用的过程中会出现“假溢出”的现象。即取出数据的位置，无法再次存储数据，没有达到复用的效果。其实分析一下，我们不难发现，每次入队列的过程中，是通过后移rear来实现的，当rear移动到队列的最后的位置时，即使前面有空的位置，但添加数据，会出现指针越界的情况。针对这种情况，可以通过使用取模的方式来达到循环的效果。</p>
+<hr>
+<h2 id="二算法实现">二、算法实现</h2>
+<h3 id="1初始化相关变量">1、初始化相关变量</h3>
+<p>需要的相关变量仍然是：数组、数组的最大容量、队列头和队列尾。但这次我们对<strong>front</strong>和<strong>rear</strong>做以下调整：<strong>front</strong>由原来指向队列的前一个位置，改变为队列对的第一个位置，也就是队列中第一个数据所在的位置，其初始值为0；<strong>rear</strong>从原来指向队列的最后一个数据调整为，现在的rear指向队列的最后一个数据的后一个位置，其初始值为0。这样这个队列就必须空出一个位置作为约定，实际数组可存储的数据个数为<strong>maxSize - 1</strong>。</p>
+<p><strong>代码实现如下：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> maxSize<span style="color:#f92672">;</span><span style="color:#75715e">// 表示数组的最大容量
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> front<span style="color:#f92672">;</span><span style="color:#75715e">// 指向队列的第一个元素，初始值是0，也就是队列的第一个元素
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> rear<span style="color:#f92672">;</span><span style="color:#75715e">// 指向队列的最后一个元素的后一个位置，空出一个位置作为约定，初始值为0
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> arr<span style="color:#f92672">;</span><span style="color:#75715e">// 该数组用于存放数据，模拟队列
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// 构造器
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">CircleArray</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> maxSize<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">maxSize</span> <span style="color:#f92672">=</span> maxSize<span style="color:#f92672">;</span>
+        arr <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[</span>maxSize<span style="color:#f92672">];</span>
+        front <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+        rear <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><h3 id="2判断队列是否为满">2、判断队列是否为满</h3>
+<p>我们对front和rear的定义做了调整，所以判断队列满的方法也做出相应的改变，即==当尾指针<strong>下一个位置</strong>是头指针==的时候，表示队列满。（<em>在前面提到rear指向队列最后一个元素的后一个位置，队列始终保持一个空的位置用于判断队列是否为满</em>）由于是环形队列，所以rear可能比front大，也可能比front小，所以尽管它们只相差一个位置就是满的情况，但也可能是整整相差一圈。所以队列满的条件为**(rear + 1) % maxSize == front**。(*这里取模的目的就是为了整合rear和front大小为一个问题*)</p>
+<p><strong>代码实现如下：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#75715e">// 判断队列是否为满
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">isFull</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#f92672">(</span>rear <span style="color:#f92672">+</span> 1<span style="color:#f92672">)</span> <span style="color:#f92672">%</span> maxSize <span style="color:#f92672">==</span> front<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><h3 id="3判断队列是否为空">3、判断队列是否为空</h3>
+<p>因为front和rear的初始值相同，所以判断队列空的方法与之前一样。</p>
+<p><strong>代码实现如下：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#75715e">// 判断队列是否为空
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">isEmpty</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> rear <span style="color:#f92672">==</span> front<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><h3 id="4求出当前队列的有效数据个数">4、求出当前队列的有效数据个数</h3>
+<p>这个方法与之前相比是新添加的，其目的是为了判断遍历队列的长度。队列的有效数据的个数 = 尾队列 - 头队列，但有时front比rear大，有时front比rear小，所以可以通过取模的方式来实现。</p>
+<p><strong>代码实现如下：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#75715e">// 求出当前队列的有效数据的个数
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">size</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#f92672">(</span>rear <span style="color:#f92672">+</span> maxSize <span style="color:#f92672">-</span> front<span style="color:#f92672">)</span> <span style="color:#f92672">%</span> maxSize<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><h3 id="5入队列">5、入队列</h3>
+<p>添加数据入队的操作和之前相类似，只不过该队列front指向队列的第一个元素的位置，所以需要进行先赋值，然后再后移。</p>
+<p><strong>代码实现如下：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#75715e">// 添加数据入队列
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addQueue</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> n<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>isFull<span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;该队列已满，，无法添加任何数据~&#34;</span><span style="color:#f92672">);</span>
+            <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        arr<span style="color:#f92672">[</span>rear<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> n<span style="color:#f92672">;</span><span style="color:#75715e">// 直接将数据加入
+</span><span style="color:#75715e"></span>        rear <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>rear <span style="color:#f92672">+</span> 1<span style="color:#f92672">)</span> <span style="color:#f92672">%</span> maxSize<span style="color:#f92672">;</span><span style="color:#75715e">// 将rear后移，这里必须考虑取模
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+</code></pre></div><h3 id="6出队列">6、出队列</h3>
+<p>~~之前由于头指针指向队列的前一个位置，所以先后移，到达需要取出数据的位置，从而返回即可。~~但此时头指针所在的位置就是需要取出的位置，如果直接返回则无法进行后移，如果先后移，则取出的数据就是下一个位置的数据。我们可以做一下处理，从而达到想要的效果：</p>
+<ol>
+<li>先把front对应的值保留到一个临时变量；</li>
+<li>将front后移，考虑取模</li>
+<li>将临时保存的变量返回</li>
+</ol>
+<p><strong>代码实现如下：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#75715e">// 从队列中取出数据
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getQueue</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>isEmpty<span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> RuntimeException<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;该队列为空，无任何数据可以取出~&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">int</span> val <span style="color:#f92672">=</span> arr<span style="color:#f92672">[</span>front<span style="color:#f92672">];</span>
+        front <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>front <span style="color:#f92672">+</span> 1<span style="color:#f92672">)</span> <span style="color:#f92672">%</span> maxSize<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">return</span> val<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><h3 id="7显示队列的所有数据">7、显示队列的所有数据</h3>
+<p>在遍历的时候，我们需要注意到因为是环形队列，需要从front开始遍历，遍历到什么位置结束呢？？ 在之前我们已经求出了有效数据的个数，所以遍历元素为 <strong>front + size()</strong>。</p>
+<p><strong>代码实现如下：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#75715e">// 显示队列的所有数据
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">show</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>isEmpty<span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;该队列为空，无任何数据可以显示~&#34;</span><span style="color:#f92672">);</span>
+            <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#75715e">// 遍历时，从front开始遍历，遍历元素为 front+有效数据的个数
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> front<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> front <span style="color:#f92672">+</span> size<span style="color:#f92672">();</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;arr[%d]=%d\n&#34;</span><span style="color:#f92672">,</span> i <span style="color:#f92672">%</span> maxSize<span style="color:#f92672">,</span> arr<span style="color:#f92672">[</span>i <span style="color:#f92672">%</span> maxSize<span style="color:#f92672">]);</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><h3 id="8显示队列的头数据">8、显示队列的头数据</h3>
+<p>因为front指向的队列的一个元素的位置，所以直接返回即可。</p>
+<p><strong>代码实现如下：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#75715e">// 显示队列的头数据
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">headQueue</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>isEmpty<span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> RuntimeException<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;该队列为空，无头数据可显示~&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> arr<span style="color:#f92672">[</span>front<span style="color:#f92672">];</span>
+    <span style="color:#f92672">}</span>
+
+</code></pre></div><hr>
+<h2 id="三结束语">三、结束语</h2>
+<p>到此，我们了解了关于数组模拟循环队列的相关操作，在判断队列是为满的时候，可以尝试画图理解，（记住要队列要空出一个位置，留作约定哦！）还有一个难点，求出有效数据个数。其余方法，根据数组模拟队列做出相应的调整即可（由于front和rear指向的位置不同而做出的改变）。</p>
+<p>源码地址 ——&gt; <a href="https://github.com/QuakeWang/DataStructes">数据结构</a></p>
+
+          </section>
+      </p>
+      
+    </section>
+    <footer class="post-meta">
+        
+            <img class="author-thumb" src="https://quakewang.github.io/images/user.png" alt="Author image" nopin="nopin" />
+        
+        
+            AKA二夕
+        
+        
+        <time class="post-date" datetime="2020-05-27T13:49:32&#43;08:00">
+            27 May 2020
+        </time>
+    </footer>
+</article>
+
+
+  
+<article class="post post">
+    <header class="post-header">
         <h2 class="post-title"><a href="https://quakewang.github.io/post/2020/05/21/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%95%B0%E7%BB%84%E6%A8%A1%E6%8B%9F%E9%98%9F%E5%88%97/">数据结构--数组模拟队列</a></h2>
     </header>
     <section class="post-excerpt">
