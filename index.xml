@@ -7,10 +7,29 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <copyright>All rights reserved - 2020</copyright>
-    <lastBuildDate>Wed, 27 May 2020 13:49:32 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 30 May 2020 16:23:52 +0800</lastBuildDate>
     
 	<atom:link href="https://quakewang.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>数据结构--单向链表</title>
+      <link>https://quakewang.github.io/post/2020/05/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%8D%95%E5%90%91%E9%93%BE%E8%A1%A8/</link>
+      <pubDate>Sat, 30 May 2020 16:23:52 +0800</pubDate>
+      
+      <guid>https://quakewang.github.io/post/2020/05/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%8D%95%E5%90%91%E9%93%BE%E8%A1%A8/</guid>
+      <description>单向链表 一、基本介绍 1、相关定义 链表实际上是线性表的链式存储结构，与数组不同的是，它是用一组任意的存储单元来存储线性表中的数据，存储单元不一定是连续的，且链表的长度不是固定的。链表的每个元素称为一个结点，每个结点都可以存储在内存中的不同的位置，为了表示每个元素与后继元素的逻辑关系，以便构成“一个结点链着一个结点”的链式存储结构，为了保持每个结点之间的链接，所以链表除了存储元素本身的信息外，还要存储其直接后继信息，因此，每个结点都包含两个部分，第一部分用于存储元素本身的数据信息，称为数据域，它不局限于一个成员数据，也可是多个成员数据；第二部分是一个结构体指针，称为链表的指针域，用于存储其直接后继的节点信息，这里用next表，next的值实际上就是下一个结点的地址，当前结点为末结点时，next的值设为空指针，即为null。链表在使用过程中，可以根据实际需求来判断是否需要添加头结点。
+2、链表与数组比较 数组（包括结构体数组）的实质是一种线性表的顺序表示方式，它的优点是使用直观，便于快速、随机地存取线性表中的任一元素，但缺点是对其进行插入和删除操作时需要移动大量的数组元素，同时由于数组属于静态内存分配，定义数组时必须指定数组的长度，程序一旦运行，其长度就不能再改变，实际使用个数不能超过数组元素最大长度的限制，否则就会发生下标越界的错误，低于最大长度时又会造成系统资源的浪费，因此空间效率差。
+ 二、算法实现 我们需要定义一个类用来存放结点信息，同时也还需要定义一个类用于管理结点，实现单链表的增删改查。
+1、定义一个HeroNode类表示结点 我们需要在HeroNode类中实现相关变量的定义、赋值以及显示信息的方法。
+① 相关变量 这里我们使用单链表来存储水浒英雄，需要存储的信息有：编号、姓名和昵称。还需要定义一个next域用于指向下一个结点。
+代码实现如下：
+public int no;// 编号  public String name;// 姓名  public String nickname;// 昵称  public HeroNode next;// next域，指向下一个节点 ②构造器 可以利用构造器对相关变量进行赋值。
+代买实现如下：
+public HeroNode(int no, String name, String nickname) { this.no = no; this.name = name; this.nickname = nickname; } ③显示链表信息 我们可以使用toString方法来显示链表的信息。
+代码实现如下：
+// 利用toString显示信息  @Override public String toString() { return &amp;#34;HeroNode{&amp;#34; + &amp;#34;no=&amp;#39;&amp;#34; + no + &amp;#39;\&amp;#39;&amp;#39; + &amp;#34;, name=&amp;#39;&amp;#34; + name + &amp;#39;\&amp;#39;&amp;#39; + &amp;#34;, nickname=&amp;#34; + nickname + &amp;#39;}&amp;#39;; } 2、定义一个SingleLinkedList类管理结点 我们需要在这个类中完成对于链表的增删改查。在进行相关操作之前，需要先定义一个头结点，不存放具体的数据，仅指向第一个结点。</description>
+    </item>
     
     <item>
       <title>数据结构--数组模拟环形队列</title>
