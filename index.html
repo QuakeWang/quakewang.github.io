@@ -302,7 +302,7 @@
 <hr>
 <h2 id="二算法实现">二、算法实现</h2>
 <h3 id="1初始化相关变量">1、初始化相关变量</h3>
-<p>需要的相关变量仍然是：数组、数组的最大容量、队列头和队列尾。但这次我们对<strong>front</strong>和<strong>rear</strong>做以下调整：<strong>front</strong>由原来指向队列的前一个位置，改变为队列对的第一个位置，也就是队列中第一个数据所在的位置，其初始值为0；<strong>rear</strong>从原来指向队列的最后一个数据调整为，现在的rear指向队列的最后一个数据的后一个位置，其初始值为0。这样这个队列就必须空出一个位置作为约定，实际数组可存储的数据个数为<strong>maxSize - 1</strong>。</p>
+<p>需要的相关变量仍然是：数组、数组的最大容量、队列头和队列尾。但这次我们对<strong>front</strong>和<strong>rear</strong>做以下调整：<strong>front</strong>由原来指向队列的前一个位置，改变为队列的第一个位置，也就是队列中第一个数据所在的位置，其初始值为0；<strong>rear</strong>从原来指向队列的最后一个数据调整为，现在的rear指向队列的最后一个数据的后一个位置，其初始值为0。这样这个队列就必须空出一个位置作为约定，实际数组可存储的数据个数为<strong>maxSize - 1</strong>。</p>
 <p><strong>代码实现如下：</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> maxSize<span style="color:#f92672">;</span><span style="color:#75715e">// 表示数组的最大容量
 </span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> front<span style="color:#f92672">;</span><span style="color:#75715e">// 指向队列的第一个元素，初始值是0，也就是队列的第一个元素
