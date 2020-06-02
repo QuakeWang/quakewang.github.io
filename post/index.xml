@@ -7,10 +7,26 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <copyright>All rights reserved - 2020</copyright>
-    <lastBuildDate>Sat, 30 May 2020 16:23:52 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 01 Jun 2020 21:22:48 +0800</lastBuildDate>
     
 	<atom:link href="https://quakewang.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>单链表的使用</title>
+      <link>https://quakewang.github.io/post/2020/06/01/%E5%8D%95%E9%93%BE%E8%A1%A8%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Mon, 01 Jun 2020 21:22:48 +0800</pubDate>
+      
+      <guid>https://quakewang.github.io/post/2020/06/01/%E5%8D%95%E9%93%BE%E8%A1%A8%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+      <description>单链表的应用举例 一、前言 在介绍完单链表的数据结构之后，我们将对原有的单链表进行如下操作：
+ 获取单链表的有效结点 查找单链表中的倒数第k个结点 逆序打印单链表（从尾到头打印） 反转单链表   二、算法介绍 1、获取单链表的有效结点 作为使用的第一个方法难度不是很大。因为需要求出单链表中有效结点的个数，所以我们可分为带头结点和不带头结点两种情况。
+我们这边考虑的是不带头结点的单链表，（如果是带头结点的链表需要再加上头结点即可）。需要的变量有length(统计链表的长度)和cur(辅助变量，用于遍历)，可以通过传入一个头结点，然后依次遍历该链表，当链表遍历到最后的时候，即cur.next == null，每一次遍历链表的长度加一，即length++。
+代码实现如下：
+// head链表的头结点，返回的就是有效结点的个数  public static int getLength(HeroNode head) { if (head.next == null) {// 链表为空  return 0; } int length = 0; HeroNode cur = head.next;// 定义一个辅助变量  while (cur != null) { length++; cur = cur.next; } return length; } 2、查找单链表中的倒数第k个结点 因为单链表是单向的，只能从头到尾开始遍历，而无法从后往前遍历，所以我们需要传入一个头结点head（遍历的起始位置）和index(倒数第k个结点)。
+定义一个size表示链表的长度，也就是链表有效结点的个数，可以通过方法一来获取。即size = getLength(head)，然后需要定义一个辅助变量用于遍历。然后通过for循环定位到倒数的index，即size - index的位置，也就是需要查找的倒数第k个结点。最后返回当前的辅助变量，完成查找。
+代码实现如下：
+public static HeroNode findLastIndexNode(HeroNode head, int index) { // 判断链表是否为空，如果是则返回null  if (head.</description>
+    </item>
     
     <item>
       <title>数据结构--单向链表</title>

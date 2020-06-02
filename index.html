@@ -83,13 +83,145 @@
     <div class="extra-pagination inner">
         <nav class="pagination" role="navigation">
 	
-	<span class="page-number">Page 1 of 1</span>
+	<span class="page-number">Page 1 of 2</span>
+	
+	    <a class="older-posts" href="https://quakewang.github.io/page/2/">Older Posts &rarr;</a>
 	
 </nav>
 
     </div>
 
     
+    
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="https://quakewang.github.io/post/2020/06/01/%E5%8D%95%E9%93%BE%E8%A1%A8%E7%9A%84%E4%BD%BF%E7%94%A8/">单链表的使用</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+          <section class="post-content">
+            <h1 id="单链表的应用举例">单链表的应用举例</h1>
+<h2 id="一前言">一、前言</h2>
+<p>在介绍完单链表的数据结构之后，我们将对原有的单链表进行如下操作：</p>
+<ol>
+<li>获取单链表的有效结点</li>
+<li>查找单链表中的倒数第k个结点</li>
+<li>逆序打印单链表（从尾到头打印）</li>
+<li>反转单链表</li>
+</ol>
+<hr>
+<h2 id="二算法介绍">二、算法介绍</h2>
+<h3 id="1获取单链表的有效结点">1、获取单链表的有效结点</h3>
+<p>作为使用的第一个方法难度不是很大。因为需要求出单链表中有效结点的个数，所以我们可分为<strong>带头结点</strong>和<strong>不带头结点</strong>两种情况。</p>
+<p>我们这边考虑的是不带头结点的单链表，（如果是带头结点的链表需要再加上头结点即可）。需要的变量有<strong>length(统计链表的长度)<strong>和</strong>cur(辅助变量，用于遍历)</strong>，可以通过传入一个头结点，然后依次遍历该链表，当链表遍历到最后的时候，即<strong>cur.next == null</strong>，每一次遍历链表的长度加一，即<strong>length++</strong>。</p>
+<p><strong>代码实现如下：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"> <span style="color:#75715e">// head链表的头结点，返回的就是有效结点的个数
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getLength</span><span style="color:#f92672">(</span>HeroNode head<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>head<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span><span style="color:#75715e">// 链表为空
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">return</span> 0<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">int</span> length <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+        HeroNode cur <span style="color:#f92672">=</span> head<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">;</span><span style="color:#75715e">// 定义一个辅助变量
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span>cur <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            length<span style="color:#f92672">++;</span>
+            cur <span style="color:#f92672">=</span> cur<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> length<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><h3 id="2查找单链表中的倒数第k个结点">2、查找单链表中的倒数第k个结点</h3>
+<p>因为单链表是单向的，只能从头到尾开始遍历，而无法从后往前遍历，所以我们需要传入一个头结点<strong>head（遍历的起始位置）<strong>和</strong>index(倒数第k个结点)</strong>。</p>
+<p>定义一个<strong>size</strong>表示链表的长度，也就是链表有效结点的个数，可以通过方法一来获取。即<strong>size = getLength(head)</strong>，然后需要定义一个辅助变量用于遍历。然后通过for循环定位到倒数的index，即<strong>size - index</strong>的位置，也就是需要查找的倒数第k个结点。最后返回当前的辅助变量，完成查找。</p>
+<p><strong>代码实现如下：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> HeroNode <span style="color:#a6e22e">findLastIndexNode</span><span style="color:#f92672">(</span>HeroNode head<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> index<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// 判断链表是否为空，如果是则返回null
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>head<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span><span style="color:#75715e">// 没有找到
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">}</span>
+        <span style="color:#75715e">// 第一次遍历得到链表对的长度（结点个数）
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">int</span> size <span style="color:#f92672">=</span> getLength<span style="color:#f92672">(</span>head<span style="color:#f92672">);</span>
+        <span style="color:#75715e">// 先做一个index校验
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>index <span style="color:#f92672">&lt;</span> 0 <span style="color:#f92672">||</span> index <span style="color:#f92672">&gt;</span> size<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#75715e">// 定义一个辅助变量，for循环定位到倒数的index
+</span><span style="color:#75715e"></span>        HeroNode cur <span style="color:#f92672">=</span> head<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">;</span>
+        <span style="color:#75715e">// 第二次遍历 size - index位置，就是倒数的第k个结点
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> size <span style="color:#f92672">-</span> index<span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+            cur <span style="color:#f92672">=</span> cur<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> cur<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><h3 id="3逆序打印单链表">3、逆序打印单链表</h3>
+<p>在不改变链表结构的情况下，进行逆序打印，我们可以利用栈这个数据结构来实现。栈的特点就是<strong>先进后出</strong>。先把链表push压入栈中，再pop出栈即可。</p>
+<p><strong>代码实现如下：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">reversePrint</span><span style="color:#f92672">(</span>HeroNode head<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>head<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span><span style="color:#75715e">// 空链表，不能打印
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">}</span>
+        <span style="color:#75715e">// 创建一个栈，将各个结点压入栈
+</span><span style="color:#75715e"></span>        Stack<span style="color:#f92672">&lt;</span>HeroNode<span style="color:#f92672">&gt;</span> stack <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Stack<span style="color:#f92672">&lt;&gt;();</span>
+        HeroNode cur <span style="color:#f92672">=</span> head<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">;</span>
+        <span style="color:#75715e">// 将链表的所有结点压入到栈
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span>cur <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            stack<span style="color:#f92672">.</span><span style="color:#a6e22e">push</span><span style="color:#f92672">(</span>cur<span style="color:#f92672">);</span>
+            cur <span style="color:#f92672">=</span> cur<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#75715e">// 将栈中的结点进行打印，pop出栈
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span>stack<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">()</span> <span style="color:#f92672">&gt;</span> 0<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>stack<span style="color:#f92672">.</span><span style="color:#a6e22e">pop</span><span style="color:#f92672">());</span><span style="color:#75715e">// stack的特点就是先进后出
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><h3 id="4反转单链表有点难度">4、反转单链表（有点难度）</h3>
+<p>对单链表进行反转，表示的意思是：将最后的结点变成最前端的结点，以此类推。所以我们需要分为两种情况：</p>
+<ol>
+<li>当前链表为空，或者当前链表只有一个结点，无需反转，直接返回即可。</li>
+<li>有多个结点时：</li>
+</ol>
+<p>需要的变量有：<strong>cur(用于遍历原来的链表)</strong>，<strong>nextNode(指向当前结点[cur]的下一个结点)</strong>，<strong>reverseHead(结点，新链表的最前端)</strong>。</p>
+<p>具体操作过程如下：先将nexNodet指向cur的下一个结点，<em>用于保存当前结点的下一个结点</em>，然后将cur的下一个结点指向新链表的最前端，即<strong>cur.next = reverseHead.next</strong>,然后再<em>将cur连接到新的链表上</em>，这样才能形成一个完成的链表（一个回路）。然后后移，遍历下一个结点，即<strong>cur = nextNode</strong>;在进行上述操作之后，我们已经将链表的所有结点取出，并存放在新的链表下，这时我们需要将head.next 指向 reverseHead.next，实现单链表的反转，即**head.next = reverseHead,next;**完成单链表的反转。</p>
+<p><strong>代码实现如下：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">reverseList</span><span style="color:#f92672">(</span>HeroNode head<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// 如果当前链表为空，或者只有一个结点，无需反转，直接返回
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>head<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">||</span> head<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">.</span><span style="color:#a6e22e">next</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        HeroNode cur <span style="color:#f92672">=</span> head<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">;</span><span style="color:#75715e">// 定义一个辅助变量，帮助遍历原来的链表
+</span><span style="color:#75715e"></span>        HeroNode nextNode <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span><span style="color:#75715e">// 指向当前结点[cur]的下一个结点
+</span><span style="color:#75715e"></span>        HeroNode reverseHead <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HeroNode<span style="color:#f92672">(</span>0<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#75715e">// 遍历原来的链表，每遍历一个结点，将其取出，并放在新的链表reverseHead的最前端
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span>cur <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            nextNode <span style="color:#f92672">=</span> cur<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">;</span><span style="color:#75715e">// 先暂时保存当前结点的下一个结点，
+</span><span style="color:#75715e"></span>            cur<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span> <span style="color:#f92672">=</span> reverseHead<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">;;</span><span style="color:#75715e">// 将cur的下一个结点指向新的链表的最前端
+</span><span style="color:#75715e"></span>            reverseHead<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span> <span style="color:#f92672">=</span> cur<span style="color:#f92672">;</span><span style="color:#75715e">// 将cur连接到新的链表上
+</span><span style="color:#75715e"></span>            cur <span style="color:#f92672">=</span> nextNode<span style="color:#f92672">;</span><span style="color:#75715e">// 让cur后移
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">}</span>
+        <span style="color:#75715e">// 将 head.next 指向 reverseHead.next，实现单链表的反转
+</span><span style="color:#75715e"></span>        head<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span> <span style="color:#f92672">=</span> reverseHead<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><hr>
+<h2 id="三结束语">三、结束语</h2>
+<p>其实我们不难发现，数组也好，链表也罢，都只是存储信息的不同方式，最重要的还是对其的理解和使用，只有这样才能更好的掌握。对于一个刚接触数据结构的小白来说，学到这里的时候，信息量已经远远超过之前所学的知识，但并不应该气馁，数据结构多而且难，所以更需要我们耐下性子，去慢慢琢磨、回顾，愿成长路上，与君共勉！</p>
+<p>源码地址——&gt;<a href="https://github.com/QuakeWang/DataStructes">数据结构</a></p>
+
+          </section>
+      </p>
+      
+    </section>
+    <footer class="post-meta">
+        
+            <img class="author-thumb" src="https://quakewang.github.io/images/user.png" alt="Author image" nopin="nopin" />
+        
+        
+            AKA二夕
+        
+        
+        <time class="post-date" datetime="2020-06-01T21:22:48&#43;08:00">
+            1 Jun 2020
+        </time>
+    </footer>
+</article>
+
+  
     
 <article class="post post">
     <header class="post-header">
@@ -740,47 +872,12 @@
 </article>
 
   
-    
-<article class="post post">
-    <header class="post-header">
-        <h2 class="post-title"><a href="https://quakewang.github.io/post/2020/05/10/hello-world-hello-blog/">Hello World ! Hello Blog !</a></h2>
-    </header>
-    <section class="post-excerpt">
-      <p>
-          <section class="post-content">
-            <h2 id="前言">前言</h2>
-<p>大政的Blog就这样稀里糊涂的开通了。</p>
-<hr>
-<p><em><strong>有时候闲着无聊，总想着写点什么，可能是乱七八糟的想法，可能是一段书评，也有可能是一段歌词。因为相对于话语的直白，文字能表达的情感是更加细腻的，它也可以将有些事情一直保存下去。</strong></em></p>
-<p><em><strong>也有可能是我天生就有点内向，甚至比较丧，不太喜欢说话。</strong></em></p>
-<hr>
-<p>当时之所以想开通Blog最主要是想督促自己保持学习的习惯，并且可以在这里记录一些关于学习的笔记。也有一部分原因是在这段时间接触了许多之前没有接触过的人和事，总想着这些美好的事和可爱的人更应该被文字所记录，而不是埋藏在我的心里。</p>
-<p>所以博客的内容可能是<em>一串代码，一行文字，一条书评，一段歌词，或许是一句心里话</em>。</p>
-<p><del>我既做不上神明，那当个野兽也好。</del></p>
-
-          </section>
-      </p>
-      
-    </section>
-    <footer class="post-meta">
-        
-            <img class="author-thumb" src="https://quakewang.github.io/images/user.png" alt="Author image" nopin="nopin" />
-        
-        
-            AKA二夕
-        
-        
-        <time class="post-date" datetime="2020-05-10T21:55:40&#43;08:00">
-            10 May 2020
-        </time>
-    </footer>
-</article>
-
-  
 
     <nav class="pagination" role="navigation">
 	
-	<span class="page-number">Page 1 of 1</span>
+	<span class="page-number">Page 1 of 2</span>
+	
+	    <a class="older-posts" href="https://quakewang.github.io/page/2/">Older Posts &rarr;</a>
 	
 </nav>
 
