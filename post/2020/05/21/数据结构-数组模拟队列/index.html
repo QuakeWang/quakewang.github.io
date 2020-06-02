@@ -138,7 +138,7 @@
 </code></pre></div><h4 id="修改结点信息">③修改结点信息</h4>
 <p>这里我们通过根据编号来修改结点信息，即编号不能改。同时需要传入一个新的结点 <strong>newHeroNode</strong> ，用于存储修改结点的信息。在进行修改之前，需要先判断单链表是否为空，<strong>head.next == null</strong> 链表为空。然后定义一个辅助变量temp和flag分别用于遍历和标记是否找到当前结点。如果 <strong>temp.no == newHeroNode.no</strong> 表示找到当前需要修改的结点。赋予新的name和nickname完成修改结点的操作。</p>
 <p><strong>代码实现如下：</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#75715e">//1、根据newHeroNode的num来修改即可
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#75715e">//1、根据newHeroNode的no来修改即可
 </span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">update</span><span style="color:#f92672">(</span>HeroNode newHeroNode<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
         <span style="color:#75715e">//判断是否为空
 </span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>head<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
@@ -158,7 +158,7 @@
             <span style="color:#f92672">}</span>
             temp <span style="color:#f92672">=</span> temp<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">;</span>
         <span style="color:#f92672">}</span>
-        <span style="color:#75715e">//3、根据flga，判断是否找到需要修改的节点
+        <span style="color:#75715e">//3、根据flag，判断是否找到需要修改的节点
 </span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>flag<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
             temp<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> newHeroNode<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">;</span>
             temp<span style="color:#f92672">.</span><span style="color:#a6e22e">nickname</span> <span style="color:#f92672">=</span> newHeroNode<span style="color:#f92672">.</span><span style="color:#a6e22e">nickname</span><span style="color:#f92672">;</span>
@@ -169,14 +169,14 @@
 </code></pre></div><h4 id="删除结点">④删除结点</h4>
 <p>在进行删除结点的操作的时候，我们仍然根据编号来进行寻找需要删除的结点。找到需要删除结点的前一个结点，让前一个结点的next跨过需要删除的结点，直接指向下一个结点，即 <strong>temp.netx = temp.next.next</strong> ，完成删除。在进行删除之前仍然需要定义temp和flag用于遍历和标记是否找到需要删除结点的前一个结点。</p>
 <p><strong>代码实现如下：</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">del</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> num<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">del</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> no<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
         HeroNode temp <span style="color:#f92672">=</span> head<span style="color:#f92672">;</span>
         <span style="color:#66d9ef">boolean</span> flag <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span><span style="color:#75715e">//标志是否找到待删除节点
 </span><span style="color:#75715e"></span>        <span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">true</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
             <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>temp<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
                 <span style="color:#66d9ef">break</span><span style="color:#f92672">;</span><span style="color:#75715e">//已经到链表的最后
 </span><span style="color:#75715e"></span>            <span style="color:#f92672">}</span>
-            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>temp<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">.</span><span style="color:#a6e22e">no</span> <span style="color:#f92672">==</span> num<span style="color:#f92672">)</span> <span style="color:#f92672">{</span><span style="color:#75715e">//找到待删除节点的前一个节点temp
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>temp<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">.</span><span style="color:#a6e22e">no</span> <span style="color:#f92672">==</span> no<span style="color:#f92672">)</span> <span style="color:#f92672">{</span><span style="color:#75715e">//找到待删除节点的前一个节点temp
 </span><span style="color:#75715e"></span>                flag <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span>
                 <span style="color:#66d9ef">break</span><span style="color:#f92672">;</span>
             <span style="color:#f92672">}</span>
@@ -187,7 +187,7 @@
 </span><span style="color:#75715e"></span>            <span style="color:#75715e">//可以删除
 </span><span style="color:#75715e"></span>            temp<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span> <span style="color:#f92672">=</span> temp<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">;</span>
         <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
-            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;需要删除的%d节点不存在\n&#34;</span><span style="color:#f92672">,</span> num<span style="color:#f92672">);</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;需要删除的%d节点不存在\n&#34;</span><span style="color:#f92672">,</span> no<span style="color:#f92672">);</span>
         <span style="color:#f92672">}</span>
     <span style="color:#f92672">}</span>
 </code></pre></div><h4 id="显示链表信息-1">⑤显示链表信息</h4>
