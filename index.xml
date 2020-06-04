@@ -14,10 +14,10 @@
     
     <item>
       <title>单链表的使用</title>
-      <link>https://quakewang.github.io/post/2020/06/01/%E5%8D%95%E9%93%BE%E8%A1%A8%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+      <link>https://quakewang.github.io/post/%E5%8D%95%E9%93%BE%E8%A1%A8%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
       <pubDate>Mon, 01 Jun 2020 21:22:48 +0800</pubDate>
       
-      <guid>https://quakewang.github.io/post/2020/06/01/%E5%8D%95%E9%93%BE%E8%A1%A8%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+      <guid>https://quakewang.github.io/post/%E5%8D%95%E9%93%BE%E8%A1%A8%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
       <description>单链表的应用举例 一、前言 在介绍完单链表的数据结构之后，我们将对原有的单链表进行如下操作：
  获取单链表的有效结点 查找单链表中的倒数第k个结点 逆序打印单链表（从尾到头打印） 反转单链表   二、算法介绍 1、获取单链表的有效结点 作为使用的第一个方法难度不是很大。因为需要求出单链表中有效结点的个数，所以我们可分为带头结点和不带头结点两种情况。
 我们这边考虑的是不带头结点的单链表，（如果是带头结点的链表需要再加上头结点即可）。需要的变量有length(统计链表的长度)和cur(辅助变量，用于遍历)，可以通过传入一个头结点，然后依次遍历该链表，当链表遍历到最后的时候，即cur.next == null，每一次遍历链表的长度加一，即length++。
@@ -30,10 +30,10 @@ public static HeroNode findLastIndexNode(HeroNode head, int index) { // 判断�
     
     <item>
       <title>数据结构--单向链表</title>
-      <link>https://quakewang.github.io/post/2020/05/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%8D%95%E5%90%91%E9%93%BE%E8%A1%A8/</link>
+      <link>https://quakewang.github.io/post/singlelinkedlist/</link>
       <pubDate>Sat, 30 May 2020 16:23:52 +0800</pubDate>
       
-      <guid>https://quakewang.github.io/post/2020/05/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%8D%95%E5%90%91%E9%93%BE%E8%A1%A8/</guid>
+      <guid>https://quakewang.github.io/post/singlelinkedlist/</guid>
       <description>单向链表 一、基本介绍 1、相关定义 链表实际上是线性表的链式存储结构，与数组不同的是，它是用一组任意的存储单元来存储线性表中的数据，存储单元不一定是连续的，且链表的长度不是固定的。链表的每个元素称为一个结点，每个结点都可以存储在内存中的不同的位置，为了表示每个元素与后继元素的逻辑关系，以便构成“一个结点链着一个结点”的链式存储结构，为了保持每个结点之间的链接，所以链表除了存储元素本身的信息外，还要存储其直接后继信息，因此，每个结点都包含两个部分，第一部分用于存储元素本身的数据信息，称为数据域，它不局限于一个成员数据，也可是多个成员数据；第二部分是一个结构体指针，称为链表的指针域，用于存储其直接后继的节点信息，这里用next表，next的值实际上就是下一个结点的地址，当前结点为末结点时，next的值设为空指针，即为null。链表在使用过程中，可以根据实际需求来判断是否需要添加头结点。
 2、链表与数组比较 数组（包括结构体数组）的实质是一种线性表的顺序表示方式，它的优点是使用直观，便于快速、随机地存取线性表中的任一元素，但缺点是对其进行插入和删除操作时需要移动大量的数组元素，同时由于数组属于静态内存分配，定义数组时必须指定数组的长度，程序一旦运行，其长度就不能再改变，实际使用个数不能超过数组元素最大长度的限制，否则就会发生下标越界的错误，低于最大长度时又会造成系统资源的浪费，因此空间效率差。
  二、算法实现 我们需要定义一个类用来存放结点信息，同时也还需要定义一个类用于管理结点，实现单链表的增删改查。
@@ -49,10 +49,10 @@ public HeroNode(int no, String name, String nickname) { this.no = no; this.name 
     
     <item>
       <title>数据结构--数组模拟环形队列</title>
-      <link>https://quakewang.github.io/post/2020/05/27/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%95%B0%E7%BB%84%E6%A8%A1%E6%8B%9F%E7%8E%AF%E5%BD%A2%E9%98%9F%E5%88%97/</link>
+      <link>https://quakewang.github.io/post/circlearrayqueue/</link>
       <pubDate>Wed, 27 May 2020 13:49:32 +0800</pubDate>
       
-      <guid>https://quakewang.github.io/post/2020/05/27/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%95%B0%E7%BB%84%E6%A8%A1%E6%8B%9F%E7%8E%AF%E5%BD%A2%E9%98%9F%E5%88%97/</guid>
+      <guid>https://quakewang.github.io/post/circlearrayqueue/</guid>
       <description>数组模拟环形队列  一、前言 在上一篇博客中我们介绍了如何使用数组模拟队列，但在使用的过程中会出现“假溢出”的现象。即取出数据的位置，无法再次存储数据，没有达到复用的效果。其实分析一下，我们不难发现，每次入队列的过程中，是通过后移rear来实现的，当rear移动到队列的最后的位置时，即使前面有空的位置，但添加数据，会出现指针越界的情况。针对这种情况，可以通过使用取模的方式来达到循环的效果。
  二、算法实现 1、初始化相关变量 需要的相关变量仍然是：数组、数组的最大容量、队列头和队列尾。但这次我们对front和rear做以下调整：front由原来指向队列的前一个位置，改变为队列的第一个位置，也就是队列中第一个数据所在的位置，其初始值为0；rear从原来指向队列的最后一个数据调整为，现在的rear指向队列的最后一个数据的后一个位置，其初始值为0。这样这个队列就必须空出一个位置作为约定，实际数组可存储的数据个数为maxSize - 1。
 代码实现如下：
@@ -63,10 +63,10 @@ private int maxSize;// 表示数组的最大容量  private int front;// 指向�
     
     <item>
       <title>数据结构--数组模拟队列</title>
-      <link>https://quakewang.github.io/post/2020/05/21/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%95%B0%E7%BB%84%E6%A8%A1%E6%8B%9F%E9%98%9F%E5%88%97/</link>
+      <link>https://quakewang.github.io/post/arrayqueue/</link>
       <pubDate>Thu, 21 May 2020 21:26:33 +0800</pubDate>
       
-      <guid>https://quakewang.github.io/post/2020/05/21/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%95%B0%E7%BB%84%E6%A8%A1%E6%8B%9F%E9%98%9F%E5%88%97/</guid>
+      <guid>https://quakewang.github.io/post/arrayqueue/</guid>
       <description>数组模拟队列  一、基本介绍 1、队列介绍：   队列是只允许在一段进行插入操作，而在另一端进行删除操作的线性表，可以使用数组或是链表来实现。
   遵循先入先出的原则，允许插入的一端称为队尾，允许删除的一端称队头。
   2、举例说明： 队列在我们的日常生活中，使用相当广泛，例如在银行排队，再比如用键盘进行各种字母或数字的输入，到显示器上如记事本软件上的输出，遵循的都是先入先出的原则。
@@ -79,20 +79,20 @@ private int maxSize;// 表示数组的最大容量  private int front;// 队列�
     
     <item>
       <title>数据结构--稀疏数组</title>
-      <link>https://quakewang.github.io/post/2020/05/15/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/</link>
+      <link>https://quakewang.github.io/post/sparsearray/</link>
       <pubDate>Fri, 15 May 2020 14:45:36 +0800</pubDate>
       
-      <guid>https://quakewang.github.io/post/2020/05/15/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84/</guid>
+      <guid>https://quakewang.github.io/post/sparsearray/</guid>
       <description>稀疏数组  一、基本介绍 1、实际需求 假设一个五子棋盘，用1表示黑子，2表示白子，0表示空白区域，那么则可以把该棋盘利用二维数组实现。如下：
 0 0 0 2 0 0 0 0 0 0 0 0 0 0 1 2 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 那么在上述这个二维数组中，除了1和2之外，其余的都是0。这些0我们并不关心，但是却占据大量的空间，因此可以使用稀疏数组来保存该数组。</description>
     </item>
     
     <item>
       <title>Hello World ! Hello Blog !</title>
-      <link>https://quakewang.github.io/post/2020/05/10/hello-world-hello-blog/</link>
+      <link>https://quakewang.github.io/post/hello/</link>
       <pubDate>Sun, 10 May 2020 21:55:40 +0800</pubDate>
       
-      <guid>https://quakewang.github.io/post/2020/05/10/hello-world-hello-blog/</guid>
+      <guid>https://quakewang.github.io/post/hello/</guid>
       <description>前言 大政的Blog就这样稀里糊涂的开通了。
  有时候闲着无聊，总想着写点什么，可能是乱七八糟的想法，可能是一段书评，也有可能是一段歌词。因为相对于话语的直白，文字能表达的情感是更加细腻的，它也可以将有些事情一直保存下去。
 也有可能是我天生就有点内向，甚至比较丧，不太喜欢说话。
