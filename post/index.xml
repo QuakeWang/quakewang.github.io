@@ -7,10 +7,28 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <copyright>All rights reserved - 2020</copyright>
-    <lastBuildDate>Mon, 01 Jun 2020 21:22:48 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 06 Jun 2020 14:48:57 +0800</lastBuildDate>
     
 	<atom:link href="https://quakewang.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>DoubleLinkedList</title>
+      <link>https://quakewang.github.io/post/2020/06/06/doublelinkedlist/</link>
+      <pubDate>Sat, 06 Jun 2020 14:48:57 +0800</pubDate>
+      
+      <guid>https://quakewang.github.io/post/2020/06/06/doublelinkedlist/</guid>
+      <description>双向链表  一、基本介绍 在上一篇博客中，我们提到了单链表，它只有一个next指针，指向下一个结点，所以我们要查找下一个结点是很容易做到的，但是要想查找上一个结点就复杂的多了。因此有了双向链表。
+双向链表有两个指针域，除了有next域指向下一个结点之外，还有pre域指向上一个结点。这样使得双链表可以双向遍历。节省了时间成本，但相比于单链表插入数据和删除数据就相对复杂一些。下面我们对双链表进行简单学习一下吧。
+ 二、算法实现 双链表和单链表一样，需要创建一个类用于存放结点信息，再创建一个类用于管理结点，对双链表进行相关的操作。
+1、定义节点类 我们需要在HeroNode2类中实现相关变量的定义、赋值以及显示信息的方法。
+①相关变量 这里我们使用双链表存储水浒英雄，和单链表相同，还得增加一个pre指针，指向前一个结点。
+代码实现如下：
+public int no; public String name; public String nickname; public HeroNode2 pre;// 指向下一个结点，默认为null  public HeroNode2 next;// 指向前一个结点，默认为null ②构造器 利用构造器，对相关变量进行赋值。
+代码实现如下：
+public HeroNode2(int no, String name, String nickname) { this.no = no; this.name = name; this.nickname = nickname; } ③显示链表信息 这里利用toString方法，返回链表的信息。
+// 为了显示方法，重写toString  @Override public String toString() { return &amp;#34;HeroNode2{&amp;#34; + &amp;#34;no=&amp;#39;&amp;#34; + no + &amp;#39;\&amp;#39;&amp;#39; + &amp;#34;, name=&amp;#39;&amp;#34; + name + &amp;#39;\&amp;#39;&amp;#39; + &amp;#34;, nickname=&amp;#34; + nickname + &amp;#39;}&amp;#39;; }  2、定义一个DoubleLinkedList类管理结点 我们需要在这个类中完成对于链表的增删改查。在进行相关操作之前，同样需要先定义一个头结点，不存放具体的数据，仅指向第一个结点。</description>
+    </item>
     
     <item>
       <title>单链表的使用</title>
