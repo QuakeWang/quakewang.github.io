@@ -23,15 +23,15 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Mon, 08 Jun 2020 17:18:15 &#43;0800</lastBuildDate>
+        <lastBuildDate>Mon, 08 Jun 2020 17:22:48 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://quakewang.github.io/rss.xml" />
         
         
             <item>
                 <title>DoubleLinkedList</title>
-                <link>https://quakewang.github.io/post/doublelinkedlist/</link>
-                <guid isPermaLink="true">https://quakewang.github.io/post/doublelinkedlist/</guid>
+                <link>https://quakewang.github.io/posts/doublelinkedlist/</link>
+                <guid isPermaLink="true">https://quakewang.github.io/posts/doublelinkedlist/</guid>
                 <pubDate>Sat, 06 Jun 2020 14:48:57 &#43;0800</pubDate>
                 
                     <author>reuixiy@gmail.com (reuixiy)</author>
@@ -443,8 +443,8 @@
         
             <item>
                 <title>单链表的使用</title>
-                <link>https://quakewang.github.io/post/%E5%8D%95%E9%93%BE%E8%A1%A8%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
-                <guid isPermaLink="true">https://quakewang.github.io/post/%E5%8D%95%E9%93%BE%E8%A1%A8%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+                <link>https://quakewang.github.io/posts/%E5%8D%95%E9%93%BE%E8%A1%A8%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+                <guid isPermaLink="true">https://quakewang.github.io/posts/%E5%8D%95%E9%93%BE%E8%A1%A8%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
                 <pubDate>Mon, 01 Jun 2020 21:22:48 &#43;0800</pubDate>
                 
                     <author>reuixiy@gmail.com (reuixiy)</author>
@@ -660,8 +660,8 @@
         
             <item>
                 <title>数据结构--单向链表</title>
-                <link>https://quakewang.github.io/post/singlelinkedlist/</link>
-                <guid isPermaLink="true">https://quakewang.github.io/post/singlelinkedlist/</guid>
+                <link>https://quakewang.github.io/posts/singlelinkedlist/</link>
+                <guid isPermaLink="true">https://quakewang.github.io/posts/singlelinkedlist/</guid>
                 <pubDate>Sat, 30 May 2020 16:23:52 &#43;0800</pubDate>
                 
                     <author>reuixiy@gmail.com (reuixiy)</author>
@@ -1034,8 +1034,8 @@
         
             <item>
                 <title>数据结构--数组模拟环形队列</title>
-                <link>https://quakewang.github.io/post/circlearrayqueue/</link>
-                <guid isPermaLink="true">https://quakewang.github.io/post/circlearrayqueue/</guid>
+                <link>https://quakewang.github.io/posts/circlearrayqueue/</link>
+                <guid isPermaLink="true">https://quakewang.github.io/posts/circlearrayqueue/</guid>
                 <pubDate>Wed, 27 May 2020 13:49:32 &#43;0800</pubDate>
                 
                     <author>reuixiy@gmail.com (reuixiy)</author>
@@ -1267,8 +1267,8 @@
         
             <item>
                 <title>数据结构--数组模拟队列</title>
-                <link>https://quakewang.github.io/post/arrayqueue/</link>
-                <guid isPermaLink="true">https://quakewang.github.io/post/arrayqueue/</guid>
+                <link>https://quakewang.github.io/posts/arrayqueue/</link>
+                <guid isPermaLink="true">https://quakewang.github.io/posts/arrayqueue/</guid>
                 <pubDate>Thu, 21 May 2020 21:26:33 &#43;0800</pubDate>
                 
                     <author>reuixiy@gmail.com (reuixiy)</author>
@@ -1500,8 +1500,8 @@
         
             <item>
                 <title>数据结构--稀疏数组</title>
-                <link>https://quakewang.github.io/post/sparsearray/</link>
-                <guid isPermaLink="true">https://quakewang.github.io/post/sparsearray/</guid>
+                <link>https://quakewang.github.io/posts/sparsearray/</link>
+                <guid isPermaLink="true">https://quakewang.github.io/posts/sparsearray/</guid>
                 <pubDate>Fri, 15 May 2020 14:45:36 &#43;0800</pubDate>
                 
                     <author>reuixiy@gmail.com (reuixiy)</author>
@@ -1793,8 +1793,8 @@
         
             <item>
                 <title>Hello World ! Hello Blog !</title>
-                <link>https://quakewang.github.io/post/hello/</link>
-                <guid isPermaLink="true">https://quakewang.github.io/post/hello/</guid>
+                <link>https://quakewang.github.io/posts/hello/</link>
+                <guid isPermaLink="true">https://quakewang.github.io/posts/hello/</guid>
                 <pubDate>Sun, 10 May 2020 21:55:40 &#43;0800</pubDate>
                 
                     <author>reuixiy@gmail.com (reuixiy)</author>

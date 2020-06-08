@@ -3,47 +3,52 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://quakewang.github.io/post/doublelinkedlist/</loc>
-    <lastmod>2020-06-06T14:49:48+08:00</lastmod>
+    <loc>https://quakewang.github.io/about/</loc>
+    <lastmod>2020-06-08T17:22:27+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://quakewang.github.io/</loc>
+    <lastmod>2020-06-08T17:22:27+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quakewang.github.io/posts/doublelinkedlist/</loc>
     <lastmod>2020-06-06T14:49:48+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://quakewang.github.io/post/</loc>
+    <loc>https://quakewang.github.io/posts/</loc>
     <lastmod>2020-06-06T14:49:48+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://quakewang.github.io/post/%E5%8D%95%E9%93%BE%E8%A1%A8%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
+    <loc>https://quakewang.github.io/posts/%E5%8D%95%E9%93%BE%E8%A1%A8%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2020-06-02T17:33:29+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://quakewang.github.io/post/singlelinkedlist/</loc>
+    <loc>https://quakewang.github.io/posts/singlelinkedlist/</loc>
     <lastmod>2020-06-02T15:34:42+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://quakewang.github.io/post/circlearrayqueue/</loc>
+    <loc>https://quakewang.github.io/posts/circlearrayqueue/</loc>
     <lastmod>2020-06-01T20:56:15+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://quakewang.github.io/post/arrayqueue/</loc>
+    <loc>https://quakewang.github.io/posts/arrayqueue/</loc>
     <lastmod>2020-05-28T14:01:38+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://quakewang.github.io/post/sparsearray/</loc>
+    <loc>https://quakewang.github.io/posts/sparsearray/</loc>
     <lastmod>2020-05-16T14:45:54+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://quakewang.github.io/post/hello/</loc>
+    <loc>https://quakewang.github.io/posts/hello/</loc>
     <lastmod>2020-05-10T23:36:06+08:00</lastmod>
   </url>
   
