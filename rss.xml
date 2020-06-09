@@ -7,7 +7,7 @@
 
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Hugo 主题 MemE</title>
+        <title>AKA二夕</title>
         <link>https://quakewang.github.io/</link>
         <description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description>
         <generator>Hugo 0.71.1 https://gohugo.io/</generator>
@@ -15,15 +15,15 @@
             <language>zh-CN</language>
         
         
-            <managingEditor>reuixiy@gmail.com (reuixiy)</managingEditor>
+            <managingEditor>wangfuzheng0814@foxmail.com (AKA二夕)</managingEditor>
         
         
-            <webMaster>reuixiy@gmail.com (reuixiy)</webMaster>
+            <webMaster>wangfuzheng0814@foxmail.com (AKA二夕)</webMaster>
         
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Mon, 08 Jun 2020 17:22:48 &#43;0800</lastBuildDate>
+        <lastBuildDate>Tue, 09 Jun 2020 11:11:07 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://quakewang.github.io/rss.xml" />
         
@@ -34,7 +34,7 @@
                 <guid isPermaLink="true">https://quakewang.github.io/posts/doublelinkedlist/</guid>
                 <pubDate>Sat, 06 Jun 2020 14:48:57 &#43;0800</pubDate>
                 
-                    <author>reuixiy@gmail.com (reuixiy)</author>
+                    <author>wangfuzheng0814@foxmail.com (AKA二夕)</author>
                 
                 <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
                 
@@ -447,7 +447,7 @@
                 <guid isPermaLink="true">https://quakewang.github.io/posts/%E5%8D%95%E9%93%BE%E8%A1%A8%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
                 <pubDate>Mon, 01 Jun 2020 21:22:48 &#43;0800</pubDate>
                 
-                    <author>reuixiy@gmail.com (reuixiy)</author>
+                    <author>wangfuzheng0814@foxmail.com (AKA二夕)</author>
                 
                 <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
                 
@@ -664,7 +664,7 @@
                 <guid isPermaLink="true">https://quakewang.github.io/posts/singlelinkedlist/</guid>
                 <pubDate>Sat, 30 May 2020 16:23:52 &#43;0800</pubDate>
                 
-                    <author>reuixiy@gmail.com (reuixiy)</author>
+                    <author>wangfuzheng0814@foxmail.com (AKA二夕)</author>
                 
                 <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
                 
@@ -1038,7 +1038,7 @@
                 <guid isPermaLink="true">https://quakewang.github.io/posts/circlearrayqueue/</guid>
                 <pubDate>Wed, 27 May 2020 13:49:32 &#43;0800</pubDate>
                 
-                    <author>reuixiy@gmail.com (reuixiy)</author>
+                    <author>wangfuzheng0814@foxmail.com (AKA二夕)</author>
                 
                 <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
                 
@@ -1271,7 +1271,7 @@
                 <guid isPermaLink="true">https://quakewang.github.io/posts/arrayqueue/</guid>
                 <pubDate>Thu, 21 May 2020 21:26:33 &#43;0800</pubDate>
                 
-                    <author>reuixiy@gmail.com (reuixiy)</author>
+                    <author>wangfuzheng0814@foxmail.com (AKA二夕)</author>
                 
                 <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
                 
@@ -1504,7 +1504,7 @@
                 <guid isPermaLink="true">https://quakewang.github.io/posts/sparsearray/</guid>
                 <pubDate>Fri, 15 May 2020 14:45:36 &#43;0800</pubDate>
                 
-                    <author>reuixiy@gmail.com (reuixiy)</author>
+                    <author>wangfuzheng0814@foxmail.com (AKA二夕)</author>
                 
                 <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
                 
@@ -1797,7 +1797,7 @@
                 <guid isPermaLink="true">https://quakewang.github.io/posts/hello/</guid>
                 <pubDate>Sun, 10 May 2020 21:55:40 &#43;0800</pubDate>
                 
-                    <author>reuixiy@gmail.com (reuixiy)</author>
+                    <author>wangfuzheng0814@foxmail.com (AKA二夕)</author>
                 
                 <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
                 

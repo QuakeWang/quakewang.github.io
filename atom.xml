@@ -2,17 +2,17 @@
 
 
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
-    <title type="text">Hugo 主题 MemE</title>
+    <title type="text">AKA二夕</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-06-08T17:22:48&#43;08:00</updated>
+    <updated>2020-06-09T11:11:07&#43;08:00</updated>
     <id>https://quakewang.github.io/</id>
     <link rel="alternate" type="text/html" href="https://quakewang.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://quakewang.github.io/atom.xml" />
     <author>
-            <name>reuixiy</name>
+            <name>AKA二夕</name>
             <uri>https://quakewang.github.io/</uri>
             
-                <email>reuixiy@gmail.com</email>
+                <email>wangfuzheng0814@foxmail.com</email>
             </author>
     <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights>
     <generator uri="https://gohugo.io/" version="0.71.1">Hugo</generator>
@@ -23,9 +23,9 @@
             <updated>2020-06-06T14:49:48&#43;08:00</updated>
             <published>2020-06-06T14:48:57&#43;08:00</published>
             <author>
-                    <name>reuixiy</name>
-                    <uri>https://io-oi.me/</uri>
-                    <email>reuixiy@gmail.com</email>
+                    <name>AKA二夕</name>
+                    <uri>https://quakewang.github.io/</uri>
+                    <email>wangfuzheng0814@foxmail.com</email>
                     </author>
             <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">双向链表 一、基本介绍 在上一篇博客中，我们提到了单链表，它只有一个next指针，指向下……
     
@@ -441,9 +441,9 @@
             <updated>2020-06-02T17:33:29&#43;08:00</updated>
             <published>2020-06-01T21:22:48&#43;08:00</published>
             <author>
-                    <name>reuixiy</name>
-                    <uri>https://io-oi.me/</uri>
-                    <email>reuixiy@gmail.com</email>
+                    <name>AKA二夕</name>
+                    <uri>https://quakewang.github.io/</uri>
+                    <email>wangfuzheng0814@foxmail.com</email>
                     </author>
             <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">单链表的应用举例 一、前言 在介绍完单链表的数据结构之后，我们将对原有的单链表进行如下操……
     
@@ -663,9 +663,9 @@
             <updated>2020-06-02T15:34:42&#43;08:00</updated>
             <published>2020-05-30T16:23:52&#43;08:00</published>
             <author>
-                    <name>reuixiy</name>
-                    <uri>https://io-oi.me/</uri>
-                    <email>reuixiy@gmail.com</email>
+                    <name>AKA二夕</name>
+                    <uri>https://quakewang.github.io/</uri>
+                    <email>wangfuzheng0814@foxmail.com</email>
                     </author>
             <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">单向链表 一、基本介绍 1、相关定义 链表实际上是线性表的链式存储结构，与数组不同的是，它……
     
@@ -1042,9 +1042,9 @@
             <updated>2020-06-01T20:56:15&#43;08:00</updated>
             <published>2020-05-27T13:49:32&#43;08:00</published>
             <author>
-                    <name>reuixiy</name>
-                    <uri>https://io-oi.me/</uri>
-                    <email>reuixiy@gmail.com</email>
+                    <name>AKA二夕</name>
+                    <uri>https://quakewang.github.io/</uri>
+                    <email>wangfuzheng0814@foxmail.com</email>
                     </author>
             <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">数组模拟环形队列 一、前言 在上一篇博客中我们介绍了如何使用数组模拟队列，但在使用的过程……
     
@@ -1280,9 +1280,9 @@
             <updated>2020-05-28T14:01:38&#43;08:00</updated>
             <published>2020-05-21T21:26:33&#43;08:00</published>
             <author>
-                    <name>reuixiy</name>
-                    <uri>https://io-oi.me/</uri>
-                    <email>reuixiy@gmail.com</email>
+                    <name>AKA二夕</name>
+                    <uri>https://quakewang.github.io/</uri>
+                    <email>wangfuzheng0814@foxmail.com</email>
                     </author>
             <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">数组模拟队列 一、基本介绍 1、队列介绍： 队列是只允许在一段进行插入操作，而在另一端进行……
     
@@ -1518,9 +1518,9 @@
             <updated>2020-05-16T14:45:54&#43;08:00</updated>
             <published>2020-05-15T14:45:36&#43;08:00</published>
             <author>
-                    <name>reuixiy</name>
-                    <uri>https://io-oi.me/</uri>
-                    <email>reuixiy@gmail.com</email>
+                    <name>AKA二夕</name>
+                    <uri>https://quakewang.github.io/</uri>
+                    <email>wangfuzheng0814@foxmail.com</email>
                     </author>
             <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">稀疏数组 一、基本介绍 1、实际需求 假设一个五子棋盘，用1表示黑子，2表示白子，0表示空……
     
@@ -1816,9 +1816,9 @@
             <updated>2020-05-10T23:36:06&#43;08:00</updated>
             <published>2020-05-10T21:55:40&#43;08:00</published>
             <author>
-                    <name>reuixiy</name>
-                    <uri>https://io-oi.me/</uri>
-                    <email>reuixiy@gmail.com</email>
+                    <name>AKA二夕</name>
+                    <uri>https://quakewang.github.io/</uri>
+                    <email>wangfuzheng0814@foxmail.com</email>
                     </author>
             <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">前言 大政的Blog就这样稀里糊涂的开通了。 有时候闲着无聊，总想着写点什么，可能是乱七……
     
