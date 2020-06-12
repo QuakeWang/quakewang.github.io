@@ -23,7 +23,7 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Thu, 11 Jun 2020 23:08:40 &#43;0800</lastBuildDate>
+        <lastBuildDate>Fri, 12 Jun 2020 19:07:22 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://quakewang.github.io/rss.xml" />
         
@@ -301,7 +301,7 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h4 id=&#34;删除结点&#34;&gt;④删除结点&lt;/h4&gt;
-&lt;p&gt;从双向链表中删除一个结点，我们只需直接找到需要删除的结点，找到后，双链表可以实现**自我删除*。&lt;/p&gt;
+&lt;p&gt;从双向链表中删除一个结点，我们只需直接找到需要删除的结点，找到后，双链表可以实现&lt;strong&gt;自我删除&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;具体操作如下：定义一个辅助变量temp = head.next;这里我们直接找到该结点所在的位置，所以temp直接等于head.next;还需要一个flag标记是否找到待删除结点。通过遍历找到链表的最后，然后让temp的前驱结点的next域直接指向temp的下一个结点，即&lt;strong&gt;temp.pre.next = temp.next&lt;/strong&gt;;如果待删除结点不是最后的结点，则还需要执行下列操作：让temp的下一个结点的pre指向temp的前一个结点，即&lt;strong&gt;temp.next.pre = temp.pre&lt;/strong&gt;;完成上述操作之后，待删除结点的前后指针都指向null，也就完成了删除。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;代码实现如下：&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;

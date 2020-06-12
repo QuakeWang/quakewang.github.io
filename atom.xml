@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">AKA二夕</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-06-11T23:08:40&#43;08:00</updated>
+    <updated>2020-06-12T19:07:21&#43;08:00</updated>
     <id>https://quakewang.github.io/</id>
     <link rel="alternate" type="text/html" href="https://quakewang.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://quakewang.github.io/atom.xml" />
@@ -20,7 +20,7 @@
             <title type="text">DoubleLinkedList</title>
             <link rel="alternate" type="text/html" href="https://quakewang.github.io/posts/doublelinkedlist/" />
             <id>https://quakewang.github.io/posts/doublelinkedlist/</id>
-            <updated>2020-06-06T14:49:48&#43;08:00</updated>
+            <updated>2020-06-12T19:07:15&#43;08:00</updated>
             <published>2020-06-06T14:48:57&#43;08:00</published>
             <author>
                     <name>AKA二夕</name>
@@ -294,7 +294,7 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h4 id=&#34;删除结点&#34;&gt;④删除结点&lt;/h4&gt;
-&lt;p&gt;从双向链表中删除一个结点，我们只需直接找到需要删除的结点，找到后，双链表可以实现**自我删除*。&lt;/p&gt;
+&lt;p&gt;从双向链表中删除一个结点，我们只需直接找到需要删除的结点，找到后，双链表可以实现&lt;strong&gt;自我删除&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;具体操作如下：定义一个辅助变量temp = head.next;这里我们直接找到该结点所在的位置，所以temp直接等于head.next;还需要一个flag标记是否找到待删除结点。通过遍历找到链表的最后，然后让temp的前驱结点的next域直接指向temp的下一个结点，即&lt;strong&gt;temp.pre.next = temp.next&lt;/strong&gt;;如果待删除结点不是最后的结点，则还需要执行下列操作：让temp的下一个结点的pre指向temp的前一个结点，即&lt;strong&gt;temp.next.pre = temp.pre&lt;/strong&gt;;完成上述操作之后，待删除结点的前后指针都指向null，也就完成了删除。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;代码实现如下：&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
