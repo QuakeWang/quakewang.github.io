@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">AKA二夕</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-06-21T22:01:55&#43;08:00</updated>
+    <updated>2020-06-21T22:08:29&#43;08:00</updated>
     <id>https://quakewang.github.io/</id>
     <link rel="alternate" type="text/html" href="https://quakewang.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://quakewang.github.io/atom.xml" />
@@ -20,7 +20,7 @@
             <title type="text">数据结构——数组模拟栈</title>
             <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/arraystackdemo/" />
             <id>https://quakewang.github.io/tech/arraystackdemo/</id>
-            <updated>2020-06-21T22:01:08&#43;08:00</updated>
+            <updated>2020-06-21T22:08:25&#43;08:00</updated>
             <published>2020-06-21T21:59:55&#43;08:00</published>
             <author>
                     <name>AKA二夕</name>
@@ -36,7 +36,7 @@
 &lt;h3 id=&#34;1相关定义&#34;&gt;1、相关定义&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;栈是一个==先入后出==的有序列表；&lt;/li&gt;
-&lt;li&gt;栈是限制线性表中元素的插入和删除只能在线性表的同一段进行的一种特殊线性表。允许插入和删除的一端，为&lt;strong&gt;变化的一端&lt;/strong&gt;，称为==栈顶（Top）==,另一端为&lt;strong&gt;固定的一端&lt;/strong&gt;，称为==栈底（Bottom）==；&lt;/li&gt;
+&lt;li&gt;栈是限制线性表中元素的插入和删除只能在线性表的同一段进行的一种特殊线性表。允许插入和删除的一端，为&lt;strong&gt;变化的一端&lt;/strong&gt;，称为栈顶（Top）,另一端为&lt;strong&gt;固定的一端&lt;/strong&gt;，称为栈底（Bottom）；&lt;/li&gt;
 &lt;li&gt;根据栈的定义可知，最先&lt;em&gt;放入&lt;/em&gt;栈中的元素在栈底，最后放入的元素在栈顶，而&lt;em&gt;删除&lt;/em&gt;元素刚好相反，最后放入的元素最先删除，最先删除的元素最后删除。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;2应用场景&#34;&gt;2、应用场景&lt;/h3&gt;
@@ -96,7 +96,7 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;3判断栈是否为空&#34;&gt;3、判断栈是否为空&lt;/h3&gt;
-&lt;p&gt;之前在定义相关变量的时候，我们提到&lt;strong&gt;top&lt;/strong&gt;的初始值为-1，即当 ==top == -1==时，栈中没有存入任何数据，为空。&lt;/p&gt;
+&lt;p&gt;之前在定义相关变量的时候，我们提到&lt;strong&gt;top&lt;/strong&gt;的初始值为-1，即当 top == -1时，栈中没有存入任何数据，为空。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;代码实现如下：&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -170,7 +170,7 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;6打印输出栈的信息&#34;&gt;6、打印输出栈的信息&lt;/h3&gt;
 &lt;p&gt;如果栈为空，则没有任何数据可以显示，所以在输出栈的信息之前，我们需要先判断栈是否为空。在遍历的时候，我们需要从&lt;strong&gt;栈顶&lt;/strong&gt;开始显示数据。可以通过&lt;em&gt;for循环&lt;/em&gt;l来实现。&lt;/p&gt;
-&lt;p&gt;因为是从栈顶开始显示数据，所以循环的起始位置应该为==栈顶top==，循环结束的条件应该为==i &amp;lt; 0==，每执行一次循环，则需要==i--==。&lt;/p&gt;
+&lt;p&gt;因为是从栈顶开始显示数据，所以循环的起始位置应该为&lt;strong&gt;栈顶top&lt;/strong&gt;，循环结束的条件应该为&lt;strong&gt;i &amp;lt; 0&lt;/strong&gt;，每执行一次循环，则需要&lt;strong&gt;i--&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;代码实现如下：&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
