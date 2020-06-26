@@ -23,7 +23,7 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Sun, 21 Jun 2020 22:08:29 &#43;0800</lastBuildDate>
+        <lastBuildDate>Fri, 26 Jun 2020 14:19:15 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://quakewang.github.io/rss.xml" />
         
@@ -42,7 +42,7 @@
 &lt;h2 id=&#34;一基本介绍&#34;&gt;一、基本介绍&lt;/h2&gt;
 &lt;h3 id=&#34;1相关定义&#34;&gt;1、相关定义&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;栈是一个==先入后出==的有序列表；&lt;/li&gt;
+&lt;li&gt;栈是一个先入后出的有序列表；&lt;/li&gt;
 &lt;li&gt;栈是限制线性表中元素的插入和删除只能在线性表的同一段进行的一种特殊线性表。允许插入和删除的一端，为&lt;strong&gt;变化的一端&lt;/strong&gt;，称为栈顶（Top）,另一端为&lt;strong&gt;固定的一端&lt;/strong&gt;，称为栈底（Bottom）；&lt;/li&gt;
 &lt;li&gt;根据栈的定义可知，最先&lt;em&gt;放入&lt;/em&gt;栈中的元素在栈底，最后放入的元素在栈顶，而&lt;em&gt;删除&lt;/em&gt;元素刚好相反，最后放入的元素最先删除，最先删除的元素最后删除。&lt;/li&gt;
 &lt;/ul&gt;
