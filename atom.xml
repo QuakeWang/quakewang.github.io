@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">AKA二夕</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-06-27T00:54:49&#43;08:00</updated>
+    <updated>2020-07-04T21:26:40&#43;08:00</updated>
     <id>https://quakewang.github.io/</id>
     <link rel="alternate" type="text/html" href="https://quakewang.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://quakewang.github.io/atom.xml" />
@@ -20,7 +20,7 @@
             <title type="text">数据结构——链表模拟栈</title>
             <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/linkedliststackdemo/" />
             <id>https://quakewang.github.io/tech/linkedliststackdemo/</id>
-            <updated>2020-06-27T00:54:26&#43;08:00</updated>
+            <updated>2020-07-04T21:26:31&#43;08:00</updated>
             <published>2020-06-27T00:53:22&#43;08:00</published>
             <author>
                     <name>AKA二夕</name>
@@ -239,7 +239,7 @@
 &lt;/div&gt;&lt;hr&gt;
 &lt;h2 id=&#34;三结束语&#34;&gt;三、结束语&lt;/h2&gt;
 &lt;p&gt;到这里，我们完成了对于栈的两种实现方式，相对于使用链表实现，数组更容易让我们接受一点。在编写入栈和出栈方法的时候，一开始直接参照单链表的相关实现方法，因此走了不少弯路，所以在学习过程中我们需要学会比较着来学，这样可以帮助我们更好地巩固所学的知识。&lt;/p&gt;
-&lt;p&gt;其实关于出栈操作的方法，我总觉得不够好，似乎缺少了点什么。关于临时变量temp，如果不定义temp，而是对栈顶元素直接操作，会发生些什么呢？？小伙伴们可以自己尝试一下，如果有更好的实现放阿飞，也欢迎提出issue噢！&lt;/p&gt;
+&lt;p&gt;其实关于出栈操作的方法，我总觉得不够好，似乎缺少了点什么。关于临时变量temp，如果不定义temp，而是对栈顶元素直接操作，会发生些什么呢？？小伙伴们可以自己尝试一下，如果有更好的实现方法，也欢迎提出issue噢！&lt;/p&gt;
 &lt;p&gt;源码 ——&amp;gt; [数据结构](&lt;/p&gt;
 </content>
             
