@@ -23,7 +23,7 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Thu, 16 Jul 2020 15:56:31 &#43;0800</lastBuildDate>
+        <lastBuildDate>Thu, 16 Jul 2020 15:58:43 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://quakewang.github.io/rss.xml" />
         
@@ -151,7 +151,7 @@
 &lt;hr&gt;
 &lt;h3 id=&#34;3将中缀表达式转换成对应的list&#34;&gt;3、将中缀表达式转换成对应的List&lt;/h3&gt;
 &lt;p&gt;对于一个字符串，我们是无法进行操作的，所以首先要做的就是先把中缀表达式转成对应的List。&lt;/p&gt;
-&lt;p&gt;需要的变量有：**ls(List)**用于存放扫描得到的元素；**i(int)**当作指针，用于扫描中缀表达式；**str(String)**用于多位数的拼接；**c(char)**每遍历一个字符，就放入到c。&lt;/p&gt;
+&lt;p&gt;需要的变量有： &lt;strong&gt;ls(List)&lt;/strong&gt; 用于存放扫描得到的元素； &lt;strong&gt;i(int)&lt;/strong&gt; 当作指针，用于扫描中缀表达式； &lt;strong&gt;str(String)&lt;/strong&gt; 用于多位数的拼接； &lt;strong&gt;c(char)&lt;/strong&gt; 每遍历一个字符，就放入到c。&lt;/p&gt;
 &lt;p&gt;这里我们使用&lt;strong&gt;do……while&lt;/strong&gt;循环来进行遍历，循环的条件是&lt;strong&gt;i &amp;lt; s.length()&lt;/strong&gt;;扫描遇到的如果是操作符，直接加入即可；如果是数字，则每次添加的时候先将&lt;strong&gt;str置空&lt;/strong&gt;，然后利用&lt;strong&gt;str += c&lt;/strong&gt;拼接多位数。每次扫描到一个元素之后，指针i需要进行后移，可以利用ASCII码来判断数字的范围，然后进行相关操作。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;代码实现如下：&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
