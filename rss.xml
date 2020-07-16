@@ -23,7 +23,7 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Wed, 15 Jul 2020 09:36:34 &#43;0800</lastBuildDate>
+        <lastBuildDate>Thu, 16 Jul 2020 14:19:25 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://quakewang.github.io/rss.xml" />
         
@@ -38,7 +38,7 @@
                 
                 <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
                 
-                    <description>&lt;h1 id=&#34;后缀表达式01&#34;&gt;后缀表达式01&lt;/h1&gt;
+                    <description>&lt;h1 id=&#34;后缀表达式预备知识&#34;&gt;后缀表达式——预备知识&lt;/h1&gt;
 &lt;h2 id=&#34;一前言&#34;&gt;一、前言&lt;/h2&gt;
 &lt;p&gt;在上一篇博客中，我们介绍了&lt;a href=&#34;https://quakewang.github.io/tech/calculator/&#34;&gt;中缀表达式&lt;/a&gt;的相关操作过程，虽然中缀表达式比较符合我们的日常使用习惯，但是对于计算机却不那么容易去理解，因此有了我们今天要介绍的——后缀表达式。&lt;/p&gt;
 &lt;p&gt;例如：( 3 +4 ) * 5 - 6 对应的后缀表达式就是3 4 + 5 * 6 -，那么这个操作过程是怎么实现的呢？？以及后缀表达式该如何进行运算呢？？在下面的内容，我们来一探究竟。&lt;/p&gt;

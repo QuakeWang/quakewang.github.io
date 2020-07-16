@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">AKA二夕</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-07-15T09:36:34&#43;08:00</updated>
+    <updated>2020-07-16T14:19:24&#43;08:00</updated>
     <id>https://quakewang.github.io/</id>
     <link rel="alternate" type="text/html" href="https://quakewang.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://quakewang.github.io/atom.xml" />
@@ -20,18 +20,18 @@
             <title type="text">栈的应用——后缀表达式01</title>
             <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/polandnotation01/" />
             <id>https://quakewang.github.io/tech/polandnotation01/</id>
-            <updated>2020-07-15T09:33:55&#43;08:00</updated>
+            <updated>2020-07-16T14:19:15&#43;08:00</updated>
             <published>2020-07-15T08:31:49&#43;08:00</published>
             <author>
                     <name>AKA二夕</name>
                     <uri>https://quakewang.github.io/</uri>
                     <email>wangfuzheng0814@foxmail.com</email>
                     </author>
-            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">后缀表达式01 一、前言 在上一篇博客中，我们介绍了中缀表达式的相关操作过程，虽然中缀表……
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">后缀表达式——预备知识 一、前言 在上一篇博客中，我们介绍了中缀表达式的相关操作过程，虽……
     
     </summary>
             
-                <content type="html">&lt;h1 id=&#34;后缀表达式01&#34;&gt;后缀表达式01&lt;/h1&gt;
+                <content type="html">&lt;h1 id=&#34;后缀表达式预备知识&#34;&gt;后缀表达式——预备知识&lt;/h1&gt;
 &lt;h2 id=&#34;一前言&#34;&gt;一、前言&lt;/h2&gt;
 &lt;p&gt;在上一篇博客中，我们介绍了&lt;a href=&#34;https://quakewang.github.io/tech/calculator/&#34;&gt;中缀表达式&lt;/a&gt;的相关操作过程，虽然中缀表达式比较符合我们的日常使用习惯，但是对于计算机却不那么容易去理解，因此有了我们今天要介绍的——后缀表达式。&lt;/p&gt;
 &lt;p&gt;例如：( 3 +4 ) * 5 - 6 对应的后缀表达式就是3 4 + 5 * 6 -，那么这个操作过程是怎么实现的呢？？以及后缀表达式该如何进行运算呢？？在下面的内容，我们来一探究竟。&lt;/p&gt;
