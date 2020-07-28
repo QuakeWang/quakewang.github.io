@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">AKA二夕</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-07-28T14:20:16&#43;08:00</updated>
+    <updated>2020-07-28T15:11:58&#43;08:00</updated>
     <id>https://quakewang.github.io/</id>
     <link rel="alternate" type="text/html" href="https://quakewang.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://quakewang.github.io/atom.xml" />
@@ -20,7 +20,7 @@
             <title type="text">数据结构——递归</title>
             <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/recursion/" />
             <id>https://quakewang.github.io/tech/recursion/</id>
-            <updated>2020-07-26T22:33:15&#43;08:00</updated>
+            <updated>2020-07-28T15:11:46&#43;08:00</updated>
             <published>2020-07-26T10:59:35&#43;08:00</published>
             <author>
                     <name>AKA二夕</name>
@@ -33,7 +33,7 @@
             
                 <content type="html">&lt;h1 id=&#34;关于递归&#34;&gt;关于递归&lt;/h1&gt;
 &lt;h2 id=&#34;一前言&#34;&gt;一、前言&lt;/h2&gt;
-&lt;p&gt;说起&lt;strong&gt;递归&lt;/strong&gt;，可能有些同学会问，什么是递归啊？？ 我们举个简单的栗子：如果你站在镜子前面，这事你会在镜子中看见自己的像，称这个镜子为A；那么有没有试一下拿手里也拿一面镜子，把手里的镜子称为镜子B，然后将A、B两面镜子互相面对面放着，你再往中间那么一站，神奇的情况发生了，将会发现两面镜子中都有你的“化身”。为什么会出现这种现象呢？？原来，A镜子里有B镜子的像，B镜子里也有A镜子的像，这样反反复复，就会产生一连串的“像中像”。这其实就是一种&lt;strong&gt;递归&lt;/strong&gt;现象。&lt;/p&gt;
+&lt;p&gt;说起&lt;strong&gt;递归&lt;/strong&gt;，可能有些同学会问，什么是递归啊？？ 我们举个简单的栗子：如果你站在镜子前面，这时你会在镜子中看见自己的像，称这个镜子为A；那么有没有试一下在手里也拿一面镜子，把手里的镜子称为镜子B，然后将A、B两面镜子互相面对面放着，你再往中间那么一站，神奇的情况发生了，将会发现两面镜子中都有你的“化身”。为什么会出现这种现象呢？？原来，A镜子里有B镜子的像，B镜子里也有A镜子的像，这样反反复复，就会产生一连串的“像中像”。这其实就是一种&lt;strong&gt;递归&lt;/strong&gt;现象。&lt;/p&gt;
 &lt;p&gt;说简单点，就是&lt;em&gt;递归就是方法自己调用自己&lt;/em&gt;，每次调用时&lt;em&gt;传入不同的变量&lt;/em&gt;。（递归有助于开发者解决复杂的问题，同时可以让代码变得更简洁）&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;二递归规则&#34;&gt;二、递归规则&lt;/h2&gt;
