@@ -23,7 +23,7 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Tue, 28 Jul 2020 16:27:33 &#43;0800</lastBuildDate>
+        <lastBuildDate>Thu, 30 Jul 2020 22:59:11 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://quakewang.github.io/rss.xml" />
         
@@ -350,7 +350,7 @@
 &lt;h2 id=&#34;二算法描述&#34;&gt;二、算法描述&lt;/h2&gt;
 &lt;h3 id=&#34;1将后缀表达式的数据和运算符放入到arraylist中&#34;&gt;1、将后缀表达式的数据和运算符放入到ArrayList中&lt;/h3&gt;
 &lt;p&gt;我们会获取到一个&lt;strong&gt;String类型&lt;/strong&gt;的后缀表达式，因为对于字符串类型是无法正常完成计算的，因此需要先将后缀表达式里面的数据和运算符按照空格&amp;quot; &amp;quot;分割开，然后存放到ArrayList中。&lt;/p&gt;
-&lt;p&gt;这里会用到foreach遍历字符串，每遍历一个元素，再利用**list.add()**方法加入到List中，然后返回List即可。&lt;/p&gt;
+&lt;p&gt;这里会用到foreach遍历字符串，每遍历一个元素，再利用 &lt;strong&gt;list.add()&lt;/strong&gt; 方法加入到List中，然后返回List即可。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;代码实现如下：&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;

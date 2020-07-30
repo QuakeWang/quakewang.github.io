@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">AKA二夕</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-07-28T16:27:33&#43;08:00</updated>
+    <updated>2020-07-30T22:59:11&#43;08:00</updated>
     <id>https://quakewang.github.io/</id>
     <link rel="alternate" type="text/html" href="https://quakewang.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://quakewang.github.io/atom.xml" />
@@ -335,7 +335,7 @@
             <title type="text">栈的应用——后缀表达式02</title>
             <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/polandnotation02/" />
             <id>https://quakewang.github.io/tech/polandnotation02/</id>
-            <updated>2020-07-16T15:58:34&#43;08:00</updated>
+            <updated>2020-07-30T22:59:00&#43;08:00</updated>
             <published>2020-07-16T13:54:47&#43;08:00</published>
             <author>
                     <name>AKA二夕</name>
@@ -353,7 +353,7 @@
 &lt;h2 id=&#34;二算法描述&#34;&gt;二、算法描述&lt;/h2&gt;
 &lt;h3 id=&#34;1将后缀表达式的数据和运算符放入到arraylist中&#34;&gt;1、将后缀表达式的数据和运算符放入到ArrayList中&lt;/h3&gt;
 &lt;p&gt;我们会获取到一个&lt;strong&gt;String类型&lt;/strong&gt;的后缀表达式，因为对于字符串类型是无法正常完成计算的，因此需要先将后缀表达式里面的数据和运算符按照空格&amp;quot; &amp;quot;分割开，然后存放到ArrayList中。&lt;/p&gt;
-&lt;p&gt;这里会用到foreach遍历字符串，每遍历一个元素，再利用**list.add()**方法加入到List中，然后返回List即可。&lt;/p&gt;
+&lt;p&gt;这里会用到foreach遍历字符串，每遍历一个元素，再利用 &lt;strong&gt;list.add()&lt;/strong&gt; 方法加入到List中，然后返回List即可。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;代码实现如下：&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
