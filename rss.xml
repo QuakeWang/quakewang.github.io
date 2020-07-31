@@ -23,7 +23,7 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Fri, 31 Jul 2020 20:33:00 &#43;0800</lastBuildDate>
+        <lastBuildDate>Fri, 31 Jul 2020 20:43:11 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://quakewang.github.io/rss.xml" />
         
@@ -2626,7 +2626,7 @@
 &lt;li&gt;有多个结点时：&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;需要的变量有：&lt;strong&gt;cur(用于遍历原来的链表)&lt;/strong&gt;，&lt;strong&gt;nextNode(指向当前结点[cur]的下一个结点)&lt;/strong&gt;，&lt;strong&gt;reverseHead(结点，新链表的最前端)&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;具体操作过程如下：先将nexNodet指向cur的下一个结点，&lt;em&gt;用于保存当前结点的下一个结点&lt;/em&gt;，然后将cur的下一个结点指向新链表的最前端，即&lt;strong&gt;cur.next = reverseHead.next&lt;/strong&gt;,然后再&lt;em&gt;将cur连接到新的链表上&lt;/em&gt;，这样才能形成一个完成的链表（一个回路）。然后后移，遍历下一个结点，即&lt;strong&gt;cur = nextNode&lt;/strong&gt;;在进行上述操作之后，我们已经将链表的所有结点取出，并存放在新的链表下，这时我们需要将head.next 指向 reverseHead.next，实现单链表的反转，即**head.next = reverseHead,next;**完成单链表的反转。&lt;/p&gt;
+&lt;p&gt;具体操作过程如下：先将nexNodet指向cur的下一个结点，&lt;em&gt;用于保存当前结点的下一个结点&lt;/em&gt;，然后将cur的下一个结点指向新链表的最前端，即&lt;strong&gt;cur.next = reverseHead.next&lt;/strong&gt;,然后再&lt;em&gt;将cur连接到新的链表上&lt;/em&gt;，这样才能形成一个完成的链表（一个回路）。然后后移，遍历下一个结点，即&lt;strong&gt;cur = nextNode&lt;/strong&gt;;在进行上述操作之后，我们已经将链表的所有结点取出，并存放在新的链表下，这时我们需要将head.next 指向 reverseHead.next，实现单链表的反转，即 &lt;strong&gt;head.next = reverseHead.next;&lt;/strong&gt; 完成单链表的反转。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;代码实现如下：&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
