@@ -23,13 +23,13 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Mon, 03 Aug 2020 22:30:25 &#43;0800</lastBuildDate>
+        <lastBuildDate>Mon, 03 Aug 2020 22:40:25 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://quakewang.github.io/rss.xml" />
         
         
             <item>
-                <title>8Queen</title>
+                <title>递归应用——八皇后</title>
                 <link>https://quakewang.github.io/tech/8queen/</link>
                 <guid isPermaLink="true">https://quakewang.github.io/tech/8queen/</guid>
                 <pubDate>Mon, 03 Aug 2020 21:06:03 &#43;0800</pubDate>
