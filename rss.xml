@@ -23,7 +23,7 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Mon, 03 Aug 2020 22:40:25 &#43;0800</lastBuildDate>
+        <lastBuildDate>Wed, 05 Aug 2020 16:17:49 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://quakewang.github.io/rss.xml" />
         
@@ -98,7 +98,8 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;3检查冲突&#34;&gt;3、检查冲突&lt;/h3&gt;
-&lt;p&gt;该方法用于 查看放置第n个皇后，检测该皇后是否和前面已经摆放的皇后冲突。这里我们使用一个&lt;strong&gt;boolean类型&lt;/strong&gt; 的方法用于判定。如果不冲突就返回&lt;code&gt;true&lt;/code&gt; ，否则返回&lt;code&gt;false&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;该方法用于 查看放置第n个皇后，检测该皇后是否和前面已经摆放的皇后冲突。这里我们使用一个&lt;strong&gt;boolean类型&lt;/strong&gt; 的方法用于判定。如果不冲突就返回&lt;code&gt;true&lt;/code&gt; ，否则返回&lt;code&gt;false&lt;/code&gt; 。这里我们传入一个n表示是第几个皇后，如果n = 1，就表示是第一个皇后，需要检查的冲突也就是其本身；如果n = 2，表示是第二个皇后，需要检查的冲突是和第一个皇后的冲突，以此类推……所以可以使用for循环遍历，从第一个皇后开始，直到遍历到其本身为止。&lt;code&gt;for(int i = 0; i &amp;lt; n; i++)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;那么判断是否冲突需要遵守的规则是：同一行、列以及对角线不能有皇后。由于我们是使用一维数组来存储皇后摆放的位置，所以就不用判断放置的两个皇后是否在同一行的情况咯。&lt;code&gt;array[i] == array[n]&lt;/code&gt; 表示判断第n个皇后是否和前面的n-1个皇后在同一列；&lt;code&gt;Math.abs(n-i) == Math.abs(array[n] - array[i])&lt;/code&gt; 表示判断第n个皇后是否和第i个皇后在同一斜线。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;代码实现如下：&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -141,6 +142,8 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;4放置皇后&#34;&gt;4、放置皇后&lt;/h3&gt;
+&lt;p&gt;我们传入一个变量n表示放置第n个皇后，当&lt;code&gt;n == max&lt;/code&gt; 表示8个皇后已经全部放置完毕，直接打印输出即可，并使用&lt;code&gt;return;&lt;/code&gt; 语句跳出方法体。&lt;/p&gt;
+&lt;p&gt;然后我们利用for循环依次放入皇后&lt;code&gt;for(int i = 0; i &amp;lt; max; i++)&lt;/code&gt;，首先把当前的这个皇后n放入到第1列，然后判断是否冲突，如果不冲突执行&lt;code&gt;check(n + 1);&lt;/code&gt; 也就是开始放置下一个皇后；如果冲突，则就继续执行&lt;code&gt;array[n] = i;&lt;/code&gt;即将第n个皇后放置在本行的后移的一个位置。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;代码实现如下：&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -186,6 +189,7 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;hr&gt;
 &lt;h2 id=&#34;三结束语&#34;&gt;三、结束语&lt;/h2&gt;
+&lt;p&gt;以上便是关于八皇后问题的简单描述，理解起来可能有些许困难，比如为什么使用一维数组存放数据，如何检查冲突以及整个放置过程中的回溯都是值得动脑筋思考的。&lt;/p&gt;
 &lt;p&gt;源码 ——&amp;gt;&lt;a href=&#34;https://github.com/QuakeWang/DataStructure/blob/master/src/com/quake/recursion/Queen8.java&#34;&gt;Queue8&lt;/a&gt;&lt;/p&gt;
 </description>
                 
