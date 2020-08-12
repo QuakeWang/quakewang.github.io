@@ -23,13 +23,13 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Wed, 12 Aug 2020 17:22:35 &#43;0800</lastBuildDate>
+        <lastBuildDate>Wed, 12 Aug 2020 17:27:18 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://quakewang.github.io/rss.xml" />
         
         
             <item>
-                <title>BubbleSort</title>
+                <title>排序——冒泡排序</title>
                 <link>https://quakewang.github.io/tech/bubblesort/</link>
                 <guid isPermaLink="true">https://quakewang.github.io/tech/bubblesort/</guid>
                 <pubDate>Wed, 12 Aug 2020 16:54:54 &#43;0800</pubDate>
@@ -73,6 +73,7 @@
 &lt;li&gt;一共进行 &lt;strong&gt;数组的大小 - 1 次&lt;/strong&gt; 大的循环；&lt;/li&gt;
 &lt;li&gt;每一趟排序的次数在逐渐的减少。&lt;/li&gt;
 &lt;/ol&gt;
+&lt;hr&gt;
 </description>
                 
                 
