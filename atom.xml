@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">AKA二夕</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-08-21T16:59:39&#43;08:00</updated>
+    <updated>2020-08-21T17:01:53&#43;08:00</updated>
     <id>https://quakewang.github.io/</id>
     <link rel="alternate" type="text/html" href="https://quakewang.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://quakewang.github.io/atom.xml" />
@@ -58,7 +58,7 @@
             <title type="text">排序——选择排序</title>
             <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/selectsort/" />
             <id>https://quakewang.github.io/tech/selectsort/</id>
-            <updated>2020-08-19T21:21:52&#43;08:00</updated>
+            <updated>2020-08-21T17:01:43&#43;08:00</updated>
             <published>2020-08-18T17:03:46&#43;08:00</published>
             <author>
                     <name>AKA二夕</name>
@@ -139,7 +139,7 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;hr&gt;
 &lt;h2 id=&#34;三结束语&#34;&gt;三、结束语&lt;/h2&gt;
-&lt;p&gt;源码 ——&amp;gt; &lt;a href=&#34;https://github.com/QuakeWang/DataStructure/blob/master/src/com/quake/sort/SelectSort.java&#34;&gt;冒泡排序&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;源码 ——&amp;gt; &lt;a href=&#34;https://github.com/QuakeWang/DataStructure/blob/master/src/com/quake/sort/SelectSort.java&#34;&gt;选择排序&lt;/a&gt;&lt;/p&gt;
 </content>
             
             
