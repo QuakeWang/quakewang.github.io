@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">AKA二夕</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-08-19T21:21:59&#43;08:00</updated>
+    <updated>2020-08-21T16:59:39&#43;08:00</updated>
     <id>https://quakewang.github.io/</id>
     <link rel="alternate" type="text/html" href="https://quakewang.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://quakewang.github.io/atom.xml" />
@@ -16,6 +16,44 @@
             </author>
     <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights>
     <generator uri="https://gohugo.io/" version="0.71.1">Hugo</generator>
+        <entry>
+            <title type="text">排序——直接插入排序</title>
+            <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/insertsort/" />
+            <id>https://quakewang.github.io/tech/insertsort/</id>
+            <updated>2020-08-21T16:55:18&#43;08:00</updated>
+            <published>2020-08-20T17:04:38&#43;08:00</published>
+            <author>
+                    <name>AKA二夕</name>
+                    <uri>https://quakewang.github.io/</uri>
+                    <email>wangfuzheng0814@foxmail.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">直接插入排序 一、前言 1、基本介绍 想必我们大家都玩过或者了解过斗地主，最基本的扑克玩法……
+    
+    </summary>
+            
+                <content type="html">&lt;h1 id=&#34;直接插入排序&#34;&gt;直接插入排序&lt;/h1&gt;
+&lt;h2 id=&#34;一前言&#34;&gt;一、前言&lt;/h2&gt;
+&lt;h3 id=&#34;1基本介绍&#34;&gt;1、基本介绍&lt;/h3&gt;
+&lt;p&gt;想必我们大家都玩过或者了解过斗地主，最基本的扑克玩法都是一边摸牌，一边理牌的。我们可以思考一下，理牌的顺序，是不是把大的牌直接插入在小的牌后面的呢？？例如有以下几张牌（不考虑花色）：6、4、5、3 。将4和5移动到6的左侧，再将3移动到最左侧，顺序就算是整理好了。这里我们所使用到的理牌方法就是&lt;strong&gt;直接插入排序&lt;/strong&gt;。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;直接插入排序（Straight Insertion Sort）的基本操作是将一个记录插入到已经排好序的有序表中，从而得到一个新的、记录数增1的有序表。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;插入排序的&lt;strong&gt;基本思想&lt;/strong&gt;：把n个待排序的元素看成为一个有序表和一个无序表，开始时有序表中只包含一个元素，无序表中含有 n - 1个元素，排序过程中每次从无序表中取出第一个元素，把它的排序码依次与有序表的排序吗进行比较，将它插入到有序表中的适当的位置，使之成为新的有序表。&lt;/p&gt;
+&lt;h3 id=&#34;2举栗子&#34;&gt;2、举栗子&lt;/h3&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                
+                    
+                
+            
+        </entry>
+    
         <entry>
             <title type="text">排序——选择排序</title>
             <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/selectsort/" />
@@ -120,7 +158,7 @@
             <title type="text">排序——冒泡排序</title>
             <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/bubblesort/" />
             <id>https://quakewang.github.io/tech/bubblesort/</id>
-            <updated>2020-08-18T16:40:23&#43;08:00</updated>
+            <updated>2020-08-21T16:59:18&#43;08:00</updated>
             <published>2020-08-12T16:54:54&#43;08:00</published>
             <author>
                     <name>AKA二夕</name>
@@ -255,6 +293,7 @@
 &lt;/div&gt;&lt;hr&gt;
 &lt;h2 id=&#34;三结束语&#34;&gt;三、结束语&lt;/h2&gt;
 &lt;p&gt;以上便是关于冒泡排序的基本内容了。如果还有描述不清或者是无法理解的，可以适当画图结合debug进行调试，细心点，坚持下去，总会有结果的。&lt;/p&gt;
+&lt;p&gt;分析一下它的时间复杂度。当最好的情况，也就是要排序的表本身就是有序的，那么我们比较次数，根据最后改进的代码，可以判断出就是 n - 1 次的比较。没有数据交换，时间复杂度为O(n)。当最坏的情况，即待排序表示逆序的情况，此时需要比较 n*(n - 1) / 2 次，并作等数量级的记录移动。因此，总的时间复杂度为O(n^2)。&lt;/p&gt;
 &lt;p&gt;源码 ——&amp;gt; &lt;a href=&#34;https://github.com/QuakeWang/DataStructure/blob/master/src/com/quake/sort/BubbleSort.java&#34;&gt;BubbleSort&lt;/a&gt;&lt;/p&gt;
 </content>
             
