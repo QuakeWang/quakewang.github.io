@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">AKA二夕</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-08-21T17:01:53&#43;08:00</updated>
+    <updated>2020-08-21T17:11:12&#43;08:00</updated>
     <id>https://quakewang.github.io/</id>
     <link rel="alternate" type="text/html" href="https://quakewang.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://quakewang.github.io/atom.xml" />
@@ -58,7 +58,7 @@
             <title type="text">排序——选择排序</title>
             <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/selectsort/" />
             <id>https://quakewang.github.io/tech/selectsort/</id>
-            <updated>2020-08-21T17:01:43&#43;08:00</updated>
+            <updated>2020-08-21T17:11:00&#43;08:00</updated>
             <published>2020-08-18T17:03:46&#43;08:00</published>
             <author>
                     <name>AKA二夕</name>
@@ -139,6 +139,8 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;hr&gt;
 &lt;h2 id=&#34;三结束语&#34;&gt;三、结束语&lt;/h2&gt;
+&lt;p&gt;从简单选择排序的过程来看，它最大的特点就是交换移动数据次数相当少，这样就节约了相应的时间。分析它的时间复杂度发现，无论最好最差的情况。其比较次数都是一样的多，第i趟排序需要进行 n - i 次关键字的比较，此时需要比较 n * (n - 1) / 2 次。而对于交换次数而言，当最好的时候，交换次数为0次，当最差的时候，也就初始降序的时候，交换次数为 n - 1 次，基于最终的排序时间是比较与交换次数的总和，因此，总的时间复杂度依然为O(n^2)。&lt;/p&gt;
+&lt;p&gt;应该说，尽管与冒泡排序同为O(n^2) ，但简单选择排序的性能是要略优于冒泡排序。&lt;/p&gt;
 &lt;p&gt;源码 ——&amp;gt; &lt;a href=&#34;https://github.com/QuakeWang/DataStructure/blob/master/src/com/quake/sort/SelectSort.java&#34;&gt;选择排序&lt;/a&gt;&lt;/p&gt;
 </content>
             
