@@ -23,7 +23,7 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Mon, 24 Aug 2020 20:52:34 &#43;0800</lastBuildDate>
+        <lastBuildDate>Mon, 24 Aug 2020 20:56:19 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://quakewang.github.io/rss.xml" />
         
@@ -53,7 +53,7 @@
 &lt;p&gt;简单插入排序很循规蹈矩，不管数组分布是怎么样的，依然一步一步的对元素进行比较，移动，插入，比如[5,4,3,2,1,0]这种倒序序列，数组末端的0要回到首位置很是费劲，比较和移动元素均需n-1次。而希尔排序在数组中采用跳跃式分组的策略，通过某个增量将数组元素划分为若干组，然后分组进行插入排序，随后逐步缩小增量，继续按组进行插入排序操作，直至增量为1。希尔排序通过这种策略使得整个数组在初始阶段达到从宏观上看基本有序，小的基本在前，大的基本在后。然后缩小增量，到增量为1时，其实多数情况下只需微调即可，不会涉及过多的数据移动。&lt;/p&gt;
 &lt;p&gt;我们来看下希尔排序的基本步骤，在此我们选择增量&lt;strong&gt;gap=length/2&lt;/strong&gt;，缩小增量继续以&lt;strong&gt;gap = gap/2&lt;/strong&gt; 的方式，这种增量选择我们可以用一个序列来表示，{n/2,(n/2)/2...1}，称为&lt;strong&gt;增量序列&lt;/strong&gt;。希尔排序的增量序列的选择与证明是个数学难题，我们选择的这个增量序列是比较常用的，也是希尔建议的增量，称为希尔增量，但其实这个增量序列不是最优的。此处我们做示例使用希尔增量。&lt;/p&gt;
 &lt;h3 id=&#34;3举栗子&#34;&gt;3、举栗子&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&#34;D:%5Cquakewang%5Ccontent%5Cimag%5Cshellsort.png&#34; alt=&#34;希尔排序&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/shellsort.png&#34; alt=&#34;希尔排序&#34;&gt;&lt;/p&gt;
 &lt;hr&gt;
 </description>
                 
