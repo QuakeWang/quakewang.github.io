@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">AKA二夕</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-08-25T21:02:52&#43;08:00</updated>
+    <updated>2020-08-29T14:52:50&#43;08:00</updated>
     <id>https://quakewang.github.io/</id>
     <link rel="alternate" type="text/html" href="https://quakewang.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://quakewang.github.io/atom.xml" />
@@ -16,6 +16,45 @@
             </author>
     <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights>
     <generator uri="https://gohugo.io/" version="0.71.1">Hugo</generator>
+        <entry>
+            <title type="text">排序——快速排序</title>
+            <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/quicksort/" />
+            <id>https://quakewang.github.io/tech/quicksort/</id>
+            <updated>2020-08-29T14:52:39&#43;08:00</updated>
+            <published>2020-08-29T14:13:00&#43;08:00</published>
+            <author>
+                    <name>AKA二夕</name>
+                    <uri>https://quakewang.github.io/</uri>
+                    <email>wangfuzheng0814@foxmail.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">快速排序 一、前言 1、基本介绍 见名知意，就是一种很快的排序方法。快速排序是基于冒泡排序……
+    
+    </summary>
+            
+                <content type="html">&lt;h1 id=&#34;快速排序&#34;&gt;快速排序&lt;/h1&gt;
+&lt;h2 id=&#34;一前言&#34;&gt;一、前言&lt;/h2&gt;
+&lt;h3 id=&#34;1基本介绍&#34;&gt;1、基本介绍&lt;/h3&gt;
+&lt;p&gt;见名知意，就是一种很快的排序方法。快速排序是基于&lt;a href=&#34;https://quakewang.github.io/tech/bubblesort/&#34;&gt;冒泡排序&lt;/a&gt;的升级，那是因为它们都属于交换排序类。即它也是通过不断比较和移动交换次数来实现排序的，只不过它的实现，增大了记录的比较和移动的距离，将关键字较大的记录从前面直接移动到后面，关键字较小的记录从后面直接移动到前面，从而减少了总的比较次数和移动交换次数。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;基本思想：&lt;/strong&gt; 通过一趟排序将待排序记录分割成独立的两部分，其中一部分记录的关键字均比另一部分记录的关键字小，则可分别对这两部分记录继续进行排序，&lt;strong&gt;整个排序过程可以递归进行&lt;/strong&gt;，以达到整个序列有序的目的。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;2排序例图&#34;&gt;2、排序例图&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/QuickSort.png&#34; alt=&#34;快速排序&#34;&gt;&lt;/p&gt;
+&lt;hr&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                
+                    
+                
+            
+        </entry>
+    
         <entry>
             <title type="text">排序——希尔排序</title>
             <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/shellsort/" />
