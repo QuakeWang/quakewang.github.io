@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">AKA二夕</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-08-29T15:58:37&#43;08:00</updated>
+    <updated>2020-08-29T16:01:26&#43;08:00</updated>
     <id>https://quakewang.github.io/</id>
     <link rel="alternate" type="text/html" href="https://quakewang.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://quakewang.github.io/atom.xml" />
@@ -20,7 +20,7 @@
             <title type="text">排序——快速排序</title>
             <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/quicksort/" />
             <id>https://quakewang.github.io/tech/quicksort/</id>
-            <updated>2020-08-29T15:56:33&#43;08:00</updated>
+            <updated>2020-08-29T16:01:14&#43;08:00</updated>
             <published>2020-08-29T14:13:00&#43;08:00</published>
             <author>
                     <name>AKA二夕</name>
@@ -39,7 +39,7 @@
 &lt;p&gt;&lt;strong&gt;基本思想：&lt;/strong&gt; 通过一趟排序将待排序记录分割成独立的两部分，其中一部分记录的关键字均比另一部分记录的关键字小，则可分别对这两部分记录继续进行排序，&lt;strong&gt;整个排序过程可以递归进行&lt;/strong&gt;，以达到整个序列有序的目的。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h3 id=&#34;2排序例图&#34;&gt;2、排序例图&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&#34;https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/QuickSort.png&#34; alt=&#34;快速排序&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/QuickSort.png&#34; alt=&#34;快速排序&#34;&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;二算法实现&#34;&gt;二、算法实现&lt;/h2&gt;
 &lt;h3 id=&#34;1定义基本变量&#34;&gt;1、定义基本变量&lt;/h3&gt;

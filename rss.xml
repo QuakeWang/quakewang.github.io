@@ -23,7 +23,7 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Sat, 29 Aug 2020 15:58:37 &#43;0800</lastBuildDate>
+        <lastBuildDate>Sat, 29 Aug 2020 16:01:26 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://quakewang.github.io/rss.xml" />
         
@@ -46,7 +46,7 @@
 &lt;p&gt;&lt;strong&gt;基本思想：&lt;/strong&gt; 通过一趟排序将待排序记录分割成独立的两部分，其中一部分记录的关键字均比另一部分记录的关键字小，则可分别对这两部分记录继续进行排序，&lt;strong&gt;整个排序过程可以递归进行&lt;/strong&gt;，以达到整个序列有序的目的。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h3 id=&#34;2排序例图&#34;&gt;2、排序例图&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&#34;https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/QuickSort.png&#34; alt=&#34;快速排序&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/QuickSort.png&#34; alt=&#34;快速排序&#34;&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;二算法实现&#34;&gt;二、算法实现&lt;/h2&gt;
 &lt;h3 id=&#34;1定义基本变量&#34;&gt;1、定义基本变量&lt;/h3&gt;
