@@ -23,10 +23,36 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Mon, 31 Aug 2020 21:12:20 &#43;0800</lastBuildDate>
+        <lastBuildDate>Mon, 31 Aug 2020 21:14:42 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://quakewang.github.io/rss.xml" />
         
+        
+            <item>
+                <title>排序——归并排序</title>
+                <link>https://quakewang.github.io/tech/mergesort/</link>
+                <guid isPermaLink="true">https://quakewang.github.io/tech/mergesort/</guid>
+                <pubDate>Mon, 31 Aug 2020 20:49:40 &#43;0800</pubDate>
+                
+                    <author>wangfuzheng0814@foxmail.com (AKA二夕)</author>
+                
+                <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
+                
+                    <description>&lt;h1 id=&#34;归并排序&#34;&gt;归并排序&lt;/h1&gt;
+&lt;h2 id=&#34;一前言&#34;&gt;一、前言&lt;/h2&gt;
+</description>
+                
+                
+                
+                
+                
+                    
+                        
+                    
+                        
+                    
+                
+            </item>
         
             <item>
                 <title>排序——快速排序</title>

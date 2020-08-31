@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">AKA二夕</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-08-31T21:12:20&#43;08:00</updated>
+    <updated>2020-08-31T21:14:42&#43;08:00</updated>
     <id>https://quakewang.github.io/</id>
     <link rel="alternate" type="text/html" href="https://quakewang.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://quakewang.github.io/atom.xml" />
@@ -16,6 +16,35 @@
             </author>
     <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights>
     <generator uri="https://gohugo.io/" version="0.71.1">Hugo</generator>
+        <entry>
+            <title type="text">排序——归并排序</title>
+            <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/mergesort/" />
+            <id>https://quakewang.github.io/tech/mergesort/</id>
+            <updated>2020-08-31T21:13:27&#43;08:00</updated>
+            <published>2020-08-31T20:49:40&#43;08:00</published>
+            <author>
+                    <name>AKA二夕</name>
+                    <uri>https://quakewang.github.io/</uri>
+                    <email>wangfuzheng0814@foxmail.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">归并排序 一、前言</summary>
+            
+                <content type="html">&lt;h1 id=&#34;归并排序&#34;&gt;归并排序&lt;/h1&gt;
+&lt;h2 id=&#34;一前言&#34;&gt;一、前言&lt;/h2&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                
+                    
+                
+            
+        </entry>
+    
         <entry>
             <title type="text">排序——快速排序</title>
             <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/quicksort/" />
