@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">AKA二夕</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-09-10T09:58:38&#43;08:00</updated>
+    <updated>2020-09-10T10:03:01&#43;08:00</updated>
     <id>https://quakewang.github.io/</id>
     <link rel="alternate" type="text/html" href="https://quakewang.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://quakewang.github.io/atom.xml" />
@@ -125,7 +125,7 @@
             <title type="text">查找——折半查找</title>
             <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/binarysearch/" />
             <id>https://quakewang.github.io/tech/binarysearch/</id>
-            <updated>2020-09-08T23:48:16&#43;08:00</updated>
+            <updated>2020-09-10T10:02:55&#43;08:00</updated>
             <published>2020-09-08T10:58:26&#43;08:00</published>
             <author>
                     <name>AKA二夕</name>
@@ -154,7 +154,7 @@
 &lt;li&gt;2）findVal &amp;lt; arr[mid] 说明要查找的数在mid的左边，因此需要递归的向左查找；&lt;/li&gt;
 &lt;li&gt;3）findVal == arr[mid] 说明找到，就返回下标&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/binarysearch.png&#34; alt=&#34;binarysearch&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/binarySearch.png&#34; alt=&#34;binarysearch&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&#34;3思考&#34;&gt;3、思考&lt;/h3&gt;
@@ -358,6 +358,8 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;hr&gt;
 &lt;h2 id=&#34;三结束语&#34;&gt;三、结束语&lt;/h2&gt;
+&lt;p&gt;折半查找的前提条件是需要有序顺序存储，对于静态查找表，一次排序后不再变化，这样的算法已经比较好了。但是对于需要频繁执行插入或删除操作的数据集来说，维护有序的排序会带来不小的工作量，就不建议使用咯。&lt;/p&gt;
+&lt;p&gt;源码 ——&amp;gt; &lt;a href=&#34;https://github.com/QuakeWang/DataStructure/blob/master/src/com/quake/search/BinarySearch.java&#34;&gt;折半查找&lt;/a&gt;&lt;/p&gt;
 </content>
             
             
