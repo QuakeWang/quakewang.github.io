@@ -23,10 +23,36 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Thu, 10 Sep 2020 10:03:01 &#43;0800</lastBuildDate>
+        <lastBuildDate>Sat, 12 Sep 2020 19:22:23 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://quakewang.github.io/rss.xml" />
         
+        
+            <item>
+                <title>查找——斐波那契查找</title>
+                <link>https://quakewang.github.io/tech/fibonaccisearch/</link>
+                <guid isPermaLink="true">https://quakewang.github.io/tech/fibonaccisearch/</guid>
+                <pubDate>Sat, 12 Sep 2020 19:20:19 &#43;0800</pubDate>
+                
+                    <author>wangfuzheng0814@foxmail.com (AKA二夕)</author>
+                
+                <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
+                
+                    <description>&lt;p&gt;源码测试案例失败，求助大佬！！！&lt;/p&gt;
+&lt;p&gt;issue ——&amp;gt; &lt;a href=&#34;https://github.com/QuakeWang/DataStructure/issues/1#issue-699311960&#34;&gt;斐波那契查找&lt;/a&gt;&lt;/p&gt;
+</description>
+                
+                
+                
+                
+                
+                    
+                        
+                    
+                        
+                    
+                
+            </item>
         
             <item>
                 <title>查找——插值查找</title>
