@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">AKA二夕</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-09-20T22:47:34&#43;08:00</updated>
+    <updated>2020-09-20T22:53:55&#43;08:00</updated>
     <id>https://quakewang.github.io/</id>
     <link rel="alternate" type="text/html" href="https://quakewang.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://quakewang.github.io/atom.xml" />
@@ -20,7 +20,7 @@
             <title type="text">树及其相关概念</title>
             <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/abouttree/" />
             <id>https://quakewang.github.io/tech/abouttree/</id>
-            <updated>2020-09-20T22:47:29&#43;08:00</updated>
+            <updated>2020-09-20T22:53:47&#43;08:00</updated>
             <published>2020-09-20T21:41:20&#43;08:00</published>
             <author>
                     <name>AKA二夕</name>
@@ -82,6 +82,32 @@
 &lt;/blockquote&gt;
 &lt;p&gt;例如，下图a) 就是一棵二叉树，而图 b) 则不是。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/AboutTree02.gif&#34; alt=&#34;AboutTree02&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2二叉树的性质&#34;&gt;2、二叉树的性质&lt;/h3&gt;
+&lt;p&gt;经过前人的总结，二叉树具有以下几个性质：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;二叉树中，第 i 层最多有 2i-1 个结点。&lt;/li&gt;
+&lt;li&gt;如果二叉树的深度为 K，那么此二叉树最多有 2K-1 个结点。&lt;/li&gt;
+&lt;li&gt;二叉树中，终端结点数（叶子结点数）为 n0，度为 2 的结点数为 n2，则 n0=n2+1。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;pre&gt;&lt;code&gt;性质 3 的计算方法为：对于一个二叉树来说，除了度为 0 的叶子结点和度为 2 的结点，剩下的就是度为 1 的结点（设为 n1），那么总结点 n=n0+n1+n2。
+同时，对于每一个结点来说都是由其父结点分支表示的，假设树中分枝数为 B，那么总结点数 n=B+1。而分枝数是可以通过 n1 和 n2 表示的，即 B=n1+2*n2。所以，n 用另外一种方式表示为 n=n1+2*n2+1。
+两种方式得到的 n 值组成一个方程组，就可以得出 n0=n2+1。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;3满二叉树&#34;&gt;3、满二叉树&lt;/h3&gt;
+&lt;p&gt;二叉树还可以继续分类，衍生出满二叉树和完全二叉树。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果二叉树中除了叶子结点，每个结点的度都为 2，则此二叉树称为满二叉树。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/AboutTree03.gif&#34; alt=&#34;AboutTree03&#34;&gt;&lt;/p&gt;
+&lt;p&gt;满二叉树除了满足普通二叉树的性质，还具有以下性质：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;满二叉树中第 i 层的节点数为 2n-1 个。&lt;/li&gt;
+&lt;li&gt;深度为 k 的满二叉树必有 2k-1 个节点 ，叶子数为 2k-1。&lt;/li&gt;
+&lt;li&gt;满二叉树中不存在度为 1 的节点，每一个分支点中都两棵深度相同的子树，且叶子节点都在最底层。&lt;/li&gt;
+&lt;li&gt;具有 n 个节点的满二叉树的深度为 log2(n+1)。&lt;/li&gt;
+&lt;/ol&gt;
 </content>
             
             
