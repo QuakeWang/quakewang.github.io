@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">AKA二夕</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-09-20T22:28:02&#43;08:00</updated>
+    <updated>2020-09-20T22:47:21&#43;08:00</updated>
     <id>https://quakewang.github.io/</id>
     <link rel="alternate" type="text/html" href="https://quakewang.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://quakewang.github.io/atom.xml" />
@@ -20,19 +20,19 @@
             <title type="text">树及其相关概念</title>
             <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/abouttree/" />
             <id>https://quakewang.github.io/tech/abouttree/</id>
-            <updated>2020-09-20T22:23:14&#43;08:00</updated>
+            <updated>2020-09-20T22:47:14&#43;08:00</updated>
             <published>2020-09-20T21:41:20&#43;08:00</published>
             <author>
                     <name>AKA二夕</name>
                     <uri>https://quakewang.github.io/</uri>
                     <email>wangfuzheng0814@foxmail.com</email>
                     </author>
-            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">树 一、树的定义 1、引入 之前我们所提到的数组也好、链表也罢，其实都是一对一的线性结构，……
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">树 一、树的相关概念 1、引入 之前我们所提到的数组也好、链表也罢，其实都是一对一的线性结……
     
     </summary>
             
                 <content type="html">&lt;h1 id=&#34;树&#34;&gt;树&lt;/h1&gt;
-&lt;h2 id=&#34;一树的定义&#34;&gt;一、树的定义&lt;/h2&gt;
+&lt;h2 id=&#34;一树的相关概念&#34;&gt;一、树的相关概念&lt;/h2&gt;
 &lt;h3 id=&#34;1引入&#34;&gt;1、引入&lt;/h3&gt;
 &lt;p&gt;之前我们所提到的数组也好、链表也罢，其实都是一对一的线性结构，但是在日常生活当中还存在许多一对多的非线性结构 —— “树”。&lt;/p&gt;
 &lt;blockquote&gt;
@@ -58,17 +58,30 @@
 &lt;p&gt;对于一个结点，拥有的子树数（结点有多少分支）称为结点的度（Degree）。例如，上图中，根结点 A 下分出了 3 个子树，所以，结点 A 的度为 3。&lt;/p&gt;
 &lt;p&gt;一棵树的度是树内各结点的度的最大值。上图表示的树中，各个结点的度的最大值为 3，所以，整棵树的度的值是 3。&lt;/p&gt;
 &lt;p&gt;结点的层次：从一棵树的树根开始，树根所在层为第一层，根的孩子结点所在的层为第二层，依次类推。对于上图来说，A 结点在第一层，B、C、D 为第二层，E、F、G、H、I、J 在第三层，K、L、M 在第四层。&lt;/p&gt;
-&lt;p&gt;一棵树的深度（高度）是树中结点所在的最大的层次。图 1（A）树的深度为 4。&lt;/p&gt;
-&lt;p&gt;如果两个结点的父结点虽不相同，但是它们的父结点处在同一层次上，那么这两个结点互为堂兄弟。例如，图 1（A）中，结点 G 和 E、F、H、I、J 的父结点都在第二层，所以之间为堂兄弟的关系。&lt;/p&gt;
-&lt;h2 id=&#34;有序树和无序树&#34;&gt;有序树和无序树&lt;/h2&gt;
+&lt;p&gt;一棵树的深度（高度）是树中结点所在的最大的层次。上图树的深度为 4。&lt;/p&gt;
+&lt;p&gt;如果两个结点的父结点虽不相同，但是它们的父结点处在同一层次上，那么这两个结点互为堂兄弟。例如，上图中，结点 G 和 E、F、H、I、J 的父结点都在第二层，所以之间为堂兄弟的关系。&lt;/p&gt;
+&lt;h3 id=&#34;5有序树和无序树&#34;&gt;5、有序树和无序树&lt;/h3&gt;
 &lt;p&gt;如果树中结点的子树从左到右看，谁在左边，谁在右边，是有规定的，这棵树称为有序树；反之称为无序树。&lt;/p&gt;
 &lt;p&gt;在有序树中，一个结点最左边的子树称为&amp;quot;第一个孩子&amp;quot;，最右边的称为&amp;quot;最后一个孩子&amp;quot;。&lt;/p&gt;
-&lt;p&gt;拿图 1（A）来说，如果是其本身是一棵有序树，则以结点 B 为根结点的子树为整棵树的第一个孩子，以结点 D 为根结点的子树为整棵树的最后一个孩子。&lt;/p&gt;
-&lt;h2 id=&#34;森林&#34;&gt;森林&lt;/h2&gt;
+&lt;p&gt;拿上图来说，如果是其本身是一棵有序树，则以结点 B 为根结点的子树为整棵树的第一个孩子，以结点 D 为根结点的子树为整棵树的最后一个孩子。&lt;/p&gt;
+&lt;h3 id=&#34;6森林&#34;&gt;6、森林&lt;/h3&gt;
 &lt;p&gt;由 m（m &amp;gt;= 0）个互不相交的树组成的集合被称为森林。图 1（A）中，分别以 B、C、D 为根结点的三棵子树就可以称为森林。&lt;/p&gt;
 &lt;p&gt;前面讲到，树可以理解为是由根结点和若干子树构成的，而这若干子树本身是一个森林，所以，树还可以理解为是由根结点和森林组成的。用一个式子表示为：&lt;/p&gt;
 &lt;p&gt;Tree =（root,F）&lt;/p&gt;
 &lt;p&gt;其中，root 表示树的根结点，F 表示由 m（m &amp;gt;= 0）棵树组成的森林。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;二二叉树&#34;&gt;二、二叉树&lt;/h2&gt;
+&lt;p&gt;在上文，我们简单的了解了一下关于树的基本内容，那么在以上的概念继续细化，也就得到了二叉树。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;pre&gt;&lt;code&gt;简单地理解，满足以下两个条件的树就是二叉树：
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol&gt;
+&lt;li&gt;本身是有序树；&lt;/li&gt;
+&lt;li&gt;树中包含的各个节点的度不能超过 2，即只能是 0、1 或者 2；&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;例如，下图a) 就是一棵二叉树，而图 b) 则不是。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/AboutTree02.gif&#34; alt=&#34;AboutTree02&#34;&gt;&lt;/p&gt;
 </content>
             
             
