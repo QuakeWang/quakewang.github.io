@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">AKA二夕</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-09-18T21:35:09&#43;08:00</updated>
+    <updated>2020-09-20T21:49:15&#43;08:00</updated>
     <id>https://quakewang.github.io/</id>
     <link rel="alternate" type="text/html" href="https://quakewang.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://quakewang.github.io/atom.xml" />
@@ -16,6 +16,41 @@
             </author>
     <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights>
     <generator uri="https://gohugo.io/" version="0.71.1">Hugo</generator>
+        <entry>
+            <title type="text">树及其相关概念</title>
+            <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/abouttree/" />
+            <id>https://quakewang.github.io/tech/abouttree/</id>
+            <updated>2020-09-20T21:48:07&#43;08:00</updated>
+            <published>2020-09-20T21:41:20&#43;08:00</published>
+            <author>
+                    <name>AKA二夕</name>
+                    <uri>https://quakewang.github.io/</uri>
+                    <email>wangfuzheng0814@foxmail.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">树 一、树的定义 之前我们所提到的数组也好、链表也罢，其实都是一对一的线性结构，但是在日……
+    
+    </summary>
+            
+                <content type="html">&lt;h1 id=&#34;树&#34;&gt;树&lt;/h1&gt;
+&lt;h2 id=&#34;一树的定义&#34;&gt;一、树的定义&lt;/h2&gt;
+&lt;p&gt;之前我们所提到的数组也好、链表也罢，其实都是一对一的线性结构，但是在日常生活当中还存在许多一对多的非线性结构 —— “树”。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;树（Tree）&lt;/strong&gt; ：是n （n≥0）个结点的有限集。n=0时称为空树。在任意一棵非空树中：（1）有且仅有一个特定的称为根，root的结点；（2）当 n&amp;gt;1时，其余结点可分为m（m&amp;gt;0）个互相不相交的有限集T1、T2……Tm,其中每一个集合本身又是一棵树，并且称为根的子树。&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                
+                    
+                
+            
+        </entry>
+    
         <entry>
             <title type="text">数据结构——哈希表</title>
             <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/hashtab/" />
