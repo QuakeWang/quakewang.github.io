@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">AKA二夕</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-09-26T23:41:44&#43;08:00</updated>
+    <updated>2020-09-28T13:50:00&#43;08:00</updated>
     <id>https://quakewang.github.io/</id>
     <link rel="alternate" type="text/html" href="https://quakewang.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://quakewang.github.io/atom.xml" />
@@ -17,10 +17,10 @@
     <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights>
     <generator uri="https://gohugo.io/" version="0.71.1">Hugo</generator>
         <entry>
-            <title type="text">树——二叉树查找</title>
+            <title type="text">树——二叉树查找以及删除结点</title>
             <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/binarytreesearch/" />
             <id>https://quakewang.github.io/tech/binarytreesearch/</id>
-            <updated>2020-09-26T23:41:25&#43;08:00</updated>
+            <updated>2020-09-28T13:49:55&#43;08:00</updated>
             <published>2020-09-24T17:44:43&#43;08:00</published>
             <author>
                     <name>AKA二夕</name>

@@ -23,13 +23,13 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Sat, 26 Sep 2020 23:41:44 &#43;0800</lastBuildDate>
+        <lastBuildDate>Mon, 28 Sep 2020 13:50:00 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://quakewang.github.io/rss.xml" />
         
         
             <item>
-                <title>树——二叉树查找</title>
+                <title>树——二叉树查找以及删除结点</title>
                 <link>https://quakewang.github.io/tech/binarytreesearch/</link>
                 <guid isPermaLink="true">https://quakewang.github.io/tech/binarytreesearch/</guid>
                 <pubDate>Thu, 24 Sep 2020 17:44:43 &#43;0800</pubDate>
