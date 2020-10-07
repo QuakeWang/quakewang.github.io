@@ -23,10 +23,35 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Mon, 05 Oct 2020 12:28:20 &#43;0800</lastBuildDate>
+        <lastBuildDate>Wed, 07 Oct 2020 15:58:35 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://quakewang.github.io/rss.xml" />
         
+        
+            <item>
+                <title>树——线索化二叉树</title>
+                <link>https://quakewang.github.io/tech/threadedbinarytree/</link>
+                <guid isPermaLink="true">https://quakewang.github.io/tech/threadedbinarytree/</guid>
+                <pubDate>Wed, 07 Oct 2020 14:27:50 &#43;0800</pubDate>
+                
+                    <author>wangfuzheng0814@foxmail.com (AKA二夕)</author>
+                
+                <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
+                
+                    <description>&lt;h1 id=&#34;线索化二叉树&#34;&gt;线索化二叉树&lt;/h1&gt;
+</description>
+                
+                
+                
+                
+                
+                    
+                        
+                    
+                        
+                    
+                
+            </item>
         
             <item>
                 <title>树——顺序存储二叉树遍历</title>

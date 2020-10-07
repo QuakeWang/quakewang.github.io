@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">AKA二夕</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-10-05T12:28:20&#43;08:00</updated>
+    <updated>2020-10-07T15:58:35&#43;08:00</updated>
     <id>https://quakewang.github.io/</id>
     <link rel="alternate" type="text/html" href="https://quakewang.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://quakewang.github.io/atom.xml" />
@@ -16,6 +16,34 @@
             </author>
     <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights>
     <generator uri="https://gohugo.io/" version="0.71.1">Hugo</generator>
+        <entry>
+            <title type="text">树——线索化二叉树</title>
+            <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/threadedbinarytree/" />
+            <id>https://quakewang.github.io/tech/threadedbinarytree/</id>
+            <updated>2020-10-07T15:42:52&#43;08:00</updated>
+            <published>2020-10-07T14:27:50&#43;08:00</published>
+            <author>
+                    <name>AKA二夕</name>
+                    <uri>https://quakewang.github.io/</uri>
+                    <email>wangfuzheng0814@foxmail.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">线索化二叉树</summary>
+            
+                <content type="html">&lt;h1 id=&#34;线索化二叉树&#34;&gt;线索化二叉树&lt;/h1&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                
+                    
+                
+            
+        </entry>
+    
         <entry>
             <title type="text">树——顺序存储二叉树遍历</title>
             <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/arraybinarytree/" />
