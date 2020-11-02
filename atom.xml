@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">AKA二夕</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-10-30T18:33:50&#43;08:00</updated>
+    <updated>2020-11-02T23:02:51&#43;08:00</updated>
     <id>https://quakewang.github.io/</id>
     <link rel="alternate" type="text/html" href="https://quakewang.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://quakewang.github.io/atom.xml" />
@@ -20,7 +20,7 @@
             <title type="text">排序——堆排序</title>
             <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/heapsort/" />
             <id>https://quakewang.github.io/tech/heapsort/</id>
-            <updated>2020-10-30T18:33:26&#43;08:00</updated>
+            <updated>2020-11-02T23:02:33&#43;08:00</updated>
             <published>2020-10-29T11:26:47&#43;08:00</published>
             <author>
                     <name>AKA二夕</name>
@@ -80,7 +80,7 @@
 &lt;p&gt;&lt;img src=&#34;https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/HeapSort08.png?raw=true&#34; alt=&#34;Step08&#34;&gt;&lt;/p&gt;
 &lt;h4 id=&#34;小结&#34;&gt;③小结&lt;/h4&gt;
 &lt;p&gt;再简单总结下堆排序的基本思路：&lt;/p&gt;
-&lt;p&gt;　　&lt;strong&gt;a.将无需序列构建成一个堆，根据升序降序需求选择大顶堆或小顶堆;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;　　&lt;strong&gt;a.将无序序列构建成一个堆，根据升序降序需求选择大顶堆或小顶堆;&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;　　&lt;strong&gt;b.将堆顶元素与末尾元素交换，将最大元素&amp;quot;沉&amp;quot;到数组末端;&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;　　&lt;strong&gt;c.重新调整结构，使其满足堆定义，然后继续交换堆顶元素与当前末尾元素，反复执行调整+交换步骤，直到整个序列有序。&lt;/strong&gt;&lt;/p&gt;
 &lt;hr&gt;

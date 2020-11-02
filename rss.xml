@@ -23,7 +23,7 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Fri, 30 Oct 2020 18:33:50 &#43;0800</lastBuildDate>
+        <lastBuildDate>Mon, 02 Nov 2020 23:02:51 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://quakewang.github.io/rss.xml" />
         
@@ -87,7 +87,7 @@
 &lt;p&gt;&lt;img src=&#34;https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/HeapSort08.png?raw=true&#34; alt=&#34;Step08&#34;&gt;&lt;/p&gt;
 &lt;h4 id=&#34;小结&#34;&gt;③小结&lt;/h4&gt;
 &lt;p&gt;再简单总结下堆排序的基本思路：&lt;/p&gt;
-&lt;p&gt;　　&lt;strong&gt;a.将无需序列构建成一个堆，根据升序降序需求选择大顶堆或小顶堆;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;　　&lt;strong&gt;a.将无序序列构建成一个堆，根据升序降序需求选择大顶堆或小顶堆;&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;　　&lt;strong&gt;b.将堆顶元素与末尾元素交换，将最大元素&amp;quot;沉&amp;quot;到数组末端;&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;　　&lt;strong&gt;c.重新调整结构，使其满足堆定义，然后继续交换堆顶元素与当前末尾元素，反复执行调整+交换步骤，直到整个序列有序。&lt;/strong&gt;&lt;/p&gt;
 &lt;hr&gt;
