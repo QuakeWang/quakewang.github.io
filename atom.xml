@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">AKA二夕</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-11-02T23:02:51&#43;08:00</updated>
+    <updated>2020-11-04T22:41:35&#43;08:00</updated>
     <id>https://quakewang.github.io/</id>
     <link rel="alternate" type="text/html" href="https://quakewang.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://quakewang.github.io/atom.xml" />
@@ -20,7 +20,7 @@
             <title type="text">排序——堆排序</title>
             <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/heapsort/" />
             <id>https://quakewang.github.io/tech/heapsort/</id>
-            <updated>2020-11-02T23:02:33&#43;08:00</updated>
+            <updated>2020-11-04T22:41:13&#43;08:00</updated>
             <published>2020-10-29T11:26:47&#43;08:00</published>
             <author>
                     <name>AKA二夕</name>
@@ -41,7 +41,7 @@
 &lt;p&gt;&lt;strong&gt;堆是具有以下性质的完全二叉树：每个结点的值都大于或等于其左右孩子结点的值，称为大顶堆；或者每个结点的值都小于或等于其左右孩子结点的值，称为小顶堆。如下图：&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;&lt;img src=&#34;https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/HeapSort00.png?raw=true&#34; alt=&#34;HeapSort00&#34;&gt;&lt;/p&gt;
-&lt;p&gt;对吧，是不是堆形的。其实我们利用上一节说过&lt;a href=&#34;https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/HeapSort00.png?raw=true&#34;&gt;线索化二叉树&lt;/a&gt;，将其存放在数组中进行操作，如下：&lt;/p&gt;
+&lt;p&gt;对吧，是不是堆形的。其实我们利用上一节说过&lt;a href=&#34;https://quakewang.github.io/tech/threadedbinarytree/&#34;&gt;线索化二叉树&lt;/a&gt;，将其存放在数组中进行操作，如下：&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/HeapSort001.png?raw=true&#34; alt=&#34;HeapSort001&#34;&gt;&lt;/p&gt;
 &lt;p&gt;这个数组从逻辑上说就是一个堆的结构，经过前人的总结，我们可以使用简单的公式描述一下堆：&lt;/p&gt;
 &lt;ul&gt;
