@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">AKA二夕</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-11-07T21:37:56&#43;08:00</updated>
+    <updated>2020-11-22T21:57:48&#43;08:00</updated>
     <id>https://quakewang.github.io/</id>
     <link rel="alternate" type="text/html" href="https://quakewang.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://quakewang.github.io/atom.xml" />
@@ -16,6 +16,55 @@
             </author>
     <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights>
     <generator uri="https://gohugo.io/" version="0.71.1">Hugo</generator>
+        <entry>
+            <title type="text">二叉排序树</title>
+            <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/bst/" />
+            <id>https://quakewang.github.io/tech/bst/</id>
+            <updated>2020-11-22T21:57:18&#43;08:00</updated>
+            <published>2020-11-22T20:18:41&#43;08:00</published>
+            <author>
+                    <name>AKA二夕</name>
+                    <uri>https://quakewang.github.io/</uri>
+                    <email>wangfuzheng0814@foxmail.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">二叉排序树 一、前言 1、引子 假设现在有一个数组{7, 3, 10, 12, 5, 1, 9} ，现在要求能够高效的完……
+    
+    </summary>
+            
+                <content type="html">&lt;h1 id=&#34;二叉排序树&#34;&gt;二叉排序树&lt;/h1&gt;
+&lt;h2 id=&#34;一前言&#34;&gt;一、前言&lt;/h2&gt;
+&lt;h3 id=&#34;1引子&#34;&gt;1、引子&lt;/h3&gt;
+&lt;p&gt;假设现在有一个数组&lt;code&gt;{7, 3, 10, 12, 5, 1, 9}&lt;/code&gt; ，现在要求能够高效的完成对数据的添加、删除以及查询操作。&lt;/p&gt;
+&lt;p&gt;根据我们之前所学过得内容，假设查找的数据集是普通的顺序存储，那么插入操作就是将记录放在表的末端，给表记录数加一即可，删除操作可以是删除后，后面的记录向前移，也可以是要删除的元素与最后一个元素互换，表记录数减一，反正整个数据集也没有固定的顺序，进行这样的操作的话，效率也还说得过去。准确来说，应该是，插入和删除对于顺序存储结构来说，效率还是可以接受的，但这样的表由于无序会造成查找的效率很低。&lt;/p&gt;
+&lt;p&gt;如果需要查找的是一个有序线性表，并且是顺序是线性存储的，查找的话就可以使用&lt;a href=&#34;https://quakewang.github.io/tech/binarysearch/&#34;&gt;折半&lt;/a&gt;、&lt;a href=&#34;https://quakewang.github.io/tech/insertvaluesearch/&#34;&gt;插值&lt;/a&gt;、&lt;a href=&#34;https://quakewang.github.io/tech/fibonaccisearch/&#34;&gt;斐波那契&lt;/a&gt; 等等查找算法来实现，可惜的是，因为是有序，在插入和删除操作上就不太方便，可能需要一移动大量的数据，耗费大量的时间。&lt;/p&gt;
+&lt;p&gt;那么，有没有一种既可以使得插入和删除效率不错，又可以比较高效率地实现茶轴的算法呢？？这也就是我们今天所要说的&lt;strong&gt;二叉排序树(BinarySortTree)&lt;/strong&gt; 。&lt;/p&gt;
+&lt;h3 id=&#34;2二叉排序树介绍&#34;&gt;2、二叉排序树介绍&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;二叉排序树(Binary Sort Tree)&lt;/strong&gt; ： 又称为二叉查找树。它或者是一棵空树，或者具有下列性质的二叉树：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;若它的左子树不空，则左子树上所有的结点的值均小于它的根结点的值；&lt;/li&gt;
+&lt;li&gt;若它的右子树不空，则右子树上所有的结点的值均小于它的根结点的值；&lt;/li&gt;
+&lt;li&gt;它的左、右子树也分别为二叉排序树。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;特别说明：如果有相同的值，可以将该结点放在左结点或者右结点&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;比如针对前面的数据&lt;code&gt;{7, 3, 10, 12, 5, 1, 9}&lt;/code&gt; ，我们再另外插入一个结点 2，对应的二叉树如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/QuakeWang/Figure-bed/blob/master/DataStructures/bst.png?raw=true&#34; alt=&#34;bst01&#34;&gt;&lt;/p&gt;
+&lt;p&gt;从二叉排序树的定义也可以知道，它前提是二叉树，然后它采用了递归的定义方法，另外，它的结点之间满足一定的次序关系，左子树结点一定比其双亲结点小，右子结点一定比其双亲结点大。&lt;/p&gt;
+&lt;p&gt;构造一棵二叉树的目的，其实并不是为了排序，而是为了提高查找和插入删除关键字的速度。不管怎么说，在一个有序数据集上的查找，速度总是要快于无序的数据集，而二叉排序树这种非线性的结构，也有利于插入和删除的实现。&lt;/p&gt;
+&lt;h3 id=&#34;二算法实现&#34;&gt;二、算法实现&lt;/h3&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                
+                    
+                
+            
+        </entry>
+    
         <entry>
             <title type="text">排序——堆排序</title>
             <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/heapsort/" />
