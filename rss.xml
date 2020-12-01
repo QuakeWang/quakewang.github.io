@@ -23,7 +23,7 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Tue, 01 Dec 2020 16:33:38 &#43;0800</lastBuildDate>
+        <lastBuildDate>Tue, 01 Dec 2020 21:16:22 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://quakewang.github.io/rss.xml" />
         
@@ -666,6 +666,8 @@
 &lt;hr&gt;
 &lt;h2 id=&#34;三结束语&#34;&gt;三、结束语&lt;/h2&gt;
 &lt;p&gt;该死的二叉排序树终于写完了，十一月份只写了一半，忙（懒）成狗。。。。&lt;/p&gt;
+&lt;p&gt;二叉排序树是链接的方式存储，保持了链接存储结构在执行插入或删除操作时不用移动元素的优点。只要找到合适的插入和删除位置后，仅需修改链接指针即可。对于查找而言，走的就是从根结点到要查找结点的路径，其比较次数等于给定值的结点在二叉排序树的层数。因为篇幅优先，查找算法可以结合之前所更新的博客自行完成即可。&lt;/p&gt;
+&lt;p&gt;源码地址 ——&amp;gt; &lt;a href=&#34;https://github.com/QuakeWang/DataStructure/blob/master/src/com/quake/binarysorttree/BinarySortTreeDemo.java&#34;&gt;二叉排序树&lt;/a&gt;&lt;/p&gt;
 </description>
                 
                 

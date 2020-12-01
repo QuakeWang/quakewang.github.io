@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">AKA二夕</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-12-01T16:33:38&#43;08:00</updated>
+    <updated>2020-12-01T21:16:22&#43;08:00</updated>
     <id>https://quakewang.github.io/</id>
     <link rel="alternate" type="text/html" href="https://quakewang.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://quakewang.github.io/atom.xml" />
@@ -20,7 +20,7 @@
             <title type="text">二叉排序树</title>
             <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/bst/" />
             <id>https://quakewang.github.io/tech/bst/</id>
-            <updated>2020-12-01T16:32:06&#43;08:00</updated>
+            <updated>2020-12-01T21:16:15&#43;08:00</updated>
             <published>2020-11-22T20:18:41&#43;08:00</published>
             <author>
                     <name>AKA二夕</name>
@@ -659,6 +659,8 @@
 &lt;hr&gt;
 &lt;h2 id=&#34;三结束语&#34;&gt;三、结束语&lt;/h2&gt;
 &lt;p&gt;该死的二叉排序树终于写完了，十一月份只写了一半，忙（懒）成狗。。。。&lt;/p&gt;
+&lt;p&gt;二叉排序树是链接的方式存储，保持了链接存储结构在执行插入或删除操作时不用移动元素的优点。只要找到合适的插入和删除位置后，仅需修改链接指针即可。对于查找而言，走的就是从根结点到要查找结点的路径，其比较次数等于给定值的结点在二叉排序树的层数。因为篇幅优先，查找算法可以结合之前所更新的博客自行完成即可。&lt;/p&gt;
+&lt;p&gt;源码地址 ——&amp;gt; &lt;a href=&#34;https://github.com/QuakeWang/DataStructure/blob/master/src/com/quake/binarysorttree/BinarySortTreeDemo.java&#34;&gt;二叉排序树&lt;/a&gt;&lt;/p&gt;
 </content>
             
             
