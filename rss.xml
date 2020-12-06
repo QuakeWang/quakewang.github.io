@@ -23,10 +23,44 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Tue, 01 Dec 2020 21:16:22 &#43;0800</lastBuildDate>
+        <lastBuildDate>Sun, 06 Dec 2020 23:12:55 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://quakewang.github.io/rss.xml" />
         
+        
+            <item>
+                <title>AVLTree</title>
+                <link>https://quakewang.github.io/tech/avltree/</link>
+                <guid isPermaLink="true">https://quakewang.github.io/tech/avltree/</guid>
+                <pubDate>Sun, 06 Dec 2020 23:03:53 &#43;0800</pubDate>
+                
+                    <author>wangfuzheng0814@foxmail.com (AKA二夕)</author>
+                
+                <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
+                
+                    <description>&lt;h1 id=&#34;二叉平衡树&#34;&gt;二叉平衡树&lt;/h1&gt;
+&lt;h2 id=&#34;一前言&#34;&gt;一、前言&lt;/h2&gt;
+&lt;h3 id=&#34;1案例分析&#34;&gt;1、案例分析&lt;/h3&gt;
+&lt;p&gt;现在有一个数列 &lt;code&gt;{1, 2, 3, 4, 5, 6}&lt;/code&gt;，要求创建一颗二叉排序树，并分析问题所在。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;左边BST存在的问题分析：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;左子树全部为空，从形式上看，更像是一个单链表；&lt;/li&gt;
+&lt;li&gt;插入速度没影响；&lt;/li&gt;
+&lt;li&gt;查询速度明显降低（因为需要依次比较），不能发挥BST的优势，因为每次还需要比较左子树，导致其查询速度比单链表还慢。&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+                
+                
+                
+                
+                
+                    
+                        
+                    
+                        
+                    
+                
+            </item>
         
             <item>
                 <title>二叉排序树</title>
