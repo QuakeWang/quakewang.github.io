@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">AKA二夕</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-12-06T23:12:55&#43;08:00</updated>
+    <updated>2020-12-08T21:46:39&#43;08:00</updated>
     <id>https://quakewang.github.io/</id>
     <link rel="alternate" type="text/html" href="https://quakewang.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://quakewang.github.io/atom.xml" />
@@ -20,7 +20,7 @@
             <title type="text">AVLTree</title>
             <link rel="alternate" type="text/html" href="https://quakewang.github.io/tech/avltree/" />
             <id>https://quakewang.github.io/tech/avltree/</id>
-            <updated>2020-12-06T23:12:42&#43;08:00</updated>
+            <updated>2020-12-08T21:46:30&#43;08:00</updated>
             <published>2020-12-06T23:03:53&#43;08:00</published>
             <author>
                     <name>AKA二夕</name>
@@ -41,6 +41,8 @@
 &lt;li&gt;插入速度没影响；&lt;/li&gt;
 &lt;li&gt;查询速度明显降低（因为需要依次比较），不能发挥BST的优势，因为每次还需要比较左子树，导致其查询速度比单链表还慢。&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/QuakeWang/Figure-bed/blob/master/DataStructures/AVLTree01.png?raw=true&#34; alt=&#34;AVLTree01&#34;&gt;&lt;/p&gt;
 </content>
             
             

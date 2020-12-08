@@ -23,7 +23,7 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Sun, 06 Dec 2020 23:12:55 &#43;0800</lastBuildDate>
+        <lastBuildDate>Tue, 08 Dec 2020 21:46:39 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://quakewang.github.io/rss.xml" />
         
@@ -48,6 +48,8 @@
 &lt;li&gt;插入速度没影响；&lt;/li&gt;
 &lt;li&gt;查询速度明显降低（因为需要依次比较），不能发挥BST的优势，因为每次还需要比较左子树，导致其查询速度比单链表还慢。&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/QuakeWang/Figure-bed/blob/master/DataStructures/AVLTree01.png?raw=true&#34; alt=&#34;AVLTree01&#34;&gt;&lt;/p&gt;
 </description>
                 
                 
