@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>AKA二夕</title><link>https://quakewang.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.69.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (AKA二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (AKA二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Thu, 17 Dec 2020 11:42:24 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>Typescript 学习笔记01</title><link>https://quakewang.github.io/tech/typescript01/</link><guid isPermaLink="true">https://quakewang.github.io/tech/typescript01/</guid><pubDate>Thu, 17 Dec 2020 19:18:52 +0800</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="第一章-快速入门">第一章 快速入门&lt;/h1>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>AKA二夕</title><link>https://quakewang.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.69.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (AKA二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (AKA二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Thu, 17 Dec 2020 13:44:39 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>Typescript 学习笔记01</title><link>https://quakewang.github.io/tech/typescript01/</link><guid isPermaLink="true">https://quakewang.github.io/tech/typescript01/</guid><pubDate>Thu, 17 Dec 2020 19:18:52 +0800</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="第一章-快速入门">第一章 快速入门&lt;/h1>
 &lt;h2 id="0typescript简介">0、TypeScript简介&lt;/h2>
 &lt;ol>
 &lt;li>TypeScript是JavaScript的超集。&lt;/li>
@@ -2007,9 +2007,9 @@
 &lt;blockquote>
 &lt;p>&lt;strong>堆是具有以下性质的完全二叉树：每个结点的值都大于或等于其左右孩子结点的值，称为大顶堆；或者每个结点的值都小于或等于其左右孩子结点的值，称为小顶堆。如下图：&lt;/strong>&lt;/p>
 &lt;/blockquote>
-&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/HeapSort00.png?raw=true" alt="HeapSort00">&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/HeapSort00.png?raw=true" alt="HeapSort00">&lt;/p>
 &lt;p>对吧，是不是堆形的。其实我们利用上一节说过&lt;a href="https://quakewang.github.io/tech/threadedbinarytree/">线索化二叉树&lt;/a>，将其存放在数组中进行操作，如下：&lt;/p>
-&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/HeapSort001.png?raw=true" alt="HeapSort001">&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/HeapSort001.png?raw=true" alt="HeapSort001">&lt;/p>
 &lt;p>这个数组从逻辑上说就是一个堆的结构，经过前人的总结，我们可以使用简单的公式描述一下堆：&lt;/p>
 &lt;ul>
 &lt;li>
@@ -2028,23 +2028,23 @@
 &lt;h4 id="步骤一构造初始堆">①步骤一：构造初始堆&lt;/h4>
 &lt;p>将给定无序序列构造成一个大顶堆&lt;/p>
 &lt;h5 id="a假设给定无序序列结构如下">a.假设给定无序序列结构如下：&lt;/h5>
-&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/HeapSort01.png?raw=true" alt="Step01">&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/HeapSort01.png?raw=true" alt="Step01">&lt;/p>
 &lt;h5 id="b此时我们从最后一个非叶子结点开始叶结点自然不用调整第一个非叶子结点-arrlength2-152-11也就是下面的6结点从左至右从下至上进行调整">b.此时我们从最后一个非叶子结点开始（叶结点自然不用调整，第一个非叶子结点 arr.length/2-1=5/2-1=1，也就是下面的6结点），从左至右，从下至上进行调整。&lt;/h5>
-&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/HeapSort02.png?raw=true" alt="Step02">&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/HeapSort02.png?raw=true" alt="Step02">&lt;/p>
 &lt;h5 id="c找到第二个非叶节点4由于498中9元素最大4和9交换">c.找到第二个非叶节点4，由于[4,9,8]中9元素最大，4和9交换。&lt;/h5>
-&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/HeapSort03.png?raw=true" alt="Step03">&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/HeapSort03.png?raw=true" alt="Step03">&lt;/p>
 &lt;h5 id="d这时交换导致了子根456结构混乱继续调整456中6最大交换4和6">d.这时，交换导致了子根[4,5,6]结构混乱，继续调整，[4,5,6]中6最大，交换4和6。&lt;/h5>
-&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/HeapSort04.png?raw=true" alt="Step04">&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/HeapSort04.png?raw=true" alt="Step04">&lt;/p>
 &lt;p>此时，如此反复通过上述步骤，我们就将一个无序序列构建成了一个大顶堆。&lt;/p>
 &lt;h4 id="步骤二将堆顶元素与末尾元素进行交换使末尾元素最大然后继续调整堆再将堆顶元素与末尾元素交换得到第二大元素如此反复进行交换重建交换">②步骤二：将堆顶元素与末尾元素进行交换，使末尾元素最大。然后继续调整堆，再将堆顶元素与末尾元素交换，得到第二大元素。如此反复进行交换、重建、交换。&lt;/h4>
 &lt;h5 id="a将堆顶元素9和末尾元素4进行交换">a.将堆顶元素9和末尾元素4进行交换&lt;/h5>
-&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/HeapSort05.png?raw=true" alt="Step05">&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/HeapSort05.png?raw=true" alt="Step05">&lt;/p>
 &lt;h5 id="b重新调整结构使其继续满足堆定义">b.重新调整结构，使其继续满足堆定义&lt;/h5>
-&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/HeapSort06.png?raw=true" alt="Step06">&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/HeapSort05.png?raw=true" alt="Step06">&lt;/p>
 &lt;h5 id="c再将堆顶元素8与末尾元素5进行交换得到第二大元素8">c.再将堆顶元素8与末尾元素5进行交换，得到第二大元素8.&lt;/h5>
-&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/HeapSort07.png?raw=true" alt="Step07">&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/HeapSort07.png?raw=true" alt="Step07">&lt;/p>
 &lt;h5 id="d后续过程继续进行调整交换如此反复进行最终使得整个序列有序">d.后续过程，继续进行调整，交换，如此反复进行，最终使得整个序列有序&lt;/h5>
-&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/HeapSort08.png?raw=true" alt="Step08">&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/HeapSort08.png?raw=true" alt="Step08">&lt;/p>
 &lt;h4 id="小结">③小结&lt;/h4>
 &lt;p>再简单总结下堆排序的基本思路：&lt;/p>
 &lt;p>　　&lt;strong>a.将无序序列构建成一个堆，根据升序降序需求选择大顶堆或小顶堆;&lt;/strong>&lt;/p>
@@ -2207,7 +2207,7 @@
 &lt;h2 id="一前言">一、前言&lt;/h2>
 &lt;h3 id="1问题引入">1、问题引入&lt;/h3>
 &lt;p>现如今我们在生活上都提倡节约环保，所以对于我们的所写的代码也不例外，能节省时间或空间，我们就应该去考虑节省。我们来思考一下二叉树的结构：&lt;/p>
-&lt;p>&lt;img src="https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/ThreadedBinaryTree01.png" alt="ThreadedBinaryTree01">&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/ThreadedBinaryTree01.png?raw=true" alt="ThreadedBinaryTree01">&lt;/p>
 &lt;p>二叉树的中序遍历结果为HDIBJEAFCG，可以得知A的前驱结点为E，后继结点为F。但是，这种关系的获得是建立在完成遍历后得到的，那么可不可以在建立二叉树时就记录下前驱后继的关系呢，那么在后续寻找前驱结点和后继结点时将大大提升效率。&lt;/p>
 &lt;p>还有就是我们可以观察到，EFGHIJ等结点都存在空的指针域，这样的话会造成空间上的浪费，所以该如何做，才能有效的处理这些问题呢？？&lt;/p>
 &lt;p>那也就是我们今天的重点内容—— &lt;strong>线索化二叉树&lt;/strong> 。&lt;/p>
@@ -2225,7 +2225,7 @@
 &lt;p>若结点的右子树为空，则该结点的右孩子指针指向其后继结点。&lt;/p>
 &lt;/blockquote>
 &lt;p>根据这个规则，我们将上图线索化之后，如下：&lt;/p>
-&lt;p>&lt;img src="https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/ThreadedBinaryTree02.png" alt="ThreadedBinaryTree02">&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/ThreadedBinaryTree02.png?raw=true" alt="ThreadedBinaryTree02">&lt;/p>
 &lt;p>图中黑色虚线为指向后继的线索，紫色虚线为指向前序的线索。可以看出通过线索化，即解决了空间浪费问题，又解决了前驱后继的记录问题。&lt;/p>
 &lt;hr>
 &lt;h2 id="二算法实现">二、算法实现&lt;/h2>
@@ -2490,7 +2490,7 @@
 &lt;h3 id="1顺序存储二叉树的概念">1、顺序存储二叉树的概念&lt;/h3>
 &lt;h4 id="基本说明">①基本说明&lt;/h4>
 &lt;p>从数据存储来看，数组存储方式和树的存储方式可以相互转换，即 &lt;strong>数组可以转换成数。数也可以转换成数组&lt;/strong> ，如下图：&lt;/p>
-&lt;p>&lt;img src="https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/ArrayBinaryTree01.png" alt="ArrayBinaryTree">&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/ArrayBinaryTree01.png?raw=true" alt="ArrayBinaryTree">&lt;/p>
 &lt;h4 id="要求">②要求&lt;/h4>
 &lt;ul>
 &lt;li>上图的二叉树的结点，要求以数组的方式来存放，arr = [1,2,3,4,5,6,7]；&lt;/li>
@@ -3007,7 +3007,7 @@
 &lt;p>&lt;strong>树（Tree）&lt;/strong> ：是n （n≥0）个结点的有限集。n=0时称为空树。在任意一棵非空树中：（1）有且仅有一个特定的称为根，root的结点；（2）当 n&amp;gt;1时，其余结点可分为m（m&amp;gt;0）个互相不相交的有限集T1、T2……Tm,其中每一个集合本身又是一棵树，并且称为根的子树。&lt;/p>
 &lt;/blockquote>
 &lt;p>如下图所示：&lt;/p>
-&lt;p>&lt;img src="https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/AboutTree01.png" alt="Tree01">&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/AboutTree01.png?raw=true" alt="Tree01">&lt;/p>
 &lt;h3 id="2树的结点">2、树的结点&lt;/h3>
 &lt;p>结点：使用树结构存储的每一个数据元素都被称为“结点”。例如，上图中，数据元素 A 就是一个结点；&lt;/p>
 &lt;p>父结点（双亲结点）、子结点和兄弟结点：对于上图中的结点 A、B、C、D 来说，A 是 B、C、D 结点的父结点（也称为“双亲结点”），而 B、C、D 都是 A 结点的子结点（也称“孩子结点”）。对于 B、C、D 来说，它们都有相同的父结点，所以它们互为兄弟结点。&lt;/p>
@@ -3049,7 +3049,7 @@
 &lt;/ol>
 &lt;/blockquote>
 &lt;p>例如，下图a) 就是一棵二叉树，而图 b) 则不是。&lt;/p>
-&lt;p>&lt;img src="https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/AboutTree02.gif" alt="AboutTree02">&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/AboutTree02.gif?raw=true" alt="AboutTree02">&lt;/p>
 &lt;h3 id="2二叉树的性质">2、二叉树的性质&lt;/h3>
 &lt;p>经过前人的总结，二叉树具有以下几个性质：&lt;/p>
 &lt;ol>
@@ -3068,7 +3068,7 @@
 &lt;blockquote>
 &lt;p>如果二叉树中除了叶子结点，每个结点的度都为 2，则此二叉树称为满二叉树。&lt;/p>
 &lt;/blockquote>
-&lt;p>&lt;img src="https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/AboutTree03.gif" alt="AboutTree03">&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/AboutTree03.gif?raw=true" alt="AboutTree03">&lt;/p>
 &lt;p>满二叉树除了满足普通二叉树的性质，还具有以下性质：&lt;/p>
 &lt;ol>
 &lt;li>满二叉树中第 i 层的节点数为 2n-1 个。&lt;/li>
@@ -3080,7 +3080,7 @@
 &lt;blockquote>
 &lt;p>如果二叉树中除去最后一层节点为满二叉树，且最后一层的结点依次从左到右分布，则此二叉树被称为完全二叉树。&lt;/p>
 &lt;/blockquote>
-&lt;p>&lt;img src="https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/AboutTree04.gif" alt="AboutTree04">&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/AboutTree04.gif?raw=true" alt="AboutTree04">&lt;/p>
 &lt;p>上图 所示是一棵完全二叉树，图中由于最后一层的节点没有按照从左向右分布，因此只能算作是普通的二叉树。&lt;/p>
 &lt;p>完全二叉树除了具有普通二叉树的性质，它自身也具有一些独特的性质，比如说，n 个结点的完全二叉树的深度为 ⌊log2n⌋+1。&lt;/p>
 &lt;p>⌊ log2n ⌋ 表示取小于 log2n 的最大整数。例如，⌊log2 4⌋ = 2，而 ⌊log2 5⌋ 结果也是 2。&lt;/p>
@@ -3186,7 +3186,7 @@
 &lt;li>2）findVal &amp;lt; arr[mid] 说明要查找的数在mid的左边，因此需要递归的向左查找；&lt;/li>
 &lt;li>3）findVal == arr[mid] 说明找到，就返回下标&lt;/li>
 &lt;/ul>
-&lt;p>&lt;img src="https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/binarySearch.png" alt="binarysearch">&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/binarySearch.png?raw=true" alt="binarysearch">&lt;/p>
 &lt;/li>
 &lt;/ol>
 &lt;h3 id="3思考">3、思考&lt;/h3>
@@ -3438,7 +3438,7 @@
 &lt;p>将所有待排序数值统一为同样数位长度（ &lt;em>以最高位为主，位数短的数前面补零&lt;/em> ），然后从最低位开始，依次进行一次排序。这样从最低位排序一直到最高位排序完成以后，数组就变成一个有序序列。&lt;/p>
 &lt;h3 id="3图文说明">3、图文说明&lt;/h3>
 &lt;p>可能看到这里，大部分读者还是挺懵的，下面我们结合一个动态图来进行理解。&lt;/p>
-&lt;p>&lt;img src="https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/RadixSort.gif" alt="RadixSort">&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/RadixSort.gif?raw=true" alt="RadixSort">&lt;/p>
 &lt;p>因为这里所使用的数组元素都是两位数的，即个位和十位，首先先根据个位数的大小进行排序，依次放入对应的位置（ &lt;em>也就是我们所讲的桶&lt;/em> ），然后根据放入的位置取出，然后再根据十位数的大小进行存放，这个顺序也就是排序之后的顺序。&lt;/p>
 &lt;hr>
 &lt;h2 id="二算法实现">二、算法实现&lt;/h2>
@@ -3676,15 +3676,15 @@
 &lt;/li>
 &lt;/ol>
 &lt;p>&lt;strong>如下图所示：&lt;/strong>
-&lt;img src="https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/mergesort01.png" alt="归并排序示意图">&lt;/p>
+&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/mergesort01.png?raw=true" alt="归并排序示意图">&lt;/p>
 &lt;h3 id="2具体操作">2、具体操作&lt;/h3>
 &lt;p>归并算法的实质在于把一个复杂的序列进行分解从而可以局部击破，变得简单化，下面我们举栗子，进行操作一把。在把数组进行分割之后，紧接着要做的事情就是 &lt;strong>治&lt;/strong> ，这里我们取最后一步做图解，实际上的操作过程是每 &lt;strong>分&lt;/strong> 一次，就要进行 &lt;strong>治&lt;/strong> 的操作。&lt;/p>
 &lt;h4 id="分合操作">①分合操作&lt;/h4>
 &lt;p>我们假设有一个数组如下：&lt;code>int[] arr = {5,4,7,9,3,8,2,1};&lt;/code> 那么我们根据前面所了解的规则，对其进行&lt;strong>分&lt;/strong> 。&lt;/p>
-&lt;p>&lt;img src="https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/mergesort02.png" alt="分+合">&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/mergesort02.png?raw=true" alt="分+合">&lt;/p>
 &lt;h4 id="治">②“治“&lt;/h4>
 &lt;p>实现规则如下：首先把一个数组分成左右两个部分，然后还要有一个空的数组，用作中转。在左右数组的两个部分，两边各还需要一个指针，分别进行扫描待排序的原始数组。在扫描的同时，把左右两个部分得到的元素进行比较，哪个较小则移入中转数组（这里我们是升序，降序反之即可），然后被移入元素的数组的指针依次后移，进行比较。&lt;/p>
-&lt;p>&lt;img src="https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/mergesort03.png" alt=""治"">&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/mergesort03.png?raw=true" alt=""治"">&lt;/p>
 &lt;hr>
 &lt;h2 id="二算法实现">二、算法实现&lt;/h2>
 &lt;p>由具体的实现操作可知，我们需要两个方法，一个进行 &lt;strong>分+合&lt;/strong> 的操作，另一个进行 &lt;strong>治&lt;/strong> 的操作。&lt;/p>
@@ -3957,7 +3957,7 @@
 &lt;p>&lt;strong>基本思想：&lt;/strong> 通过一趟排序将待排序记录分割成独立的两部分，其中一部分记录的关键字均比另一部分记录的关键字小，则可分别对这两部分记录继续进行排序，&lt;strong>整个排序过程可以递归进行&lt;/strong>，以达到整个序列有序的目的。&lt;/p>
 &lt;/blockquote>
 &lt;h3 id="2排序例图">2、排序例图&lt;/h3>
-&lt;p>&lt;img src="https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/QuickSort.png" alt="快速排序">&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/QuickSort.png?raw=true" alt="快速排序">&lt;/p>
 &lt;hr>
 &lt;h2 id="二算法实现">二、算法实现&lt;/h2>
 &lt;h3 id="1定义基本变量">1、定义基本变量&lt;/h3>
@@ -4192,7 +4192,7 @@
 &lt;p>简单插入排序很循规蹈矩，不管数组分布是怎么样的，依然一步一步的对元素进行比较，移动，插入，比如[5,4,3,2,1,0]这种倒序序列，数组末端的0要回到首位置很是费劲，比较和移动元素均需n-1次。而希尔排序在数组中采用跳跃式分组的策略，通过某个增量将数组元素划分为若干组，然后分组进行插入排序，随后逐步缩小增量，继续按组进行插入排序操作，直至增量为1。希尔排序通过这种策略使得整个数组在初始阶段达到从宏观上看基本有序，小的基本在前，大的基本在后。然后缩小增量，到增量为1时，其实多数情况下只需微调即可，不会涉及过多的数据移动。&lt;/p>
 &lt;p>我们来看下希尔排序的基本步骤，在此我们选择增量&lt;strong>gap=length/2&lt;/strong>，缩小增量继续以&lt;strong>gap = gap/2&lt;/strong> 的方式，这种增量选择我们可以用一个序列来表示，{n/2,(n/2)/2...1}，称为&lt;strong>增量序列&lt;/strong>。希尔排序的增量序列的选择与证明是个数学难题，我们选择的这个增量序列是比较常用的，也是希尔建议的增量，称为希尔增量，但其实这个增量序列不是最优的。此处我们做示例使用希尔增量。&lt;/p>
 &lt;h3 id="3举栗子">3、举栗子&lt;/h3>
-&lt;p>&lt;img src="https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/shellsort.png" alt="希尔排序">&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/shellsort.png?raw=true" alt="希尔排序">&lt;/p>
 &lt;hr>
 &lt;h2 id="二算法实现">二、算法实现&lt;/h2>
 &lt;p>希尔排序的实质是对于直接插入排序进行改进，所以我们分为&lt;strong>交换法&lt;/strong>和&lt;strong>移位法&lt;/strong>两种。&lt;/p>
