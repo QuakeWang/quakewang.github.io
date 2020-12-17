@@ -13,7 +13,7 @@ date: 2020-09-28T13:47:41+08:00
 
 从数据存储来看，数组存储方式和树的存储方式可以相互转换，即 **数组可以转换成数。数也可以转换成数组** ，如下图：
 
-![ArrayBinaryTree](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/ArrayBinaryTree01.png)
+![ArrayBinaryTree](https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/ArrayBinaryTree01.png?raw=true)
 
 #### ②要求
 

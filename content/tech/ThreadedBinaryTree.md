@@ -11,7 +11,7 @@ date: 2020-10-07T14:27:50+08:00
 
 现如今我们在生活上都提倡节约环保，所以对于我们的所写的代码也不例外，能节省时间或空间，我们就应该去考虑节省。我们来思考一下二叉树的结构：
 
-![ThreadedBinaryTree01](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/ThreadedBinaryTree01.png)
+![ThreadedBinaryTree01](https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/ThreadedBinaryTree01.png?raw=true)
 
 二叉树的中序遍历结果为HDIBJEAFCG，可以得知A的前驱结点为E，后继结点为F。但是，这种关系的获得是建立在完成遍历后得到的，那么可不可以在建立二叉树时就记录下前驱后继的关系呢，那么在后续寻找前驱结点和后继结点时将大大提升效率。
 
@@ -36,7 +36,7 @@ date: 2020-10-07T14:27:50+08:00
 
 根据这个规则，我们将上图线索化之后，如下：
 
-![ThreadedBinaryTree02](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/ThreadedBinaryTree02.png)
+![ThreadedBinaryTree02](https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/ThreadedBinaryTree02.png?raw=true)
 
 图中黑色虚线为指向后继的线索，紫色虚线为指向前序的线索。可以看出通过线索化，即解决了空间浪费问题，又解决了前驱后继的记录问题。
 

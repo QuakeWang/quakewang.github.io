@@ -29,7 +29,7 @@ date: 2020-08-22T20:19:43+08:00
 
 ### 3、举栗子
 
-![希尔排序](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/shellsort.png)
+![希尔排序](https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/shellsort.png?raw=true)
 
 ---
 

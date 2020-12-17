@@ -15,7 +15,7 @@ date: 2020-08-29T14:13:00+08:00
 
 ### 2、排序例图
 
-![快速排序](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/QuickSort.png)
+![快速排序](https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/QuickSort.png?raw=true)
 
 ---
 

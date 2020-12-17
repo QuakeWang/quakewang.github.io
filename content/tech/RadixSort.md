@@ -22,7 +22,7 @@ date: 2020-09-07T08:52:53+08:00
 
 可能看到这里，大部分读者还是挺懵的，下面我们结合一个动态图来进行理解。
 
-![RadixSort](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/RadixSort.gif)
+![RadixSort](https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/RadixSort.gif?raw=true)
 
 因为这里所使用的数组元素都是两位数的，即个位和十位，首先先根据个位数的大小进行排序，依次放入对应的位置（ *也就是我们所讲的桶* ），然后根据放入的位置取出，然后再根据十位数的大小进行存放，这个顺序也就是排序之后的顺序。
 

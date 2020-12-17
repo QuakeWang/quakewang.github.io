@@ -17,11 +17,11 @@ date: 2020-10-29T11:26:47+08:00
 
 >    **堆是具有以下性质的完全二叉树：每个结点的值都大于或等于其左右孩子结点的值，称为大顶堆；或者每个结点的值都小于或等于其左右孩子结点的值，称为小顶堆。如下图：**
 
-![HeapSort00](https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/HeapSort00.png?raw=true)
+![HeapSort00](https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/HeapSort00.png?raw=true)
 
 对吧，是不是堆形的。其实我们利用上一节说过[线索化二叉树](https://quakewang.github.io/tech/threadedbinarytree/)，将其存放在数组中进行操作，如下：
 
-![HeapSort001](https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/HeapSort001.png?raw=true)
+![HeapSort001](https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/HeapSort001.png?raw=true)
 
 这个数组从逻辑上说就是一个堆的结构，经过前人的总结，我们可以使用简单的公式描述一下堆：
 
@@ -43,19 +43,19 @@ date: 2020-10-29T11:26:47+08:00
 
 ##### a.假设给定无序序列结构如下：
 
-![Step01](https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/HeapSort01.png?raw=true)
+![Step01](https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/HeapSort01.png?raw=true)
 
 ##### b.此时我们从最后一个非叶子结点开始（叶结点自然不用调整，第一个非叶子结点 arr.length/2-1=5/2-1=1，也就是下面的6结点），从左至右，从下至上进行调整。
 
-![Step02](https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/HeapSort02.png?raw=true)
+![Step02](https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/HeapSort02.png?raw=true)
 
 ##### c.找到第二个非叶节点4，由于[4,9,8]中9元素最大，4和9交换。
 
-![Step03](https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/HeapSort03.png?raw=true)
+![Step03](https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/HeapSort03.png?raw=true)
 
 ##### d.这时，交换导致了子根[4,5,6]结构混乱，继续调整，[4,5,6]中6最大，交换4和6。
 
-![Step04](https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/HeapSort04.png?raw=true)
+![Step04](https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/HeapSort04.png?raw=true)
 
 此时，如此反复通过上述步骤，我们就将一个无序序列构建成了一个大顶堆。
 
@@ -63,19 +63,19 @@ date: 2020-10-29T11:26:47+08:00
 
 ##### a.将堆顶元素9和末尾元素4进行交换
 
-![Step05](https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/HeapSort05.png?raw=true)
+![Step05](https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/HeapSort05.png?raw=true)
 
 ##### b.重新调整结构，使其继续满足堆定义
 
-![Step06](https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/HeapSort06.png?raw=true)
+![Step06](https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/HeapSort05.png?raw=true)
 
 ##### c.再将堆顶元素8与末尾元素5进行交换，得到第二大元素8.
 
-![Step07](https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/HeapSort07.png?raw=true)
+![Step07](https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/HeapSort07.png?raw=true)
 
 ##### d.后续过程，继续进行调整，交换，如此反复进行，最终使得整个序列有序
 
-![Step08](https://github.com/QuakeWang/quakewang.github.io/blob/master/imag/HeapSort08.png?raw=true)
+![Step08](https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/HeapSort08.png?raw=true)
 
 #### ③小结
 

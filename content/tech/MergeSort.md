@@ -22,7 +22,7 @@ date: 2020-08-31T20:49:40+08:00
      ③  合并 -- 将已排序的两个子区间a[low...mid]和 a[mid+1...high]归并为一个有序的区间a[low...high]。
 
 **如下图所示：**
-![归并排序示意图](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/mergesort01.png)
+![归并排序示意图](https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/mergesort01.png?raw=true)
 
 ### 2、具体操作
 
@@ -32,13 +32,13 @@ date: 2020-08-31T20:49:40+08:00
 
 我们假设有一个数组如下：`int[] arr = {5,4,7,9,3,8,2,1};` 那么我们根据前面所了解的规则，对其进行**分** 。
 
-![分+合](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/mergesort02.png)
+![分+合](https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/mergesort02.png?raw=true)
 
 #### ②“治“
 
 实现规则如下：首先把一个数组分成左右两个部分，然后还要有一个空的数组，用作中转。在左右数组的两个部分，两边各还需要一个指针，分别进行扫描待排序的原始数组。在扫描的同时，把左右两个部分得到的元素进行比较，哪个较小则移入中转数组（这里我们是升序，降序反之即可），然后被移入元素的数组的指针依次后移，进行比较。
 
-!["治"](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/mergesort03.png)
+!["治"](https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/mergesort03.png?raw=true)
 
 ---
 

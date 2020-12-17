@@ -15,7 +15,7 @@ date: 2020-09-20T21:41:20+08:00
 
 如下图所示：
 
-![Tree01](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/AboutTree01.png)                                                                  
+![Tree01](https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/AboutTree01.png?raw=true)                                                                  
 
 ### 2、树的结点
 
@@ -84,7 +84,7 @@ Tree =（root,F）
 
 例如，下图a) 就是一棵二叉树，而图 b) 则不是。
 
-![AboutTree02](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/AboutTree02.gif)
+![AboutTree02](https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/AboutTree02.gif?raw=true)
 
 ### 2、二叉树的性质
 
@@ -104,7 +104,7 @@ Tree =（root,F）
 
 >    如果二叉树中除了叶子结点，每个结点的度都为 2，则此二叉树称为满二叉树。
 
-![AboutTree03](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/AboutTree03.gif)
+![AboutTree03](https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/AboutTree03.gif?raw=true)
 
 满二叉树除了满足普通二叉树的性质，还具有以下性质：
 
@@ -117,7 +117,7 @@ Tree =（root,F）
 
 >    如果二叉树中除去最后一层节点为满二叉树，且最后一层的结点依次从左到右分布，则此二叉树被称为完全二叉树。
 
-![AboutTree04](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/AboutTree04.gif)
+![AboutTree04](https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/AboutTree04.gif?raw=true)
 
 上图 所示是一棵完全二叉树，图中由于最后一层的节点没有按照从左向右分布，因此只能算作是普通的二叉树。
 

@@ -26,7 +26,7 @@ date: 2020-09-08T10:58:26+08:00
      -    2）findVal < arr[mid] 说明要查找的数在mid的左边，因此需要递归的向左查找；
      -    3）findVal == arr[mid] 说明找到，就返回下标
 
-     ![binarysearch](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/master/imag/binarySearch.png)
+     ![binarysearch](https://github.com/QuakeWang/quakewang.github.io/blob/master/content/imag/binarySearch.png?raw=true)
 
 ### 3、思考
 
