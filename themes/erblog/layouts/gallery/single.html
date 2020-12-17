@@ -1,0 +1,18 @@
+{{ define "main" }}
+
+<div class="layui-container" style="margin-bottom: 10px">
+    
+    <div class="layui-row">
+        <div class="layui-card single-card">
+            <br />
+            <blockquote class="self-elem-quote {{if isset $.Site.Params "quote"}}self-elem-quote-bg-{{index $.Site.Params.quote}}{{end}} markdown-body single-title" >
+                <h1>{{ .Title }}</h1>
+            </blockquote>
+            <div class="layui-card-body markdown-gallery single-content">
+                {{ .Content}}
+            </div>
+        </div>
+    </div>
+</div>
+
+{{end}}

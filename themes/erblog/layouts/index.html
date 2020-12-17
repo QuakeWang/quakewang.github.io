@@ -1,0 +1,59 @@
+{{ define "main" }}
+
+<main>
+<div class="layui-container">
+    <div class="layui-row about">
+        <div class="layui-col-xs12 layui-col-sm4 layui-col-md4 about_left">
+            <img class="lazyload about_portrait" data-src="{{ .Site.Params.portrait | default "self/img/avater.jpg" }}" />
+            <h1> {{ .Site.Params.author | default "Authors"}} </h1>
+            <h2> {{ .Site.Params.description | default "Intro"}} </h2>
+            
+            <!-- Icons -->
+            {{ if .Site.Menus.icon }}
+            <div class="layui-row layui-col-space10 about_left_icon">
+                {{ range sort .Site.Menus.icon }}
+                <div class="layui-col-md3 layui-col-sm3 layui-col-xs3">
+                <a href="{{ .URL }}"><i class="fa fa-{{ .Name }}" style="font-size:32px;"></i></a>
+                </div>
+                {{ end }}
+            </div>
+            {{ end }}
+
+        </div>
+        <div class="layui-col-xs12 layui-col-sm8 layui-col-md8 about_right">
+            <h1>Biography</h1>
+            <h2>{{ safeHTML .Site.Params.Bio }}</h2>
+        </div>
+    </div>
+</div>
+
+<div class="layui-fluid recent" >
+    <div class="layui-container">
+        <div class="layui-row recent-inner" >
+            <div class="layui-col-md8 layui-col-sm8 layui-col-xs12">
+                <h1> Recent Posts </h1>
+                {{ with (.Site.GetPage "section" "post")  }}
+                    {{$index_posts_num := $.Site.Params.index_posts_num | default 8}}
+                    {{range first $index_posts_num .Pages.ByDate.Reverse}}
+                        {{ partial "article" .}}
+                    {{end}}
+                {{ end }}
+            </div>
+
+            <div class="layui-col-md4 layui-col-sm4 layui-col-xs12">
+                {{ range $taxonomyname, $taxonomy := .Site.Taxonomies }}
+                    <h1><a href="{{ "/" | relLangURL}}{{ $taxonomyname | urlize }}">{{ $taxonomyname }}</a> </h1>
+                    {{ range $key, $value := $taxonomy }}
+                        <a href="{{ $taxonomyname | relLangURL }}/{{ $key | urlize | lower }}/">
+                            <span class="layui-badge {{with $.Site.Params.badge}}layui-bg-{{.}}{{end}}" style="margin: 5px">{{ $key }}</span>
+                        </a>
+                    {{end}}
+                {{end}}
+            </div>
+        </div>
+    </div>
+</div>
+
+</main>
+
+{{end}}

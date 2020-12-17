@@ -1,0 +1,19 @@
+{{ define "main" -}}
+<div class="post">
+  <h1>{{ .Title }}</h1>
+
+  {{ if ne .Type "page" -}}
+  <div class="post-date">
+    <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z0700" }}">{{ .Date.Format "Jan 2, 2006" }}</time> · {{ .ReadingTime }} min read
+  </div>
+  {{- end }}
+
+  {{ .Content }}
+</div>
+
+{{ if (and .Site.DisqusShortname (eq .Params.DisableComments false)) -}}
+<h2>Comments</h2>
+{{ template "_internal/disqus.html" . }}
+{{- end }}
+
+{{- end }}

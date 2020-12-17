@@ -1,0 +1,43 @@
+{{ define "main" }}
+<div class="layui-container" style="margin-bottom: 10px">
+    {{ $related := .Site.RegularPages.Related . | first 5 }}
+
+    <div class="layui-row layui-col-space10">
+        <div class="{{ if not $related }}layui-col-md12{{else}}layui-col-md8{{end}} layui-col-sm12 layui-col-xs12">
+            <div class="layui-card single-card">
+                <br />
+                <blockquote class="self-elem-quote {{if isset $.Site.Params "quote"}}self-elem-quote-bg-{{index $.Site.Params.quote}}{{end}} markdown-body single-title" >
+                    <h1>{{ .Title }}</h1>
+                    {{partial "info" .}}
+                </blockquote>
+                <div class="layui-card-body markdown-body single-content">
+                    {{ .Content }}
+                    {{- partial "self-define-single.html" . -}}
+                </div>
+            </div>
+        </div>
+
+        {{ if $related }}
+        <div class="layui-col-md4 layui-col-sm12 layui-col-xs12">
+            <div class="layui-card single-card">
+                <h1 class="single-title">Relevant Topics</h1>
+                {{ with $related }}
+                	{{ range . }}
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote {{if isset $.Site.Params "quote"}}self-elem-quote-bg-{{index $.Site.Params.quote}}{{end}}" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="{{.RelPermalink}}">
+                                <h2 class="">{{.Title}}</h2>
+                            </a>
+                            {{partial "info" .}}
+                        </blockquote>
+                    </div>
+                	{{ end }}
+                {{ end }}
+                <br />
+            </div>
+        </div>
+        {{ end }}
+    </div>
+</div>
+
+{{end}}

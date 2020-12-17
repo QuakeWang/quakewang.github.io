@@ -1,0 +1,23 @@
+<footer>
+    {{ if .Site.Menus.footer }}
+
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs6">
+                <h3> Related Sites </h3>
+            </div>
+        </div>
+        <div class="layui-row">
+            {{ range sort .Site.Menus.footer }}
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+                <a href="{{ .URL }}"><p class="footer-url">{{ .Name }}</p></a>
+            </div>
+            {{end}}
+        </div>
+    </div>
+    {{end}}
+    
+    <div class="layui-container">
+        <p class="copyright">{{ .Site.Params.copyright | default "&copy; All rights reserved. Powered by <a href='https://gohugo.io' style='color:#FFFFFF'>Hugo</a> and <a href='https://github.com/ertuil/erblog' style='color:#FFFFFF'>Erblog</a>." | safeHTML }}</p>
+    </div>
+</footer>
