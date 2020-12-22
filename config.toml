@@ -180,18 +180,18 @@ uglyURLs = false
 
 [menu]
     ## 菜单栏
- #   [[menu.main]]
- #   url = "/"
- #   name = "首页"
- #    weight = 1
- # pre = "internal"
- # post = "home"
-  #  [[menu.main]]
-  #     url = "/leetcode/"
-  #    name = "leetcode"
-  #      weight = 2
-  #    pre = "internal"
-  #      post = "archive"
+    [[menu.main]]
+    url = "/"
+    name = "首页"
+     weight = 1
+  pre = "internal"
+  post = "home"
+#  [[menu.main]]
+#     url = "/leetcode/"
+#    name = "leetcode"
+#      weight = 2
+#    pre = "internal"
+#      post = "archive"
    [[menu.main]]
         url = "/life/"
         name = "生活"
