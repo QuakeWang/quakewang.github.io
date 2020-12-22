@@ -186,12 +186,12 @@ uglyURLs = false
  #    weight = 1
  # pre = "internal"
  # post = "home"
-    [[menu.main]]
-        url = "/leetcode/"
-      name = "leetcode"
-        weight = 2
-      pre = "internal"
-        post = "archive"
+  #  [[menu.main]]
+  #     url = "/leetcode/"
+  #    name = "leetcode"
+  #      weight = 2
+  #    pre = "internal"
+  #      post = "archive"
    [[menu.main]]
         url = "/life/"
         name = "生活"
@@ -199,13 +199,13 @@ uglyURLs = false
         pre = "internal"
         post = "grav"
         identifier = "life"
- #  [[menu.main]]
- #     url = "/tech/"
- #    name = "技术"
- #       weight = 2
- #       pre = "internal"
- #       post = "wpexplorer"
- #       identifier = "tech"
+   [[menu.main]]
+      url = "/tech/"
+     name = "技术"
+        weight = 2
+        pre = "internal"
+        post = "wpexplorer"
+        identifier = "tech"
     [[menu.main]]
         url = "/about/"
         name = "关于"
