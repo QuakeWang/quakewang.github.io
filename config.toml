@@ -199,13 +199,13 @@ uglyURLs = false
         pre = "internal"
         post = "grav"
         identifier = "life"
-    [[menu.main]]
-        url = "/tech/"
-        name = "技术"
-        weight = 2
-        pre = "internal"
-        post = "wpexplorer"
-        identifier = "tech"
+ #  [[menu.main]]
+ #     url = "/tech/"
+ #    name = "技术"
+ #       weight = 2
+ #       pre = "internal"
+ #       post = "wpexplorer"
+ #       identifier = "tech"
     [[menu.main]]
         url = "/about/"
         name = "关于"
