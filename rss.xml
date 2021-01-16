@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>AKA二夕</title><link>https://quakewang.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.69.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (AKA二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (AKA二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Wed, 13 Jan 2021 15:47:56 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>TypeScript学习笔记02</title><link>https://quakewang.github.io/tech/typescript02/</link><guid isPermaLink="true">https://quakewang.github.io/tech/typescript02/</guid><pubDate>Tue, 22 Dec 2020 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="第二章面向对象">第二章：面向对象&lt;/h1>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>AKA二夕</title><link>https://quakewang.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.69.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (AKA二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (AKA二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sat, 16 Jan 2021 15:47:03 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>TypeScript学习笔记02</title><link>https://quakewang.github.io/tech/typescript02/</link><guid isPermaLink="true">https://quakewang.github.io/tech/typescript02/</guid><pubDate>Tue, 22 Dec 2020 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="第二章面向对象">第二章：面向对象&lt;/h1>
 &lt;p>面向对象是学习编程过程中一个非常重要的思想，但是它却被很多人理解成了一个比较难，比较深奥的问题，其实不然。其实面向对象在理解之后还是很简单的，简而言之就是程序之中所有的操作都需要通过对象来完成。&lt;/p>
 &lt;ul>
 &lt;li>举例来说：
@@ -2212,7 +2212,294 @@
 &lt;p>所以根据以上出现的问题，也就有了我们今天的主角：&lt;strong>平衡二叉树&lt;/strong>。&lt;/p>
 &lt;h3 id="2基本介绍">2、基本介绍&lt;/h3>
 &lt;p>平衡二叉树，也叫平衡二叉搜索树，又被称为 &lt;strong>AVL树&lt;/strong>，可以保证有较高的查询效率。同时具有以下特点：它是&lt;strong>一棵空树&lt;/strong> 或 &lt;strong>它的左右两个子树的高度差的绝对值不超过1&lt;/strong>，并且 &lt;strong>左右两个子树都是一棵平衡二叉树&lt;/strong>。&lt;/p>
-&lt;p>平衡二叉树的常用实现方法有红黑树、AVL、替罪羊树、Treap、伸展树等。&lt;/p></description></item><item><title>二叉排序树</title><link>https://quakewang.github.io/tech/bst/</link><guid isPermaLink="true">https://quakewang.github.io/tech/bst/</guid><pubDate>Sun, 22 Nov 2020 20:18:41 +0800</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="二叉排序树">二叉排序树&lt;/h1>
+&lt;p>平衡二叉树的常用实现方法有红黑树、AVL、替罪羊树、Treap、伸展树等。&lt;/p>
+&lt;p>下面我们将结合具体的实例，来一探平衡二叉树的究竟！！！&lt;/p>
+&lt;h2 id="二案例分析">二、案例分析&lt;/h2>
+&lt;h3 id="1应用案例左旋转">1、应用案例——左旋转&lt;/h3>
+&lt;p>1）要求：给你一个数列，创建出对应的平衡二叉树，数列{4, 3, 6, 5, 7, 8}&lt;/p>
+&lt;p>2）思路分析：&lt;/p>
+&lt;p>问题：当插入 8 时， &lt;code>rightHeight() - leftHeigth() &amp;gt; 1 &lt;/code> 成立，此时，不再是一颗AVL树了，因此我们需要怎么处理才能达到想要的效果呢？ ——&amp;gt; &lt;strong>左旋转&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>创建一个新的结点 &lt;code>newNode&lt;/code> （&lt;em>以4这个值创建&lt;/em>），值等于当前根结点的值；&lt;/li>
+&lt;li>把新结点的左子树设置成当前结点的左子树，&lt;code>newNode.left = left;&lt;/code>&lt;/li>
+&lt;li>把新结点的右子树设置为当前结点的右子树的左子树，&lt;code>newNode.right = right.left;&lt;/code>&lt;/li>
+&lt;li>把当前结点的值换为右子结点的值，&lt;code>value = right.value;&lt;/code>&lt;/li>
+&lt;li>把当前结点的右子树设置成右子树的右子树，&lt;code>right = right.right;&lt;/code>&lt;/li>
+&lt;li>把当前结点的左子树设置为新结点，&lt;code>left = newNode;&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>好了，完成了以上的操作，这时就已经成为了一颗AVL树，但是相信很多小伙伴读到这里，肯定很迷，不急不急请看下图：&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/Figure-bed/blob/master/DataStructures/LeftRotate.png?raw=true" alt="LeftROtate">&lt;/p>
+&lt;h3 id="2应用案例右旋转">2、应用案例——右旋转&lt;/h3>
+&lt;p>相信结合左旋转的代码和图片，大家已经可以完成了该操作。接下来我们来看看右旋转，其实说白了就是把左旋转 &amp;quot;反过来&amp;quot; 。&lt;/p>
+&lt;p>1）要求：给你一个数列，创建出对应的平衡二叉树，数列{10, 12, 8, 9, 7, 6}&lt;/p>
+&lt;p>2）思路分析：&lt;/p>
+&lt;p>问题：当插入 6 时， &lt;code>leftHeight() - rightHeigth() &amp;gt; 1 &lt;/code> 成立，此时，不再是一颗AVL树了，因此我们需要怎么处理才能达到想要的效果呢？ ——&amp;gt; &lt;strong>右旋转&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>创建一个新的结点 &lt;code>newNode&lt;/code> （&lt;em>以4这个值创建&lt;/em>），值等于当前根结点的值；&lt;/li>
+&lt;li>把新结点的右子树设置成当前结点的右子树，&lt;code>newNode.right = right;&lt;/code>&lt;/li>
+&lt;li>把新结点的左子树设置为当前结点的左子树的右子树，&lt;code>newNode.left = left.right;&lt;/code>&lt;/li>
+&lt;li>把当前结点的值换为左子结点的值，&lt;code>value = left.value;&lt;/code>&lt;/li>
+&lt;li>把当前结点的左子树设置成左子树的左子树，&lt;code>left = left.left;&lt;/code>&lt;/li>
+&lt;li>把当前结点的右子树设置为新结点，&lt;code>right = newNode;&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://github.com/QuakeWang/Figure-bed/blob/master/DataStructures/RightRotate.png?raw=true" alt="RightRotate">&lt;/p>
+&lt;h3 id="3应用案例双旋转">3、应用案例——双旋转&lt;/h3>
+&lt;p>你以为到这就结束了，想的太简单点了吧，还有一种情况就是只使用一次左旋转或者右旋转是达不到效果的，那就得进行双旋转咯。比如数列：&lt;code>int[] arr = {10, 11, 7, 6, 8, 9};&lt;/code> 运行原来的代码可以看见，并没有转成AVL树。这时我们就需要对问题进行剖析了：&lt;/p>
+&lt;p>&lt;strong>解决思路：&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>当符合右旋转的条件时&lt;/li>
+&lt;li>如果它的左子树的右子树高度大于它的左子树的高度&lt;/li>
+&lt;li>先对当前这个结点的左结点进行左旋转&lt;/li>
+&lt;li>再对当前结点进行右旋转的操作即可。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://github.com/QuakeWang/Figure-bed/blob/master/DataStructures/AVLTree.png?raw=true" alt="AVL">&lt;/p>
+&lt;hr>
+&lt;h2 id="三代码实现">三、代码实现&lt;/h2>
+&lt;h3 id="1返回以该结点为根结点树的高度">1、返回以该结点为根结点树的高度&lt;/h3>
+&lt;p>在比较两个结点的左右子树的差值的时候，我们首先需要获取当前根结点的高度。&lt;/p>
+&lt;p>使用Java内置的Math类库的max方法，从而返回较大的数值。这里我们对于左子树进行说明，（&lt;em>右子树也是同理&lt;/em>），&lt;code>left == null ? 0 : left.height()&lt;/code> 使用三目运算符，先判断left是否为空，如果为空，直接返回null，否则递归的遍历左子树。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code class="language-java" data-lang="java"> &lt;span class="c1">// 返回以该结点为根结点树的高度
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="nf">height&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">Math&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">max&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">left&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">null&lt;/span> &lt;span class="o">?&lt;/span> &lt;span class="n">0&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">left&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">height&lt;/span>&lt;span class="o">(),&lt;/span> &lt;span class="n">right&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">null&lt;/span> &lt;span class="o">?&lt;/span> &lt;span class="n">0&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">right&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">height&lt;/span>&lt;span class="o">())&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">1&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="2返回左子树的高度">2、返回左子树的高度&lt;/h3>
+&lt;p>先判断左子树是否为空 &lt;code>if(left == null)&lt;/code>，如果为空直接返回为0，否则调用&lt;code>height()&lt;/code> 方法。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code class="language-java" data-lang="java"> &lt;span class="c1">// 返回左子树的高度
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="nf">leftHeight&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="n">left&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">null&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">0&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">left&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">height&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="3返回右子树的高度">3、返回右子树的高度&lt;/h3>
+&lt;p>和左子树同理。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code class="language-java" data-lang="java"> &lt;span class="c1">// 返回右子树的高度
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="nf">rightHeight&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="n">right&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">null&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">0&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">right&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">height&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="4左右旋转方法">4、左右旋转方法&lt;/h3>
+&lt;p>在案例分析中，已经阐述了该方法的原理，这里就不做过多的赘述，直接上代码。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code class="language-java" data-lang="java"> &lt;span class="c1">// 左旋转方法
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kd">private&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">leftRotate&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="c1">// 创建新的结点，以当前根结点的值
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">Node&lt;/span> &lt;span class="n">newNode&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Node&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">value&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="c1">// 把新的结点的左子树设置成当前结点的左子树
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">newNode&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">left&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">left&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="c1">// 把新的结点的右子树设置成当前结点的右子树的左子树
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">newNode&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">right&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">right&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">left&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="c1">// 把当前结点的值替换成右子结点的值
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">value&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">right&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">value&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="c1">// 把当前面结点的右子树设置成当前结点右子树的右子树
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">right&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">right&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">right&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="c1">// 把当前结点的左子树（左子结点）设置成新的结点
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">left&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">newNode&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;span class="c1">// 右旋转方法
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kd">private&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">rightRotate&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="c1">// 创建新的结点，以当前根结点的值
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">Node&lt;/span> &lt;span class="n">newNode&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Node&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">value&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="c1">// 把新的结点的右子树设置成当前结点的右子树
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">newNode&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">right&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">right&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="c1">// 把新的结点的左子树设置成当前结点的左子树的右子树
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">newNode&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">left&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">left&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">right&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="c1">// 把当前结点的值替换成左子结点的值
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">value&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">left&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">value&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="c1">// 把当前结点的左子树设置成当前结点的左子树的左子树
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">left&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">left&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">left&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="c1">// 把当前结点的右子树（右子结点）设置成新结点
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">right&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">newNode&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="5添加结点">5、添加结点&lt;/h3>
+&lt;p>我们关于旋转方法的使用，是在添加结点的方法中实现。添加结点方法是基于&lt;a href="https://quakewang.github.io/tech/bst/">二叉排序树&lt;/a>的基础上完善的，如果还不了解的小伙伴可以去看上一篇博客。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code class="language-java" data-lang="java"> &lt;span class="c1">// 添加结点
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">add&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Node&lt;/span> &lt;span class="n">node&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="n">node&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">null&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="k">return&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;span class="c1">// 判断传入结点的值和当前子树根结点值的关系
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="n">node&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">value&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">value&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="c1">// 如果当前结点的左子结点为null
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">left&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">null&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="k">this&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">left&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">node&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="o">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="c1">// 递归的向左子树添加
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">left&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">add&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">node&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;span class="o">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="o">{&lt;/span>&lt;span class="c1">// 传入结点的值大于当前结点
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">right&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">null&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="k">this&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">right&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">node&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="o">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="c1">// 递归的向右子树添加
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">right&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">add&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">node&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;span class="c1">// 当添加一个结点后，如果：（右子树的高度 - 左子树的高度）&amp;gt; 1，左旋转
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="n">rightHeight&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">leftHeight&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">1&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="c1">// 如果它的右子树的左子树的高度大于它右子树的右子树高度
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="n">right&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">null&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="n">right&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">leftHeight&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">right&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">rightHeight&lt;/span>&lt;span class="o">())&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="c1">// 先对右子树进行旋转
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">right&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">rightRotate&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="c1">// 然后再对当前结点进行左旋转
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">leftRotate&lt;/span>&lt;span class="o">();&lt;/span>&lt;span class="c1">// 左旋转
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="o">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="c1">// 直接进行左旋转
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">leftRotate&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;span class="k">return&lt;/span>&lt;span class="o">;&lt;/span>&lt;span class="c1">// 必须要！！！
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="c1">// 当添加完一个结点后，如果（左子树的高度 - 右子树的高度）&amp;gt; 1，右旋转
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="n">leftHeight&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">rightHeight&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">1&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="c1">// 如果它的左子树的右子树的高度大于它的左子树的左子树的高度
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="n">left&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">null&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="n">left&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">rightHeight&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">left&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">leftHeight&lt;/span>&lt;span class="o">())&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="c1">// 先对左子结点进行右旋转
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">left&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">leftRotate&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="c1">// 然后再对当前结点进行右旋转
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">rightRotate&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="o">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="c1">// 直接进行右旋转
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">rightRotate&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="四结束语">四、结束语&lt;/h2>
+&lt;p>到此，关于AVL树的相关操作我们已经完成，但对于遍历、输出等函数这里并没有进行相关说明，因为这些方法在前面已经说过很多类似的了，所以就把内容更侧重于关于具体问题算法的实现。&lt;/p>
+&lt;p>&lt;em>说实话，有的时候不push自己，可能永远不会继续写下去&lt;/em>&lt;/p>
+&lt;p>源码地址 ——&amp;gt;&lt;a href="https://github.com/QuakeWang/DataStructure/blob/master/src/com/quake/avl/AVLTreeDemo.java">AVLTree&lt;/a>&lt;/p></description></item><item><title>二叉排序树</title><link>https://quakewang.github.io/tech/bst/</link><guid isPermaLink="true">https://quakewang.github.io/tech/bst/</guid><pubDate>Sun, 22 Nov 2020 20:18:41 +0800</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="二叉排序树">二叉排序树&lt;/h1>
 &lt;h2 id="一前言">一、前言&lt;/h2>
 &lt;h3 id="1引子">1、引子&lt;/h3>
 &lt;p>假设现在有一个数组&lt;code>{7, 3, 10, 12, 5, 1, 9}&lt;/code> ，现在要求能够高效的完成对数据的添加、删除以及查询操作。&lt;/p>
