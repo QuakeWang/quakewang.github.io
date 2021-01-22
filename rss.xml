@@ -1,4 +1,152 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>AKA二夕</title><link>https://quakewang.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.69.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (AKA二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (AKA二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 19 Jan 2021 09:55:02 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>TypeScript学习笔记02</title><link>https://quakewang.github.io/tech/typescript02/</link><guid isPermaLink="true">https://quakewang.github.io/tech/typescript02/</guid><pubDate>Tue, 22 Dec 2020 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="第二章面向对象">第二章：面向对象&lt;/h1>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>AKA二夕</title><link>https://quakewang.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.69.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (AKA二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (AKA二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Fri, 22 Jan 2021 16:01:52 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>数据结构——赫夫曼树</title><link>https://quakewang.github.io/tech/huffmantree/</link><guid isPermaLink="true">https://quakewang.github.io/tech/huffmantree/</guid><pubDate>Tue, 19 Jan 2021 17:36:47 +0800</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="赫夫曼树">赫夫曼树&lt;/h1>
+&lt;h2 id="一前言">一、前言&lt;/h2>
+&lt;h3 id="1基本介绍">1、基本介绍&lt;/h3>
+&lt;ul>
+&lt;li>给定 n 个权值作为 n 个叶子结点，构造一颗二叉树，&lt;strong>若该树的带权路径（wpl）达到最小&lt;/strong> ，称这样的二叉树为最优二叉树，也称为赫夫曼树（Huffman Tree）；&lt;/li>
+&lt;li>赫夫曼树是带权路径长度最短的树，权值较大的结点离根较近。&lt;/li>
+&lt;/ul>
+&lt;h3 id="2重要概念">2、重要概念&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>路径和路径长度：&lt;/strong> 在一棵树中，从一个结点往下可以达到的孩子或孙子结点之间的通路，称为路径；通路中分支的数目称为路径的长度；若规定根结点的层数为1，则从根结点到第L层结点的路径长度为 L - 1；&lt;/li>
+&lt;li>&lt;strong>结点的权以及带权路径的长度：&lt;/strong> 若将树中结点赋给一个有着某种含义的数值，则这个数值称为该结点的权；结点的带权路径的长度为：从根结点到该结点之间的路径长度与该结点的权的乘积；&lt;/li>
+&lt;li>&lt;strong>树的带权路径长度：&lt;/strong> 树的带权路径长度规定为所有叶子结点的带权路径长度之和，记为WPL（weighted path length），权值越大的结点离根结点越近的二叉树才是最优二叉树；&lt;/li>
+&lt;li>&lt;strong>WPL最小的就是赫夫曼树&lt;/strong>。&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="二案例分析">二、案例分析&lt;/h2>
+&lt;p>&lt;strong>要求：&lt;/strong> 给一个数列{13, 7, 8, 3, 29, 6, 1}，转成一颗赫夫曼树。&lt;/p>
+&lt;h3 id="1思路分析">1、思路分析&lt;/h3>
+&lt;p>1）从小到大进行排序，将每一个数据（每个数据就是一个结点），每个结点都可以看成是一颗最简单的二叉树；&lt;/p>
+&lt;p>2）取出根结点权值最小的两颗二叉树；&lt;/p>
+&lt;p>3）组成一颗新的二叉树，该新的二叉树的根结点的权值是前面两颗二叉树根结点权值的和；&lt;/p>
+&lt;p>4）再将这颗新的二叉树，以根结点的权值大小，依次排序，不断重复 1-2-3-4步骤，直到所有数据都被处理，就得到一颗赫夫曼树。&lt;/p>
+&lt;h3 id="2图解">2、图解&lt;/h3>
+&lt;p>&lt;em>其中蓝色的结点表示数列中需要调整的结点，绿色表示新生成的结点&lt;/em>&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/Figure-bed/blob/master/DataStructures/HuffmanTree01.png?raw=true" alt="HuffmanTree">&lt;/p>
+&lt;hr>
+&lt;h2 id="三代码实现">三、代码实现&lt;/h2>
+&lt;h3 id="1结点类node">1、结点类Node&lt;/h3>
+&lt;h4 id="定义基础变量及说明">①定义基础变量及说明&lt;/h4>
+&lt;p>该类用于定义结点属性，以及相关实现方法。由于需要对Node结点进行排序，这里引入 &lt;strong>Collections&lt;/strong> 集合排序，实现 &lt;strong>Comparable&lt;/strong>。&lt;/p>
+&lt;p>&lt;strong>代码实现如下：&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="c1">// 创建类结点
+&lt;/span>&lt;span class="c1">// 为了让Node对象持续排序 Collections 集合排序，实现 Comparable 接口
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kd">class&lt;/span> &lt;span class="nc">Node&lt;/span> &lt;span class="kd">implements&lt;/span> &lt;span class="n">Comparable&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Node&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="kt">int&lt;/span> &lt;span class="n">value&lt;/span>&lt;span class="o">;&lt;/span>&lt;span class="c1">// 结点权值
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">Node&lt;/span> &lt;span class="n">left&lt;/span>&lt;span class="o">;&lt;/span>&lt;span class="c1">// 指向左子结点
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">Node&lt;/span> &lt;span class="n">right&lt;/span>&lt;span class="o">;&lt;/span>&lt;span class="c1">// 指向右子结点
+&lt;/span>&lt;span class="c1">&lt;/span>
+&lt;span class="c1">// 构造器
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="nf">Node&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">value&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="k">this&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">value&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">value&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;span class="nd">@Override&lt;/span>
+&lt;span class="kd">public&lt;/span> &lt;span class="n">String&lt;/span> &lt;span class="nf">toString&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="s">&amp;#34;Node{&amp;#34;&lt;/span> &lt;span class="o">+&lt;/span>
+&lt;span class="s">&amp;#34;value=&amp;#34;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">value&lt;/span> &lt;span class="o">+&lt;/span>
+&lt;span class="sc">&amp;#39;}&amp;#39;&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="前序遍历方法">②前序遍历方法&lt;/h4>
+&lt;p>这里我们使用前序遍历输出赫夫曼树。&lt;/p>
+&lt;p>根据前序遍历的框架，首先输出当前结点，然后判断左子结点是否为空，如果不为空则递归输出；最后判断右子结点是否为空，如果不为空，递归输出即可。&lt;/p>
+&lt;p>&lt;strong>代码实现如下：&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code class="language-java" data-lang="java"> &lt;span class="c1">// 前序遍历
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">preOrder&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">left&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">null&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="k">this&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">left&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">preOrder&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">right&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">null&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="k">this&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">right&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">preOrder&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="compareto函数">③compareTo函数&lt;/h4>
+&lt;p>利用 &lt;strong>compareTo函数&lt;/strong> 对结点进行排序，按照从小到大进行排序。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code class="language-java" data-lang="java"> &lt;span class="nd">@Override&lt;/span>
+&lt;span class="kd">public&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="nf">compareTo&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Node&lt;/span> &lt;span class="n">node&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="c1">// 表示从小到大排序
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">value&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">node&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">value&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="2huffmantree类主类">2、HuffmanTree类（主类）&lt;/h3>
+&lt;h4 id="重载前序遍历方法">①重载前序遍历方法&lt;/h4>
+&lt;p>重载&lt;strong>Node结点类&lt;/strong>的 &lt;strong>preOrder()方法&lt;/strong> ，加上判断条件，如果为空，则输出相关信息即可。&lt;/p>
+&lt;p>&lt;strong>代码实现如下：&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code class="language-java" data-lang="java"> &lt;span class="c1">// 编写一个前序遍历的方法
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">preOrder&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Node&lt;/span> &lt;span class="n">root&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="n">root&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">null&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="n">root&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">preOrder&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="o">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;是空树，无法完成遍历~~~&amp;#34;&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="创建赫夫曼树方法">②创建赫夫曼树方法&lt;/h4></description></item><item><title>TypeScript学习笔记02</title><link>https://quakewang.github.io/tech/typescript02/</link><guid isPermaLink="true">https://quakewang.github.io/tech/typescript02/</guid><pubDate>Tue, 22 Dec 2020 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="第二章面向对象">第二章：面向对象&lt;/h1>
 &lt;p>面向对象是学习编程过程中一个非常重要的思想，但是它却被很多人理解成了一个比较难，比较深奥的问题，其实不然。其实面向对象在理解之后还是很简单的，简而言之就是程序之中所有的操作都需要通过对象来完成。&lt;/p>
 &lt;ul>
 &lt;li>举例来说：
@@ -9278,4 +9426,4 @@
 &lt;/div>&lt;hr>
 &lt;h2 id="三结束语">三、结束语：&lt;/h2>
 &lt;p>​ 第一次写偏向于技术性的博客，关于内容排版以及问题描述可能存在许多不足之处，以后会慢慢改进。起初打算利用图解实现该过程，在实际算法实现的时候，发现该内容比较简单，所以采用了文字描述！&lt;/p>
-&lt;p>​ 源码我已push到我的Github仓库，&lt;a href="https://github.com/QuakeWang/DataStructes">数据结构&lt;/a>，小伙伴们，如果发现有哪些不足之处，或者需要改善的内容，可以提交pr噢！！！&lt;/p></description></item><item><title/><link>https://quakewang.github.io/tech/huffmantree/</link><guid isPermaLink="true">https://quakewang.github.io/tech/huffmantree/</guid><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description/></item></channel></rss>
+&lt;p>​ 源码我已push到我的Github仓库，&lt;a href="https://github.com/QuakeWang/DataStructes">数据结构&lt;/a>，小伙伴们，如果发现有哪些不足之处，或者需要改善的内容，可以提交pr噢！！！&lt;/p></description></item></channel></rss>
