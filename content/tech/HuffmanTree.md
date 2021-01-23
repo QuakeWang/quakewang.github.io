@@ -131,4 +131,85 @@ class Node implements Comparable<Node> {
 
 #### ②创建赫夫曼树方法
 
+该方法也是本次内容的重点了，接下来，我们细细分析。先说明：需要一个创建赫夫曼树的数组，创建好赫夫曼树之后，以root结点进行返回。
+
+拿到数组之后，我们需要做的第一件事就是，遍历arr数组，将arr的每个元素构成一个Node，最后将Node放入到ArrayList中。
+
+```java
+        ArrayList<Node> nodes = new ArrayList<>();
+        for (int value : arr) {
+            nodes.add(new Node(value));
+        }
+```
+
+经过上述处理之后，我们就得到了一个nodes，紧接着对此进行展开操作。前面提到，我们需要对数组进行从小到大的排序，所以`Collections.sort(nodes);` 
+
+**形成赫夫曼树的操作：**
+
+1）取出权值最小的结点（二叉树），*因为经过排序，所以下标为0的结点就是最小的；*
+
+2）取出权值第二小的结点（二叉树）；
+
+3）构建一棵新的二叉树，*新二叉树的权值为左子结点和右子结点的权值之和*；
+
+4）从ArrayList删除处理过的二叉树，*直接使用remove方法即可*；
+
+5）将parent结点加入到nodes中。
+
+**代码实现如下：**
+
+```java
+    /**
+     * 创建哈夫曼树的方法
+     *
+     * @param arr 需要创建哈夫曼树的数组
+     * @return 创建好后的哈夫曼树的root结点
+     */
+    public static Node createHuffmanTree(int[] arr) {
+        /**
+         * 1、遍历arr数组；
+         * 2、将arr的每个元素构成一个Node
+         * 3、将Node放入到ArrayList中
+         */
+        ArrayList<Node> nodes = new ArrayList<>();
+        for (int value : arr) {
+            nodes.add(new Node(value));
+        }
+
+        // 进行循环处理
+        while (nodes.size() > 1) {
+            // 排序 从小到大
+            Collections.sort(nodes);
+
+            System.out.println("nodes = " + nodes);
+
+            // 取出根结点权值最小的两棵二叉树
+            // 1、取出权值最小的结点（二叉树）
+            Node leftNode = nodes.get(0);
+            // 2、取出权值第二小的结点（二叉树）
+            Node rightNode = nodes.get(1);
+            // 3、构建一颗新的二叉树
+            Node parent = new Node(leftNode.value + rightNode.value);
+            parent.left = leftNode;
+            parent.right = rightNode;
+            // 4、从ArrayList删除处理过的二叉树
+            nodes.remove(leftNode);
+            nodes.remove(rightNode);
+            // 5、将parent结点加入到nodes中
+            nodes.add(parent);
+        }
+        // 返回哈夫曼树的root结点
+        return nodes.get(0);
+    }
+```
+
+----
+
+## 四、结束语
+
+经过以上的操作，我们就完成了一棵赫夫曼树，根据赫夫曼的特点，有一种编码叫做赫夫曼编码，这个因为牵涉到的代码量较大，我们就有时间再说。
+
+此外，对于赫夫曼树的测试主方法，并没有说明，小朋友们可以自行完善。
+
+源码地址 ——> [HuffmanTree](https://github.com/QuakeWang/DataStructure/blob/master/src/com/quake/huffmantree/HuffmanTree.java)
 
