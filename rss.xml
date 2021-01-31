@@ -1,7 +1,205 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>AKA二夕</title><link>https://quakewang.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.69.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (AKA二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (AKA二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sat, 30 Jan 2021 08:25:50 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>图——基本概念以及相关方法</title><link>https://quakewang.github.io/tech/graph01/</link><guid isPermaLink="true">https://quakewang.github.io/tech/graph01/</guid><pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="图">图&lt;/h1>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>AKA二夕</title><link>https://quakewang.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.69.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (AKA二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (AKA二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sun, 31 Jan 2021 15:10:17 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>图——基本概念以及相关方法</title><link>https://quakewang.github.io/tech/graph01/</link><guid isPermaLink="true">https://quakewang.github.io/tech/graph01/</guid><pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="图">图&lt;/h1>
 &lt;p>在前面我们了解了线性表和树的相关知识，知道了线性表局限于一个直接前驱和一个直接后继的关系，而树也只能有一个直接前驱也就是父结点。当我们需要表示多&lt;strong>多对多&lt;/strong>的关系时，这里我们就用到了&lt;strong>图&lt;/strong>。&lt;/p>
-&lt;h2 id="一图的基本概念">一、图的基本概念&lt;/h2>
-&lt;p>图是一种数据结构，其中结点可以具有零个或多个相邻元素。两个结点之间的连接称为边。结点也可以称为顶点。&lt;/p></description></item><item><title>数据结构——赫夫曼树</title><link>https://quakewang.github.io/tech/huffmantree/</link><guid isPermaLink="true">https://quakewang.github.io/tech/huffmantree/</guid><pubDate>Tue, 19 Jan 2021 17:36:47 +0800</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="赫夫曼树">赫夫曼树&lt;/h1>
+&lt;h2 id="一前言">一、前言&lt;/h2>
+&lt;h3 id="1图的基本概念">1、图的基本概念&lt;/h3>
+&lt;p>图是一种数据结构，其中结点可以具有零个或多个相邻元素。两个结点之间的连接称为边。结点也可以称为顶点。&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/Figure-bed/blob/master/DataStructures/graph01.gif?raw=true" alt="graph01">
+图 1 图存储结构示意图&lt;/p>
+&lt;p>图 1 所示为存储 V1、V2、V3、V4 的图结构，从图中可以清楚的看出数据之间具有的&amp;quot;多对多&amp;quot;关系。例如，V1 与 V4 和 V2 建立着联系，V4 与 V1 和 V3 建立着联系，以此类推。与&lt;a href="https://quakewang.github.io/tech/singlelinkedlist/">链表&lt;/a>不同，图中存储的各个数据元素被称为顶点（而不是节点）。拿图 1 来说，该图中含有 4 个顶点，分别为顶点 V1、V2、V3 和 V4。图存储结构中，习惯上用 Vi 表示图中的顶点，且所有顶点构成的集合通常用 V 表示，如图 1 中顶点的集合为 V={V1,V2,V3,V4}。注意，图 1 中的图仅是图存储结构的其中一种，数据之间 &amp;quot;多对多&amp;quot; 的关系还可能用如图 2 所示的图结构表示：&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/Figure-bed/blob/master/DataStructures/graph02.gif?raw=true" alt="graph02">
+图 2 有向图示意图&lt;/p>
+&lt;p>可以看到，各个顶点之间的关系并不是&amp;quot;双向&amp;quot;的。比如，V4 只与 V1 存在联系（从 V4 可直接找到 V1），而与 V3 没有直接联系；同样，V3 只与 V4 存在联系（从 V3 可直接找到 V4），而与 V1 没有直接联系，以此类推。&lt;/p>
+&lt;p>因此，图存储结构可细分两种表现类型，分别为无向图（图 1）和有向图（图 2）。&lt;/p>
+&lt;h3 id="2图的基本常识">2、图的基本常识&lt;/h3>
+&lt;h4 id="弧头和弧尾">①弧头和弧尾&lt;/h4>
+&lt;p>有向图中，无箭头一端的顶点通常被称为&amp;quot;初始点&amp;quot;或&amp;quot;弧尾&amp;quot;，箭头直线的顶点被称为&amp;quot;终端点&amp;quot;或&amp;quot;弧头&amp;quot;。&lt;/p>
+&lt;h4 id="入度和出度">②入度和出度&lt;/h4>
+&lt;p>对于有向图中的一个顶点 V 来说，箭头指向 V 的弧的数量为 V 的入度（InDegree，记为 ID(V)）；箭头远离 V 的弧的数量为 V 的出度（OutDegree，记为OD(V)）。拿图 2 中的顶点 V1来说，该顶点的入度为 1，出度为 2（该顶点的度为 3）。&lt;/p>
+&lt;h4 id="v1v2-和-v1v2-的区别">④(V1,V2) 和 &amp;lt;V1,V2&amp;gt; 的区别&lt;/h4>
+&lt;p>无向图中描述两顶点（V1 和 V2）之间的关系可以用 (V1,V2) 来表示，而有向图中描述从 V1 到 V2 的&amp;quot;单向&amp;quot;关系用 &amp;lt;V1,V2&amp;gt; 来表示。&lt;/p>
+&lt;p>由于图存储结构中顶点之间的关系是用线来表示的，因此 (V1,V2) 还可以用来表示无向图中连接 V1 和 V2 的线，又称为边；同样，&amp;lt;V1,V2&amp;gt; 也可用来表示有向图中从 V1 到 V2 带方向的线，又称为弧。&lt;/p>
+&lt;h4 id="集合-vr-的含义">⑤集合 VR 的含义&lt;/h4>
+&lt;p>并且，图中习惯用 VR 表示图中所有顶点之间关系的集合。例如，图 1 中无向图的集合 VR={(v1,v2),(v1,v4),(v1,v3),(v3,v4)}，图 2 中有向图的集合 VR={&amp;lt;v1,v2&amp;gt;,&amp;lt;v1,v3&amp;gt;,&amp;lt;v3,v4&amp;gt;,&amp;lt;v4,v1&amp;gt;}。&lt;/p>
+&lt;h4 id="路径和回路">⑥路径和回路&lt;/h4>
+&lt;p>无论是无向图还是有向图，从一个顶点到另一顶点途径的所有顶点组成的序列（包含这两个顶点），称为一条路径。如果路径中第一个顶点和最后一个顶点相同，则此路径称为&amp;quot;回路&amp;quot;（或&amp;quot;环&amp;quot;）。&lt;/p>
+&lt;p>并且，若路径中各顶点都不重复，此路径又被称为&amp;quot;简单路径&amp;quot;；同样，若回路中的顶点互不重复，此回路被称为&amp;quot;简单回路&amp;quot;（或简单环）。&lt;/p>
+&lt;p>拿图 1 来说，从 V1 存在一条路径还可以回到 V1，此路径为 {V1,V3,V4,V1}，这是一个回路（环），而且还是一个简单回路（简单环）。&lt;/p>
+&lt;p>在有向图中，每条路径或回路都是有方向的。&lt;/p>
+&lt;h4 id="权和网的含义">⑦权和网的含义&lt;/h4>
+&lt;p>在某些实际场景中，图中的每条边（或弧）会赋予一个实数来表示一定的含义，这种与边（或弧）相匹配的实数被称为&amp;quot;权&amp;quot;，而带权的图通常称为网。如图 3 所示，就是一个网结构：&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/Figure-bed/blob/master/DataStructures/graph03.gif?raw=true" alt="graph03">)
+图 3 带权的图存储结构&lt;/p>
+&lt;p>子图：指的是由图中一部分顶点和边构成的图，称为原图的子图。&lt;/p>
+&lt;h3 id="3图存储结构的分类">3、图存储结构的分类&lt;/h3>
+&lt;p>根据不同的特征，图又可分为完全图，连通图、稀疏图和稠密图：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>完全图：若图中各个顶点都与除自身外的其他顶点有关系，这样的无向图称为&lt;/p>
+&lt;p>完全图&lt;/p>
+&lt;p>（如图 4a)）。同时，满足此条件的有向图则称为&lt;/p>
+&lt;p>有向完全图&lt;/p>
+&lt;p>（图 4b)）。&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/Figure-bed/blob/master/DataStructures/graph04.gif?raw=true" alt="graph04">
+图 4 完全图示意图&lt;/p>
+&lt;p>具有 n 个顶点的完全图，图中边的数量为 n(n-1)/2；而对于具有 n 个顶点的有向完全图，图中弧的数量为 n(n-1)。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>稀疏图和稠密图：这两种图是相对存在的，即如果图中具有很少的边（或弧），此图就称为&amp;quot;稀疏图&amp;quot;；反之，则称此图为&amp;quot;稠密图&amp;quot;。&lt;/p>
+&lt;p>稀疏和稠密的判断条件是：e&amp;lt;nlogn，其中 e 表示图中边（或弧）的数量，n 表示图中顶点的数量。如果式子成立，则为稀疏图；反之为稠密图。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="4图的表示方式">4、图的表示方式&lt;/h3>
+&lt;p>图的表示方式有两种：二维数组表示（邻接矩阵），链表表示（邻接表）。&lt;/p>
+&lt;h4 id="邻接矩阵">①邻接矩阵&lt;/h4>
+&lt;p>邻接矩阵是表示图中顶点之间相邻关系的矩阵，对于n个顶点的图而言，矩阵是row和col表示的是1……n个点。&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/Figure-bed/blob/master/DataStructures/graph05.gif?raw=true" alt="graph05">&lt;/p>
+&lt;h4 id="邻接表">②邻接表&lt;/h4>
+&lt;p>邻接矩阵需要为每个顶点都分配n个边的空间，其实有很多边都是不存在的，从而会造成空间上的一定损失；邻接表的实现只关心存在的边，不关心不存在的边。因此没有空间浪费，邻接表由数组+链表组成。&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/Figure-bed/blob/master/DataStructures/graph06.gif?raw=true" alt="graph06">&lt;/p>
+&lt;hr>
+&lt;h2 id="二算法实现">二、算法实现&lt;/h2>
+&lt;p>这里我们使用二维数组来创建一个简单的图。以及相关的实现方法，留着下节使用。&lt;/p>
+&lt;h3 id="1定义基本变量">1、定义基本变量&lt;/h3>
+&lt;p>没啥好说的，直接看代码，与以前一样，使用构造器，哈哈哈哈。&lt;/p>
+&lt;p>&lt;strong>代码实现如下：&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="kd">public&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">Graph&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="kd">private&lt;/span> &lt;span class="n">ArrayList&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">vertexList&lt;/span>&lt;span class="o">;&lt;/span>&lt;span class="c1">// 存储顶点集合
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kd">private&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="o">[][]&lt;/span> &lt;span class="n">edges&lt;/span>&lt;span class="o">;&lt;/span>&lt;span class="c1">// 存储图对应的邻接矩阵
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kd">private&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">numOfEdges&lt;/span>&lt;span class="o">;&lt;/span>&lt;span class="c1">// 表示边的数目
+&lt;/span>&lt;span class="c1">&lt;/span>
+&lt;span class="c1">// 构造器
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kd">public&lt;/span> &lt;span class="nf">Graph&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">n&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="c1">// 初始化矩阵和vertexList
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">edges&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="o">[&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="o">][&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="o">];&lt;/span>
+&lt;span class="n">vertexList&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">ArrayList&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">&amp;gt;(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="o">);&lt;/span>
+&lt;span class="n">numOfEdges&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">0&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="2常见方法">2、常见方法&lt;/h3>
+&lt;h4 id="返回顶点的个数">①返回顶点的个数&lt;/h4>
+&lt;p>因为我们使用的是ArrayList定义的顶点，所以可以直接用于其中的 &lt;strong>size()&lt;/strong>，来表示顶点的个数即可。&lt;/p>
+&lt;p>&lt;strong>代码实现如下：&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code class="language-java" data-lang="java"> &lt;span class="kd">public&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="nf">getNumOfVertex&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">vertexList&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">size&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="返回边的数目">②返回边的数目&lt;/h4>
+&lt;p>这个就更简单的了，直接一个return完事。&lt;/p>
+&lt;p>&lt;strong>代码实现如下：&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code class="language-java" data-lang="java"> &lt;span class="kd">public&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="nf">getNumOfEdges&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">numOfEdges&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="返回边的权值">③返回边的权值&lt;/h4>
+&lt;p>每个顶点是由两条边 v1 和 v2共同组成的，所以直接对应的边数组元素即可。&lt;/p>
+&lt;p>&lt;strong>代码实现如下：&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code class="language-java" data-lang="java"> &lt;span class="kd">public&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="nf">getWeight&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">v1&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">v2&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">edges&lt;/span>&lt;span class="o">[&lt;/span>&lt;span class="n">v1&lt;/span>&lt;span class="o">][&lt;/span>&lt;span class="n">v2&lt;/span>&lt;span class="o">];&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="显示对应的矩阵">④显示对应的矩阵&lt;/h4>
+&lt;p>使用for…each循环遍历edges数组即可。&lt;/p>
+&lt;p>&lt;strong>代码实现如下：&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code class="language-java" data-lang="java"> &lt;span class="kd">public&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">showGraph&lt;/span>&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="k">for&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="o">[]&lt;/span> &lt;span class="n">edge&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">edges&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="n">System&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">Arrays&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">toString&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">edge&lt;/span>&lt;span class="o">));&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="3构造邻接矩阵">3、构造邻接矩阵&lt;/h3>
+&lt;p>这个就是重点咯！！！&lt;/p>
+&lt;p>首先我们要明白一个小学一年级就掌握了的基本常识，那就是 &lt;strong>任意一个线段，有两个端点&lt;/strong>。别小瞧这个哈，我们想想图不正是各个顶点由线段链接起来的嘛，所以我们需要保证两个顶点的权值一样，也就是来回路径保持一致，则证明这条边是通的，最后边数+1。&lt;/p>
+&lt;p>&lt;strong>代码实现如下：&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code class="language-java" data-lang="java"> &lt;span class="cm">/**
+&lt;/span>&lt;span class="cm"> * 添加边的方法
+&lt;/span>&lt;span class="cm"> *
+&lt;/span>&lt;span class="cm"> * @param v1 表示点的下标即第几个顶点
+&lt;/span>&lt;span class="cm"> * @param v2 表示第二个顶点的下标
+&lt;/span>&lt;span class="cm"> * @param weight 表示权值
+&lt;/span>&lt;span class="cm"> */&lt;/span>
+&lt;span class="kd">public&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">insertEdge&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">v1&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">v2&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">weight&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="c1">// 保证来回路径的权值一样
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">edges&lt;/span>&lt;span class="o">[&lt;/span>&lt;span class="n">v1&lt;/span>&lt;span class="o">][&lt;/span>&lt;span class="n">v2&lt;/span>&lt;span class="o">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">weight&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="n">edges&lt;/span>&lt;span class="o">[&lt;/span>&lt;span class="n">v2&lt;/span>&lt;span class="o">][&lt;/span>&lt;span class="n">v1&lt;/span>&lt;span class="o">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">weight&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;span class="n">numOfEdges&lt;/span>&lt;span class="o">++;&lt;/span>&lt;span class="c1">// 边的条数 +1
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="三结束语">三、结束语&lt;/h2>
+&lt;p>有了上述的方法，再使用一个主函数即可创建出一个图了，也不是很难吧。&lt;/p>
+&lt;p>有关深度优先遍历和广度优先遍历，我们下一篇博客见。&lt;/p>
+&lt;p>源码 ——&amp;gt; &lt;a href="https://github.com/QuakeWang/DataStructure/blob/master/src/com/quake/graph/Graph.java">图&lt;/a>&lt;/p></description></item><item><title>数据结构——赫夫曼树</title><link>https://quakewang.github.io/tech/huffmantree/</link><guid isPermaLink="true">https://quakewang.github.io/tech/huffmantree/</guid><pubDate>Tue, 19 Jan 2021 17:36:47 +0800</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="赫夫曼树">赫夫曼树&lt;/h1>
 &lt;h2 id="一前言">一、前言&lt;/h2>
 &lt;h3 id="1基本介绍">1、基本介绍&lt;/h3>
 &lt;ul>
