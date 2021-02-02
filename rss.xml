@@ -1,6 +1,52 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>AKA二夕</title><link>https://quakewang.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.69.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (AKA二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (AKA二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 01 Feb 2021 14:11:13 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>图——DFS和BFS</title><link>https://quakewang.github.io/tech/graph02/</link><guid isPermaLink="true">https://quakewang.github.io/tech/graph02/</guid><pubDate>Sat, 30 Jan 2021 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="图dfs和bfs">图——DFS和BFS&lt;/h1>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>AKA二夕</title><link>https://quakewang.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.69.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (AKA二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (AKA二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 02 Feb 2021 13:00:03 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>图——DFS和BFS</title><link>https://quakewang.github.io/tech/graph02/</link><guid isPermaLink="true">https://quakewang.github.io/tech/graph02/</guid><pubDate>Sat, 30 Jan 2021 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="图dfs和bfs">图——DFS和BFS&lt;/h1>
 &lt;h2 id="一前言">一、前言&lt;/h2>
-&lt;p>在上一篇&lt;a href="https://quakewang.github.io/tech/graph01/">博客&lt;/a>中，我们了解了有关图的基本概念，以及如何去创建图。与之前一对一的线性结构或者一对多的树状结构相比，图的遍历无疑是增加了些许难度。&lt;/p></description></item><item><title>图——基本概念以及相关方法</title><link>https://quakewang.github.io/tech/graph01/</link><guid isPermaLink="true">https://quakewang.github.io/tech/graph01/</guid><pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="图">图&lt;/h1>
+&lt;p>在上一篇&lt;a href="https://quakewang.github.io/tech/graph01/">博客&lt;/a>中，我们了解了有关图的基本概念，以及如何去创建图。与之前一对一的线性结构或者一对多的树状结构相比，图的遍历无疑是增加了些许难度。所以我们本节来说一下图的两种遍历方式，深度优先遍历和广度优先遍历。&lt;/p>
+&lt;h2 id="二基本知识">二、基本知识&lt;/h2>
+&lt;h3 id="1深度优先遍历">1、深度优先遍历&lt;/h3>
+&lt;h4 id="深度优先遍历介绍">①深度优先遍历介绍&lt;/h4>
+&lt;p>它的思想: 假设初始状态是图中所有顶点均未被访问，则从某个顶点v出发，首先访问该顶点，然后依次从它的各个未被访问的邻接点出发深度优先搜索遍历图，直至图中所有和v有路径相通的顶点都被访问到。 若此时尚有其他顶点未被访问到，则另选一个未被访问的顶点作起始点，重复上述过程，直至图中所有顶点都被访问到为止。&lt;/p>
+&lt;p>显然，深度优先搜索是一个递归的过程。&lt;/p>
+&lt;h4 id="深度优先遍历图解">②深度优先遍历图解&lt;/h4>
+&lt;p>&lt;strong>无向图的深度优先搜索&lt;/strong>&lt;/p>
+&lt;p>下面以&amp;quot;无向图&amp;quot;为例，来对深度优先搜索进行演示。&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/Figure-bed/blob/master/DataStructures/alg-graph-dfs-1.png?raw=true" alt="dfs01">&lt;/p>
+&lt;p>对上面的图G1进行深度优先遍历，从顶点A开始。&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/Figure-bed/blob/master/DataStructures/alg-graph-dfs-2.png?raw=true" alt="dfs02">&lt;/p>
+&lt;p>&lt;code>第1步&lt;/code>: 访问A。&lt;/p>
+&lt;p>&lt;code>第2步&lt;/code>: 访问(A的邻接点)C。 在第1步访问A之后，接下来应该访问的是A的邻接点，即&amp;quot;C,D,F&amp;quot;中的一个。但在本文的实现中，顶点ABCDEFG是按照顺序存储，C在&amp;quot;D和F&amp;quot;的前面，因此，先访问C。&lt;/p>
+&lt;p>&lt;code>第3步&lt;/code>: 访问(C的邻接点)B。 在第2步访问C之后，接下来应该访问C的邻接点，即&amp;quot;B和D&amp;quot;中一个(A已经被访问过，就不算在内)。而由于B在D之前，先访问B。&lt;/p>
+&lt;p>&lt;code>第4步&lt;/code>: 访问(C的邻接点)D。 在第3步访问了C的邻接点B之后，B没有未被访问的邻接点；因此，返回到访问C的另一个邻接点D。&lt;/p>
+&lt;p>&lt;code>第5步&lt;/code>: 访问(A的邻接点)F。 前面已经访问了A，并且访问完了&amp;quot;A的邻接点B的所有邻接点(包括递归的邻接点在内)&amp;quot;；因此，此时返回到访问A的另一个邻接点F。&lt;/p>
+&lt;p>&lt;code>第6步&lt;/code>: 访问(F的邻接点)G。&lt;/p>
+&lt;p>&lt;code>第7步&lt;/code>: 访问(G的邻接点)E。&lt;/p>
+&lt;p>因此访问顺序是: A -&amp;gt; C -&amp;gt; B -&amp;gt; D -&amp;gt; F -&amp;gt; G -&amp;gt; E&lt;/p>
+&lt;p>&lt;strong>有向图的深度优先遍历&lt;/strong>&lt;/p>
+&lt;p>下面以&amp;quot;有向图&amp;quot;为例，来对深度优先搜索进行演示。&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/Figure-bed/blob/master/DataStructures/alg-graph-dfs-3.jpg?raw=true" alt="dfs03">&lt;/p>
+&lt;p>对上面的图G2进行深度优先遍历，从顶点A开始。&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/Figure-bed/blob/master/DataStructures/alg-graph-dfs-4.png?raw=true" alt="dfs04">&lt;/p>
+&lt;p>&lt;code>第1步&lt;/code>: 访问A。&lt;/p>
+&lt;p>&lt;code>第2步&lt;/code>: 访问B。 在访问了A之后，接下来应该访问的是A的出边的另一个顶点，即顶点B。&lt;/p>
+&lt;p>&lt;code>第3步&lt;/code>: 访问C。 在访问了B之后，接下来应该访问的是B的出边的另一个顶点，即顶点C,E,F。在本文实现的图中，顶点ABCDEFG按照顺序存储，因此先访问C。&lt;/p>
+&lt;p>&lt;code>第4步&lt;/code>: 访问E。 接下来访问C的出边的另一个顶点，即顶点E。&lt;/p>
+&lt;p>&lt;code>第5步&lt;/code>: 访问D。 接下来访问E的出边的另一个顶点，即顶点B,D。顶点B已经被访问过，因此访问顶点D。&lt;/p>
+&lt;p>&lt;code>第6步&lt;/code>: 访问F。 接下应该回溯&amp;quot;访问A的出边的另一个顶点F&amp;quot;。&lt;/p>
+&lt;p>&lt;code>第7步&lt;/code>: 访问G。&lt;/p>
+&lt;p>因此访问顺序是: A -&amp;gt; B -&amp;gt; C -&amp;gt; E -&amp;gt; D -&amp;gt; F -&amp;gt; G&lt;/p>
+&lt;h3 id="2广度优先遍历">2、广度优先遍历&lt;/h3>
+&lt;h4 id="广度优先搜索介绍">①广度优先搜索介绍&lt;/h4>
+&lt;p>广度优先搜索算法(Breadth First Search)，又称为&amp;quot;宽度优先搜索&amp;quot;或&amp;quot;横向优先搜索&amp;quot;，简称BFS。&lt;/p>
+&lt;p>它的思想是: 从图中某顶点v出发，在访问了v之后依次访问v的各个未曾访问过的邻接点，然后分别从这些邻接点出发依次访问它们的邻接点，并使得“先被访问的顶点的邻接点先于后被访问的顶点的邻接点被访问，直至图中所有已被访问的顶点的邻接点都被访问到。如果此时图中尚有顶点未被访问，则需要另选一个未曾被访问过的顶点作为新的起始点，重复上述过程，直至图中所有顶点都被访问到为止。&lt;/p>
+&lt;p>换句话说，广度优先搜索遍历图的过程是以v为起点，由近至远，依次访问和v有路径相通且路径长度为1,2...的顶点。&lt;/p>
+&lt;h4 id="广度优先搜索图解">②广度优先搜索图解&lt;/h4>
+&lt;p>&lt;strong>无向图的广度优先遍历&lt;/strong>&lt;/p>
+&lt;p>下面以&amp;quot;无向图&amp;quot;为例，来对广度优先搜索进行演示。还是以上面的图G1为例进行说明。&lt;/p>
+&lt;p>&lt;img src="https://github.com/QuakeWang/Figure-bed/blob/master/DataStructures/alg-graph-bfs-1.png?raw=true" alt="bfs01">&lt;/p>
+&lt;p>&lt;code>第1步&lt;/code>: 访问A。&lt;/p>
+&lt;p>&lt;code>第2步&lt;/code>: 依次访问C,D,F。 在访问了A之后，接下来访问A的邻接点。前面已经说过，在本文实现中，顶点ABCDEFG按照顺序存储的，C在&amp;quot;D和F&amp;quot;的前面，因此，先访问C。再访问完C之后，再依次访问D,F。&lt;/p>
+&lt;p>&lt;code>第3步&lt;/code>: 依次访问B,G。 在第2步访问完C,D,F之后，再依次访问它们的邻接点。首先访问C的邻接点B，再访问F的邻接点G。&lt;/p>
+&lt;p>&lt;code>第4步&lt;/code>: 访问E。 在第3步访问完B,G之后，再依次访问它们的邻接点。只有G有邻接点E，因此访问G的邻接点E。&lt;/p>
+&lt;p>因此访问顺序是: A -&amp;gt; C -&amp;gt; D -&amp;gt; F -&amp;gt; B -&amp;gt; G -&amp;gt; E&lt;/p></description></item><item><title>图——基本概念以及相关方法</title><link>https://quakewang.github.io/tech/graph01/</link><guid isPermaLink="true">https://quakewang.github.io/tech/graph01/</guid><pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="图">图&lt;/h1>
 &lt;p>在前面我们了解了线性表和树的相关知识，知道了线性表局限于一个直接前驱和一个直接后继的关系，而树也只能有一个直接前驱也就是父结点。当我们需要表示多&lt;strong>多对多&lt;/strong>的关系时，这里我们就用到了&lt;strong>图&lt;/strong>。&lt;/p>
 &lt;h2 id="一前言">一、前言&lt;/h2>
 &lt;h3 id="1图的基本概念">1、图的基本概念&lt;/h3>
