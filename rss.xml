@@ -1,4 +1,167 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>AKA二夕</title><link>https://quakewang.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.69.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (AKA二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (AKA二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Wed, 30 Jun 2021 14:22:19 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>图——DFS和BFS</title><link>https://quakewang.github.io/tech/graph02/</link><guid isPermaLink="true">https://quakewang.github.io/tech/graph02/</guid><pubDate>Sat, 30 Jan 2021 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="图dfs和bfs">图——DFS和BFS&lt;/h1>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>AKA二夕</title><link>https://quakewang.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.69.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (AKA二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (AKA二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sat, 10 Jul 2021 13:47:42 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>Maven 配置问题汇总</title><link>https://quakewang.github.io/tech/question001/</link><guid isPermaLink="true">https://quakewang.github.io/tech/question001/</guid><pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="maven-常见问题处理方法">Maven 常见问题处理方法&lt;/h1>
+&lt;h3 id="一npm-install-node-sass---unsafe-perm-failed">一、'npm install node-sass --unsafe-perm' failed&lt;/h3>
+&lt;p>&lt;strong>报错信息：&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="o">[&lt;/span>INFO&lt;span class="o">]&lt;/span> BUILD FAILURE
+&lt;span class="o">[&lt;/span>INFO&lt;span class="o">]&lt;/span> ------------------------------------------------------------------------
+&lt;span class="o">[&lt;/span>INFO&lt;span class="o">]&lt;/span> Total time: 02:01 min
+&lt;span class="o">[&lt;/span>INFO&lt;span class="o">]&lt;/span> Finished at: 2021-07-10
+&lt;span class="o">[&lt;/span>INFO&lt;span class="o">]&lt;/span> ------------------------------------------------------------------------
+&lt;span class="o">[&lt;/span>ERROR&lt;span class="o">]&lt;/span> Failed to execute goal com.github.eirslett:frontend-maven-plugin:1.6:npm &lt;span class="o">(&lt;/span>npm install node-sass --unsafe-perm&lt;span class="o">)&lt;/span> on project dolphinscheduler-ui: Failed to run
+task: &lt;span class="s1">&amp;#39;npm install node-sass --unsafe-perm&amp;#39;&lt;/span> failed. java.io.IOException: Cannot run program &lt;span class="s2">&amp;#34;dolphinscheduler-dev\dolphinscheduler-ui\node\node.exe&amp;#34;&lt;/span>
+&lt;span class="o">(&lt;/span>in directory &lt;span class="s2">&amp;#34;dolphinscheduler-dev\dolphinscheduler-ui&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>: CreateProcess &lt;span class="nv">error&lt;/span>&lt;span class="o">=&lt;/span>193, %1 不是有效的 Win32 应用程序。 -&amp;gt; &lt;span class="o">[&lt;/span>Help 1&lt;span class="o">]&lt;/span>
+&lt;span class="o">[&lt;/span>ERROR&lt;span class="o">]&lt;/span>
+&lt;span class="o">[&lt;/span>ERROR&lt;span class="o">]&lt;/span> To see the full stack trace of the errors, re-run Maven with the -e switch.
+&lt;span class="o">[&lt;/span>ERROR&lt;span class="o">]&lt;/span> Re-run Maven using the -X switch to &lt;span class="nb">enable&lt;/span> full debug logging.
+&lt;span class="o">[&lt;/span>ERROR&lt;span class="o">]&lt;/span>
+&lt;span class="o">[&lt;/span>ERROR&lt;span class="o">]&lt;/span> For more information about the errors and possible solutions, please &lt;span class="nb">read&lt;/span> the following articles:
+&lt;span class="o">[&lt;/span>ERROR&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>Help 1&lt;span class="o">]&lt;/span> http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+&lt;span class="o">[&lt;/span>ERROR&lt;span class="o">]&lt;/span>
+&lt;span class="o">[&lt;/span>ERROR&lt;span class="o">]&lt;/span> After correcting the problems, you can resume the build with the &lt;span class="nb">command&lt;/span>
+&lt;span class="o">[&lt;/span>ERROR&lt;span class="o">]&lt;/span> mvn &amp;lt;args&amp;gt; -rf :dolphinscheduler-ui
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>错误分析：&lt;/strong>&lt;/p>
+&lt;p>当执行 &lt;code>mvn -U install package -Prelease -Dmaven.test.skip=true&lt;/code> 的时候，由于前端 Module 的 pon.xml 对于 NodeJs 没有配置对应的镜像，并且有某堵墙的存在，懂的都懂不多说哈，从而导致无法能够成功的拉去对应的资源，因此需要在对应的 pom.xml 文件中添加相关配置即可。&lt;/p>
+&lt;p>&lt;strong>解决方法：&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code class="language-xml" data-lang="xml"> &lt;span class="nt">&amp;lt;execution&amp;gt;&lt;/span>
+&lt;span class="nt">&amp;lt;id&amp;gt;&lt;/span>install node and npm&lt;span class="nt">&amp;lt;/id&amp;gt;&lt;/span>
+&lt;span class="nt">&amp;lt;goals&amp;gt;&lt;/span>
+&lt;span class="nt">&amp;lt;goal&amp;gt;&lt;/span>install-node-and-npm&lt;span class="nt">&amp;lt;/goal&amp;gt;&lt;/span>
+&lt;span class="nt">&amp;lt;/goals&amp;gt;&lt;/span>
+&lt;span class="nt">&amp;lt;configuration&amp;gt;&lt;/span>
+&lt;span class="nt">&amp;lt;nodeVersion&amp;gt;&lt;/span>${node.version}&lt;span class="nt">&amp;lt;/nodeVersion&amp;gt;&lt;/span>
+&lt;span class="nt">&amp;lt;npmVersion&amp;gt;&lt;/span>${npm.version}&lt;span class="nt">&amp;lt;/npmVersion&amp;gt;&lt;/span>
+&lt;span class="nt">&amp;lt;nodeDownloadRoot&amp;gt;&lt;/span>https://npm.taobao.org/mirrors/node/&lt;span class="nt">&amp;lt;/nodeDownloadRoot&amp;gt;&lt;/span>
+&lt;span class="nt">&amp;lt;npmDownloadRoot&amp;gt;&lt;/span>https://registry.npm.taobao.org/npm/-/&lt;span class="nt">&amp;lt;/npmDownloadRoot&amp;gt;&lt;/span>
+&lt;span class="nt">&amp;lt;/configuration&amp;gt;&lt;/span>
+&lt;span class="nt">&amp;lt;/execution&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;em>注：&lt;/em> 其中 &lt;strong>nodeDownloadRoot&lt;/strong> 和 &lt;strong>npmDownloadRoot&lt;/strong> 为添加的淘宝镜像，如果添加该配置还无法解决问题，可以尝试把 node 和 npm 的 version 置换成本机所安装的版本即可。&lt;/p>
+&lt;hr>
+&lt;h3 id="二could-not-transfer-artifact-orgspringframeworkbootspring-boot-starter-parentpom2118release-fromto-central">二、Could not transfer artifact org.springframework.boot:spring-boot-starter-parent:pom:2.1.18.RELEASE from/to central&lt;/h3>
+&lt;p>&lt;strong>报错信息：&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code class="language-shell" data-lang="shell">Caused by: org.apache.maven.project.ProjectBuildingException: Some problems were encountered &lt;span class="k">while&lt;/span> processing the POMs:
+&lt;span class="o">[&lt;/span>ERROR&lt;span class="o">]&lt;/span> Non-resolvable import POM: Could not transfer artifact org.springframework.boot:spring-boot-starter-parent:pom:2.1.18.RELEASE from/to central &lt;span class="o">(&lt;/span>http://repo.maven.apache.org/maven2&lt;span class="o">)&lt;/span>: Failed to transfer http://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-starter-parent/2.1.18.RELEASE/spring-boot-starter-parent-2.1.18.RELEASE.pom. Error code 501, HTTPS Required @ org.apache.dolphinscheduler:dolphinscheduler:1.3.6-SNAPSHOT, D:&lt;span class="se">\i&lt;/span>deaProjects&lt;span class="se">\d&lt;/span>olphinscheduler-dev&lt;span class="se">\p&lt;/span>om.xml, line 165, column &lt;span class="m">25&lt;/span>
+at org.apache.maven.project.DefaultProjectBuilder.build&lt;span class="o">(&lt;/span>DefaultProjectBuilder.java:176&lt;span class="o">)&lt;/span>
+at org.apache.maven.project.DefaultProjectBuilder.build&lt;span class="o">(&lt;/span>DefaultProjectBuilder.java:102&lt;span class="o">)&lt;/span>
+at io.airlift.resolver.ArtifactResolver.getMavenProject&lt;span class="o">(&lt;/span>ArtifactResolver.java:177&lt;span class="o">)&lt;/span>
+... &lt;span class="m">44&lt;/span> more
+Caused by: org.apache.maven.model.building.ModelBuildingException: &lt;span class="m">1&lt;/span> problem was encountered &lt;span class="k">while&lt;/span> building the effective model &lt;span class="k">for&lt;/span> org.apache.dolphinscheduler:dolphinscheduler-registry-zookeeper:1.3.6-SNAPSHOT
+&lt;span class="o">[&lt;/span>ERROR&lt;span class="o">]&lt;/span> Non-resolvable import POM: Could not transfer artifact org.springframework.boot:spring-boot-starter-parent:pom:2.1.18.RELEASE from/to central &lt;span class="o">(&lt;/span>http://repo.maven.apache.org/maven2&lt;span class="o">)&lt;/span>: Failed to transfer http://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-starter-parent/2.1.18.RELEASE/spring-boot-starter-parent-2.1.18.RELEASE.pom. Error code 501, HTTPS Required @ org.apache.dolphinscheduler:dolphinscheduler:1.3.6-SNAPSHOT, D:&lt;span class="se">\i&lt;/span>deaProjects&lt;span class="se">\d&lt;/span>olphinscheduler-dev&lt;span class="se">\p&lt;/span>om.xml, line 165, column &lt;span class="m">25&lt;/span>
+at org.apache.maven.model.building.DefaultModelProblemCollector.newModelBuildingException&lt;span class="o">(&lt;/span>DefaultModelProblemCollector.java:195&lt;span class="o">)&lt;/span>
+at org.apache.maven.model.building.DefaultModelBuilder.build&lt;span class="o">(&lt;/span>DefaultModelBuilder.java:419&lt;span class="o">)&lt;/span>
+at org.apache.maven.model.building.DefaultModelBuilder.build&lt;span class="o">(&lt;/span>DefaultModelBuilder.java:371&lt;span class="o">)&lt;/span>
+at org.apache.maven.model.building.DefaultModelBuilder.build&lt;span class="o">(&lt;/span>DefaultModelBuilder.java:362&lt;span class="o">)&lt;/span>
+at org.apache.maven.model.building.DefaultModelBuilder.build&lt;span class="o">(&lt;/span>DefaultModelBuilder.java:232&lt;span class="o">)&lt;/span>
+at org.apache.maven.project.DefaultProjectBuilder.build&lt;span class="o">(&lt;/span>DefaultProjectBuilder.java:142&lt;span class="o">)&lt;/span>
+... &lt;span class="m">46&lt;/span> more
+Process finished with &lt;span class="nb">exit&lt;/span> code &lt;span class="m">1&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>错误分析：&lt;/strong>&lt;/p>
+&lt;p>在网上拷贝的所有阿里云镜像比如：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code class="language-xml" data-lang="xml">&lt;span class="nt">&amp;lt;mirror&amp;gt;&lt;/span>
+&lt;span class="nt">&amp;lt;id&amp;gt;&lt;/span>nexus-aliyun&lt;span class="nt">&amp;lt;/id&amp;gt;&lt;/span>
+&lt;span class="nt">&amp;lt;mirrorOf&amp;gt;&lt;/span>central&lt;span class="nt">&amp;lt;/mirrorOf&amp;gt;&lt;/span>
+&lt;span class="nt">&amp;lt;name&amp;gt;&lt;/span>Nexus aliyun&lt;span class="nt">&amp;lt;/name&amp;gt;&lt;/span>
+&lt;span class="nt">&amp;lt;url&amp;gt;&lt;/span>http://maven.aliyun.com/nexus/content/groups/public&lt;span class="nt">&amp;lt;/url&amp;gt;&lt;/span>
+&lt;span class="nt">&amp;lt;/mirror&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>查看官网之后发现：阿里不再支持http下载，只支持https。&lt;/p>
+&lt;p>因此，先将maven镜像配置如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code class="language-xml" data-lang="xml">&lt;span class="nt">&amp;lt;mirror&amp;gt;&lt;/span>
+&lt;span class="nt">&amp;lt;id&amp;gt;&lt;/span>aliyunmaven&lt;span class="nt">&amp;lt;/id&amp;gt;&lt;/span>
+&lt;span class="nt">&amp;lt;mirrorOf&amp;gt;&lt;/span>*&lt;span class="nt">&amp;lt;/mirrorOf&amp;gt;&lt;/span>
+&lt;span class="nt">&amp;lt;name&amp;gt;&lt;/span>阿里云公共仓库&lt;span class="nt">&amp;lt;/name&amp;gt;&lt;/span>
+&lt;span class="nt">&amp;lt;url&amp;gt;&lt;/span>https://maven.aliyun.com/repository/public&lt;span class="nt">&amp;lt;/url&amp;gt;&lt;/span>
+&lt;span class="nt">&amp;lt;/mirror&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>然后还出现了一个问题，由于使用了HTTPS，存在着 SSL 证书验证的问题，因此需要在 IDEA 中添加了一行配置 Maven —&amp;gt; Importing —&amp;gt; VM options for importer:&lt;/p>
+&lt;p>&lt;code>-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true&lt;/code>&lt;/p>
+&lt;p>一般到这里问题理论上是可以正常解决了，但是由于 Windows 的环境会出现许多神奇的问题，如果项目还依然报错，可以尝试删除本地包，重新构建。&lt;/p></description></item><item><title>图——DFS和BFS</title><link>https://quakewang.github.io/tech/graph02/</link><guid isPermaLink="true">https://quakewang.github.io/tech/graph02/</guid><pubDate>Sat, 30 Jan 2021 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="图dfs和bfs">图——DFS和BFS&lt;/h1>
 &lt;h2 id="一前言">一、前言&lt;/h2>
 &lt;p>在上一篇&lt;a href="https://quakewang.github.io/tech/graph01/">博客&lt;/a>中，我们了解了有关图的基本概念，以及如何去创建图。与之前一对一的线性结构或者一对多的树状结构相比，图的遍历无疑是增加了些许难度。所以我们本节来说一下图的两种遍历方式，深度优先遍历和广度优先遍历。&lt;/p>
 &lt;hr>
