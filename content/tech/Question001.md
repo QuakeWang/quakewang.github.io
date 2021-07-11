@@ -32,7 +32,7 @@ task: 'npm install node-sass --unsafe-perm' failed. java.io.IOException: Cannot 
 
 **错误分析：**
 
-当执行 `mvn -U install package -Prelease -Dmaven.test.skip=true` 的时候，由于前端 Module 的 pon.xml 对于 NodeJs 没有配置对应的镜像，并且有某堵墙的存在，懂的都懂不多说哈，从而导致无法能够成功的拉去对应的资源，因此需要在对应的 pom.xml 文件中添加相关配置即可。
+当执行 `mvn -U install package -Prelease -Dmaven.test.skip=true` 的时候，由于前端 Module 的 pom.xml 对于 NodeJs 没有配置对应的镜像，并且有某堵墙的存在，懂的都懂不多说哈，从而导致无法能够成功的拉去对应的资源，因此需要在对应的 pom.xml 文件中添加相关配置即可。
 
 **解决方法：**
 
@@ -110,6 +110,6 @@ Process finished with exit code 1
 
 然后还出现了一个问题，由于使用了HTTPS，存在着 SSL 证书验证的问题，因此需要在 IDEA 中添加了一行配置 Maven —> Importing —> VM options for importer:
 
-`-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true`
+`-Dmaven.wagon.http.ssl.allowall=true`
 
 一般到这里问题理论上是可以正常解决了，但是由于 Windows 的环境会出现许多神奇的问题，如果项目还依然报错，可以尝试删除本地包，重新构建。
