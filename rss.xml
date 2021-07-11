@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>AKA二夕</title><link>https://quakewang.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.69.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (AKA二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (AKA二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sat, 10 Jul 2021 13:47:42 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>Maven 配置问题汇总</title><link>https://quakewang.github.io/tech/question001/</link><guid isPermaLink="true">https://quakewang.github.io/tech/question001/</guid><pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="maven-常见问题处理方法">Maven 常见问题处理方法&lt;/h1>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>AKA二夕</title><link>https://quakewang.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.69.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (AKA二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (AKA二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sun, 11 Jul 2021 02:48:33 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>Maven 配置问题汇总</title><link>https://quakewang.github.io/tech/question001/</link><guid isPermaLink="true">https://quakewang.github.io/tech/question001/</guid><pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="maven-常见问题处理方法">Maven 常见问题处理方法&lt;/h1>
 &lt;h3 id="一npm-install-node-sass---unsafe-perm-failed">一、'npm install node-sass --unsafe-perm' failed&lt;/h3>
 &lt;p>&lt;strong>报错信息：&lt;/strong>&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -42,7 +42,7 @@ task: &lt;span class="s1">&amp;#39;npm install node-sass --unsafe-perm&amp;#39;&
 &lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>&lt;strong>错误分析：&lt;/strong>&lt;/p>
-&lt;p>当执行 &lt;code>mvn -U install package -Prelease -Dmaven.test.skip=true&lt;/code> 的时候，由于前端 Module 的 pon.xml 对于 NodeJs 没有配置对应的镜像，并且有某堵墙的存在，懂的都懂不多说哈，从而导致无法能够成功的拉去对应的资源，因此需要在对应的 pom.xml 文件中添加相关配置即可。&lt;/p>
+&lt;p>当执行 &lt;code>mvn -U install package -Prelease -Dmaven.test.skip=true&lt;/code> 的时候，由于前端 Module 的 pom.xml 对于 NodeJs 没有配置对应的镜像，并且有某堵墙的存在，懂的都懂不多说哈，从而导致无法能够成功的拉去对应的资源，因此需要在对应的 pom.xml 文件中添加相关配置即可。&lt;/p>
 &lt;p>&lt;strong>解决方法：&lt;/strong>&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -160,7 +160,7 @@ Process finished with &lt;span class="nb">exit&lt;/span> code &lt;span class="m"
 &lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>然后还出现了一个问题，由于使用了HTTPS，存在着 SSL 证书验证的问题，因此需要在 IDEA 中添加了一行配置 Maven —&amp;gt; Importing —&amp;gt; VM options for importer:&lt;/p>
-&lt;p>&lt;code>-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true&lt;/code>&lt;/p>
+&lt;p>&lt;code>-Dmaven.wagon.http.ssl.allowall=true&lt;/code>&lt;/p>
 &lt;p>一般到这里问题理论上是可以正常解决了，但是由于 Windows 的环境会出现许多神奇的问题，如果项目还依然报错，可以尝试删除本地包，重新构建。&lt;/p></description></item><item><title>图——DFS和BFS</title><link>https://quakewang.github.io/tech/graph02/</link><guid isPermaLink="true">https://quakewang.github.io/tech/graph02/</guid><pubDate>Sat, 30 Jan 2021 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="图dfs和bfs">图——DFS和BFS&lt;/h1>
 &lt;h2 id="一前言">一、前言&lt;/h2>
 &lt;p>在上一篇&lt;a href="https://quakewang.github.io/tech/graph01/">博客&lt;/a>中，我们了解了有关图的基本概念，以及如何去创建图。与之前一对一的线性结构或者一对多的树状结构相比，图的遍历无疑是增加了些许难度。所以我们本节来说一下图的两种遍历方式，深度优先遍历和广度优先遍历。&lt;/p>
