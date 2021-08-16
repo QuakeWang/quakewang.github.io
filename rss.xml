@@ -1,4 +1,90 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>AKA二夕</title><link>https://quakewang.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.69.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (AKA二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (AKA二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sat, 31 Jul 2021 11:28:38 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>Maven 配置问题汇总</title><link>https://quakewang.github.io/tech/question001/</link><guid isPermaLink="true">https://quakewang.github.io/tech/question001/</guid><pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="maven-常见问题处理方法">Maven 常见问题处理方法&lt;/h1>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>AKA二夕</title><link>https://quakewang.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.69.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (AKA二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (AKA二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 16 Aug 2021 15:13:49 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>Hadoop001——入门篇</title><link>https://quakewang.github.io/tech/bigdata_hadoop001/</link><guid isPermaLink="true">https://quakewang.github.io/tech/bigdata_hadoop001/</guid><pubDate>Sun, 15 Aug 2021 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="hadoop-极简入门">Hadoop 极简入门&lt;/h1>
+&lt;h2 id="零前言">零、前言&lt;/h2>
+&lt;p>在 2021 年初的时候，Apache 退休了一些 Hadoop 生态圈的子项目。再加上其 MapReduce 思想最为人诟病，因为不太友好的编写代码方式，需要高昂的维护成本以及较低的运行效率，唱衰 Hadoop 的声音（甚至对于整个大数据生态的质疑声）日益高涨。。&lt;/p>
+&lt;p>然而，MapReduce 作为一种编程范式，恐怕并没有那么容易被淘汰。纵使很多人说：你看 Spark 速度又快又稳定，这不是可以淘汰掉 Hadoop 的 MapReduce 吗？但是真的是这样吗？？&lt;/p>
+&lt;p>所谓的快和慢都是相对而言的。某些互联网公司每天的离线调度任务动辄数十万起，这么庞大的基于 MapReduce 的离线计算如果要是用 Spark 来替代，与之相对应的是高昂的服务器成本。&lt;/p>
+&lt;p>因此，我们可以说原来用 Hadoop MapReduce 能做的事情被更好更快的其他计算引擎来替代了，而不是 MapReduce 被淘汰了。而且后来的计算引擎也大都有借鉴 Map、Reduce 这类的概念！&lt;/p>
+&lt;hr>
+&lt;h2 id="一长话短说">一、长话短说&lt;/h2>
+&lt;h3 id="11-hadoop-是什么">1.1 Hadoop 是什么？？&lt;/h3>
+&lt;p>&lt;a href="https://hadoop.apache.org/">Hadoop&lt;/a> 是 Apache Software Foundation 开源的，根据 Google 开源的三篇大数据论文设计的，一个能够允许大量数据在计算机集群中，通过使用简单的编程模型进行分布式处理的框架。其设计的规模可从单一的服务器到数千台服务器，每一个均可提供局部运算和存储功能。Hadoop 并不依赖昂贵的硬件以支持高可用性。Hadoop 可以检测并处理应用层上的错误，并可以把错误转移到其他服务器上(让它错误，我在用别的服务器顶上就可以了)，所以 Hadoop 提供一个基于计算机集群的、高效性的服务。&lt;/p>
+&lt;h3 id="12-主要优势">1.2 主要优势&lt;/h3>
+&lt;p>主要拥有以下优势：&lt;/p>
+&lt;ol>
+&lt;li>高可靠性：Hadoop 底层维护多个数据副本，所以即使 Hadoop 某个计算元素或存储出现故障，也不会导致数据丢失；&lt;/li>
+&lt;li>高扩展性：在集群间分配任务数据，可方便地扩展数以千计的结点；&lt;/li>
+&lt;li>高效性：在 MapReduce 的思想下，Hadoop 是并行工作的，以加快任务处理的速度；&lt;/li>
+&lt;li>高容错性：能够自动将失败任务重新分配。&lt;/li>
+&lt;/ol>
+&lt;h3 id="13-发展">1.3 发展&lt;/h3>
+&lt;p>经过多年的发展，Hadoop 这个单词的意思也随之发生改变，由之前一个具体项目的名称，到现在提到 Hadoop 大多是指大数据的生态圈，包括许多现在火的一腿的项目，例如 Spar、Hive、HBase 等等。&lt;/p>
+&lt;p>如同 Spring 框架有着最基础的几个模块 Context、Bean 和 Core。其余的模块和项目都是基于这些模块构建的。Hadoop 与之大体一样，也有最基础的几个模块：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Common&lt;/strong>：支持其它模块的公用工具包；&lt;/li>
+&lt;li>&lt;strong>HDFS&lt;/strong>：一个可高吞吐访问应用数据的分布式文件系统；&lt;/li>
+&lt;li>&lt;strong>Yarn&lt;/strong>：一个管理集群服务资源和任务调度的框架；&lt;/li>
+&lt;li>&lt;strong>MapReduce&lt;/strong>：基于 Yarn 对于大数据集群进行并行计算的系统。&lt;/li>
+&lt;/ul>
+&lt;p>其他的，像 Hbase、Hive 等等都是在这几个模块基础上的高级抽象。&lt;strong>Common&lt;/strong> 模块是 Hadoop 最为基础的模块，负责为其余模块提供了像 I/O、操作文件系统、序列化和远程方法调用等最为基础的实现。（如果想深入了解 Hadoop 具体实现的小朋友，可以挑战职级制阅读一下 Common 的源码~~）&lt;/p>
+&lt;hr>
+&lt;h2 id="二hdfs-基础概念">二、HDFS 基础概念&lt;/h2>
+&lt;p>HDFS 是 “Hadoop Distributed File System”的首字母缩写，是一个分布式文件系统，说简单点就是为了存储文件。但是和其他的文件系统的不同之处是 HDFS 设计为运行在低成本的硬件上（因此在学习 Hadoop 入门的时候，可以使用 Linux 虚拟机搭建一套集群出来玩玩），且提供高可靠性的服务器。HDFS 设计满足大数据量，高吞吐的应用情况。&lt;/p>
+&lt;p>为了更好地理解分布式文件系统，咱们先看看下面的这些概念：&lt;/p>
+&lt;h3 id="21-文件">2.1 文件&lt;/h3>
+&lt;p>咦？谈起文件，想必大家都很熟悉，在不同的行业中，文件也有着不同的意思。在计算机科学领域，文件是在存储设备中是 N 个字节序列。而从计算机使用者的角度而言，文件是对所有 I/O 设备的抽象。每个 I/O 设备都可以视为文件，包括磁盘、键盘和网络等等。文件这个简单而精致的概念其内涵是十分丰富的，它向应用程序提供了一个统一的视角，来看待系统中可能含有的各式各样的 I/O 设备。&lt;/p>
+&lt;h3 id="22-文件系统">2.2 文件系统&lt;/h3>
+&lt;p>那么一台计算机上肯定不止一个文件，成千上万的文件怎么管理呢？因此需要我们需要一种对文件进行管理的东西，即文件系统。文件系统是一种在计算机上存储和组织数据的方法，它使得对其访问和查找变得容易，文件系统使用文件和树形目录的抽象逻辑概念代替了硬盘和光盘等物理设备使用数据块的概念，用户使用文件系统来保存数据而不必关心数据实际保存在硬盘的地址为多少的数据块上，只需要记住这个文件的所属目录和文件名。在写入新数据之前，用户不必关心硬盘上的那个块地址没有被使用，硬盘上的存储空间管理(分配和释放)功能由文件系统自动完成，用户只需要记住数据被写入到了哪个文件中即可。&lt;/p>
+&lt;h3 id="23-分布式文件系统">2.3 分布式文件系统&lt;/h3>
+&lt;p>相对于单机的文件系统而言，分布式文件系统（Distributed file system）。是一种允许文件通过网络在多台主机上分享的文件系统，可让多计算机上的多用户分享文件和存储空间。&lt;/p>
+&lt;p>在这样的文件系统中，客户端并非直接访问底层的数据存储区块和磁盘。而是通过网络，基于单机文件系统并借由特定的通信协议的帮助，来实现对于文件系统的读写。&lt;/p>
+&lt;p>分布式文件系统需要拥有的最基本的能力是通过畅通网络 I/O 来实现数据的复制与容错。也就是说，一方面一个文件是分为多个数据块分布在多个设备中。另一方面，数据块有多个副本分布在不同的设备上。即使有一小部分的设备出现离线和宕机等情况，整体来说文件系统仍然可以持续运作而不会有数据损失。&lt;/p>
+&lt;p>注意：分布式文件系统和分布式数据存储的界线是模糊的，但一般来说，分布式文件系统是被设计用在局域网，比较强调的是传统文件系统概念的延伸，并通过软件方法来达成容错的目的。而分布式数据存储，则是泛指应用分布式运算技术的文件和数据库等提供数据存储服务的系统。&lt;/p>
+&lt;h3 id="24-hdfs">2.4 HDFS&lt;/h3>
+&lt;p>HDFS 正是 Hadoop 中负责分布式文件系统的。HDFS 采用master/slave 架构。一个 HDFS 集群是由一个Namenode（可以理解为资本家老板） 和一定数目的 Datanodes（打工人） 组成。Namenode 是一个中心服务器，负责管理文件系统的命名空间以及文件的访问控制。集群中的 Datanode 一般是一个设备上部署一个，负责管理它所在节点上的存储。HDFS 暴露了文件系统的命名空间，用户能够以文件的形式在上面存储数据。&lt;/p>
+&lt;p>实际上，一个文件会被分成一个或多个数据块，这些块存储在一组 Datanode 上。Namenode 执行文件系统的命名空间操作，比如打开、关闭、重命名文件或目录。它也负责确定数据块到具体 Datanode 设备的映射。Datanode 负责处理文件系统客户端的读写请求。在 Namenode 的统一调度下进行数据块的创建、删除和复制。为了保证文件系统的高可靠，往往需要另一个 Standby 的 Namenode 在 Actived Namenode 出现问题后，立刻接管文件系统。&lt;/p>
+&lt;h4 id="hdfs-架构概述">HDFS 架构概述&lt;/h4>
+&lt;ol>
+&lt;li>NameNode（nn）：存储文件的 &lt;strong>元数据&lt;/strong>，如文件名、文件目录结构、文件属性（生成时间、副本数、文件权限），以及每个文件的 &lt;strong>块列表&lt;/strong> 和 &lt;strong>块所在的 DataNode&lt;/strong> 等等；&lt;/li>
+&lt;li>DataNode（dn）：在本地文件系统 &lt;strong>存储文件块数据&lt;/strong>。以及 &lt;strong>块数据的校验和&lt;/strong>；&lt;/li>
+&lt;li>SecondaryNameNode（2nn）：每隔一段时间对 &lt;strong>NameNode&lt;/strong> 元数据备份（把 NameNode 当做老板的话，SecondaryNameNode 就相当于小秘，但小秘毕竟是小秘备份的数据肯定没有老板完全，所以在掌握 Zookeeper 之后可以配置 HA，也就是说两个 NameNode 互相备份）。&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h2 id="三mapreduce-基础概念">三、MapReduce 基础概念&lt;/h2>
+&lt;p>MapReduce 是一个使用简单的软件框架，基于它写出来的应用程序能够运行在由上千个商用机器组成的大型集群上，并以一种可靠容错的方式并行处理上 T 级别的数据集。&lt;/p>
+&lt;p>一个 MapReduce 作业(job)通常会把输入的数据集切分为若干独立的数据块，由 map 任务(task)以完全并行的方式处理它们。框架会对 map 的输出先进行排序， 然后把结果输入给 reduce 任务。通常作业的输入和输出都会被存储在文件系统中。 整个框架负责任务的调度和监控，以及重新执行已经失败的任务。&lt;/p>
+&lt;p>通常，MapReduce 框架和 HDFS 是运行在一相同的设备集群上的，也就是说，计算设备和存储设备通常在一起。这种配置允许框架在那些已经存好数据的设备上高效地调度任务，这可以使整个集群的网络带宽被非常高效地利用。&lt;/p>
+&lt;p>MapReduce 框架由一个单独的 master JobTracker 和每个集群设备一个 slave TaskTracker 共同组成。master 负责调度构成一个作业的所有任务，这些任务分布在不同的 slave 上，master 监控它们的执行，重新执行已经失败的任务。而 slave 仅负责执行由 master 指派的任务。&lt;/p>
+&lt;p>用户编写的 MapReduce 应用程序应该指明输入/输出的文件位置(路径)，并通过实现合适的接口或抽象类提供 map 和 reduce 函数。再加上其他作业的参数，就构成了作业配置(job configuration)。然后，job client 提交作业(jar 包/可执行程序等)和配置信息给 JobTracker，后者负责分发这些软件和配置信息给 slave、调度任务并监控它们的执行，同时提供状态和诊断信息给 job-client。&lt;/p>
+&lt;p>简单来说，MapReduce 将计算过程分为两个阶段：Map 和 Reduce；&lt;/p>
+&lt;ol>
+&lt;li>Map 阶段并行处理数据；&lt;/li>
+&lt;li>Reduce 阶段对 Map 结果进行汇总。&lt;/li>
+&lt;/ol>
+&lt;p>一个 Map 函数就是对一些独立元素组成的概念上的列表的每一个元素进行指定的操作。事实上，每个元素都是被独立操作的，而原始列表没有被更改，因为这里创建了一个新的列表来保存操作结果。这就是说，Map操作是可以高度并行的。而 Reduce 函数指的是对 Map 函数的结果（中间经过洗牌的过程，会把 map 的结果进行分组）分组后多个列表的元素进行适当的归并。&lt;/p>
+&lt;hr>
+&lt;h2 id="四yarn-基础概念">四、Yarn 基础概念&lt;/h2>
+&lt;p>YARN(Yet Another Resource Negotiator)是 Hadoop 的设备资源管理器，它是一个通用资源管理系统，MapReduce 和其他上层应用提供统一的资源管理和调度，它为集群在利用率、资源统一管理和数据共享等方面提供了巨大的帮助。&lt;/p>
+&lt;p>Yarn由ResourceManager、NodeManager、ApplicationMaster 和 Containe 四个概念构成。&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>ResourceManager（RM）&lt;/strong>：整个集群资源（内存、CPU 等）的老大；&lt;/li>
+&lt;li>&lt;strong>NodeManager（NM）&lt;/strong>：单个结点服务器资源老大；&lt;/li>
+&lt;li>&lt;strong>ApplicationMaster（AM）&lt;/strong>：单个任务运行的老大；&lt;/li>
+&lt;li>&lt;strong>Container&lt;/strong>：容器，相当于一台独立的服务器，里面封装了任务运行任务所需要的资源，如内存、CPU、磁盘、网络等。&lt;/li>
+&lt;/ol>
+&lt;p>了解了上面的大致概念之后，再细细分析一下：&lt;/p>
+&lt;h3 id="41-resourcemanager">4.1 ResourceManager&lt;/h3>
+&lt;p>ResourceManager 是一个全局的资源管理器，负责整个系统的资源管理和分配。它主要由两个组件构成：调度器(Scheduler)和应用程序管理器(Applications Manager)。&lt;/p>
+&lt;p>调度器根据容量、队列等限制条件，将系统中的资源分配给各个正在运行的 MapReduce 程序。应用程序管理器负责管理整个系统中所有 MapReduce程序，包括提交、与调度器协商资源以启动 ApplicationMaster、监控 ApplicationMaster 运行状态并在失败时重新启动它等。&lt;/p>
+&lt;h3 id="42-nodemanager">4.2 NodeManager&lt;/h3>
+&lt;p>NodeManager 是每个设备上的资源和任务管理器，一方面，它会定时地向 ResourceManager 汇报本设备上的资源使用情况和各个Container 的运行状态；另一方面，它接收并处理来自ApplicationMaster 的 Container 启动/停止等各种请求。&lt;/p>
+&lt;h3 id="43-applicationmaster">4.3 ApplicationMaster&lt;/h3>
+&lt;p>用户提交的每个 MapReduce 程序均包含一个 ApplicationMaster，主要功能包括：与 ResourceManager 调度器协商以获取资源(用 Container 表示)；将得到的任务进一步分配给内部的任务(资源的二次分配)；与 NodeManager 通信以启动/停止任务；监控所有任务运行状态，并在任务运行失败时重新为任务申请资源以重启任务。&lt;/p>
+&lt;h3 id="44-container">4.4 Container&lt;/h3>
+&lt;p>Container 是 YARN 中的资源抽象，它封装了某个设备上的多维度资源，如内存、CPU、磁盘、网络等，当 AM 向 RM 申请资源时，RM 为AM 返回的资源便是用 Container 表示。&lt;/p>
+&lt;hr>
+&lt;h2 id="五结束语">五、结束语&lt;/h2>
+&lt;p>本文走马观花的介绍了 Hadoop 相关内容。主要目的是给大家一个对大数据的分布式解决方案的感官印象，为后面的大数据相关文章提供一个基础的理解。&lt;/p>
+&lt;p>最后要强调的是，思考大数据方向的问题是一定要记住分布式的概念，因为你的数据并不在一个设备中甚至不再一个集群中，而且计算也是分布的。所以在设计大数据应用程序时，要花时间思考程序和算法在单机应用和分布式应用所产生的不同(e.g. 加权平均值)。&lt;/p></description></item><item><title>Maven 配置问题汇总</title><link>https://quakewang.github.io/tech/question001/</link><guid isPermaLink="true">https://quakewang.github.io/tech/question001/</guid><pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="maven-常见问题处理方法">Maven 常见问题处理方法&lt;/h1>
 &lt;h3 id="一npm-install-node-sass---unsafe-perm-failed">一、'npm install node-sass --unsafe-perm' failed&lt;/h3>
 &lt;p>&lt;strong>报错信息：&lt;/strong>&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
