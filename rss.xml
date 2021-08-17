@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>AKA二夕</title><link>https://quakewang.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.69.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (AKA二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (AKA二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 16 Aug 2021 15:13:49 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>Hadoop001——入门篇</title><link>https://quakewang.github.io/tech/bigdata_hadoop001/</link><guid isPermaLink="true">https://quakewang.github.io/tech/bigdata_hadoop001/</guid><pubDate>Sun, 15 Aug 2021 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="hadoop-极简入门">Hadoop 极简入门&lt;/h1>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>AKA二夕</title><link>https://quakewang.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.69.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (AKA二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (AKA二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 17 Aug 2021 04:17:27 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>Hadoop001——入门篇</title><link>https://quakewang.github.io/tech/bigdata_hadoop001/</link><guid isPermaLink="true">https://quakewang.github.io/tech/bigdata_hadoop001/</guid><pubDate>Sun, 15 Aug 2021 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="hadoop-极简入门">Hadoop 极简入门&lt;/h1>
 &lt;h2 id="零前言">零、前言&lt;/h2>
 &lt;p>在 2021 年初的时候，Apache 退休了一些 Hadoop 生态圈的子项目。再加上其 MapReduce 思想最为人诟病，因为不太友好的编写代码方式，需要高昂的维护成本以及较低的运行效率，唱衰 Hadoop 的声音（甚至对于整个大数据生态的质疑声）日益高涨。。&lt;/p>
 &lt;p>然而，MapReduce 作为一种编程范式，恐怕并没有那么容易被淘汰。纵使很多人说：你看 Spark 速度又快又稳定，这不是可以淘汰掉 Hadoop 的 MapReduce 吗？但是真的是这样吗？？&lt;/p>
@@ -17,7 +17,7 @@
 &lt;li>高容错性：能够自动将失败任务重新分配。&lt;/li>
 &lt;/ol>
 &lt;h3 id="13-发展">1.3 发展&lt;/h3>
-&lt;p>经过多年的发展，Hadoop 这个单词的意思也随之发生改变，由之前一个具体项目的名称，到现在提到 Hadoop 大多是指大数据的生态圈，包括许多现在火的一腿的项目，例如 Spar、Hive、HBase 等等。&lt;/p>
+&lt;p>经过多年的发展，Hadoop 这个单词的意思也随之发生改变，由之前一个具体项目的名称，到现在提到 Hadoop 大多是指大数据的生态圈，包括许多现在火的一腿的项目，例如 Spark、Hive、HBase 等等。&lt;/p>
 &lt;p>如同 Spring 框架有着最基础的几个模块 Context、Bean 和 Core。其余的模块和项目都是基于这些模块构建的。Hadoop 与之大体一样，也有最基础的几个模块：&lt;/p>
 &lt;ul>
 &lt;li>&lt;strong>Common&lt;/strong>：支持其它模块的公用工具包；&lt;/li>
@@ -25,7 +25,7 @@
 &lt;li>&lt;strong>Yarn&lt;/strong>：一个管理集群服务资源和任务调度的框架；&lt;/li>
 &lt;li>&lt;strong>MapReduce&lt;/strong>：基于 Yarn 对于大数据集群进行并行计算的系统。&lt;/li>
 &lt;/ul>
-&lt;p>其他的，像 Hbase、Hive 等等都是在这几个模块基础上的高级抽象。&lt;strong>Common&lt;/strong> 模块是 Hadoop 最为基础的模块，负责为其余模块提供了像 I/O、操作文件系统、序列化和远程方法调用等最为基础的实现。（如果想深入了解 Hadoop 具体实现的小朋友，可以挑战职级制阅读一下 Common 的源码~~）&lt;/p>
+&lt;p>其他的，像 Hbase、Hive 等等都是在这几个模块基础上的高级抽象。&lt;strong>Common&lt;/strong> 模块是 Hadoop 最为基础的模块，负责为其余模块提供了像 I/O、操作文件系统、序列化和远程方法调用等最为基础的实现。（如果想深入了解 Hadoop 具体实现的小朋友，可以挑战自己阅读一下 Common 的源码~~）&lt;/p>
 &lt;hr>
 &lt;h2 id="二hdfs-基础概念">二、HDFS 基础概念&lt;/h2>
 &lt;p>HDFS 是 “Hadoop Distributed File System”的首字母缩写，是一个分布式文件系统，说简单点就是为了存储文件。但是和其他的文件系统的不同之处是 HDFS 设计为运行在低成本的硬件上（因此在学习 Hadoop 入门的时候，可以使用 Linux 虚拟机搭建一套集群出来玩玩），且提供高可靠性的服务器。HDFS 设计满足大数据量，高吞吐的应用情况。&lt;/p>
