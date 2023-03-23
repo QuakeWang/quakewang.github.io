@@ -23,17 +23,17 @@ draft: false
 
 3.打开 Windows 的系统属性中的环境变量，配置 Scala 的环境变量：`SCALA_HOME` 以及所属目录：`D:\DevelopmentTool\scala-2.12.11`
 
-![scala01_home](../../../imag/../content/imag/tech/scala/scala01_home.png)
+![scala01_home](../../../imag/tech/scala/scala01_home.png)
 
 配置 path 路径，将 bin 目录添加至系统环境 `%SCALA_HOME%\bin`
 
-![scala02_path](../../../imag/../content/imag/tech/scala/scala02_path.png)
+![scala02_path](../../../imag/tech/scala/scala02_path.png)
 
 4.测试
 
 打开 terminal 终端，输入 scala 出现如下图所示表示配置好环境~~
 
-![scala03_test](../../../imag/../content/imag/tech/scala/scala03_test.png)
+![scala03_test](../../../imag/tech/scala/scala03_test.png)
 
 ## 二、在 IDEA 中配置 Scala 开发环境
 
@@ -41,17 +41,17 @@ IDEA 懂的都懂 好用就完事了！！！下面将演示如何在 IDEA 集�
 
 1.在 Setting 的 plugins 中搜素 Scala ->点击 Install->点击 ok->点击 apply，重启 IDEA；
 
-![scala04_idea](../../../imag/../content/imag/tech/scala/scala04_idea.png)
+![scala04_idea](../../../imag/tech/scala/scala04_idea.png)
 
 2.创建一个 projet，默认是不支持 Scala 的开发。需要手动引入 Scala 框架，在项目上，点击右键-> Add Framework Support... ->选择 Scala->点击 OK。
 
-![scala05_idea](../../../imag/../content/imag/tech/scala/scala05_idea.png)
+![scala05_idea](../../../imag/tech/scala/scala05_idea.png)
 
 *注意：如果是第一次引入框架，Use libary 看不到，需要选择你的 Scala 安装目录，然后工具就会自动识别，就会显示 user libary。*
 
 3.测试
 
-![scala06_idea](../../../imag/../content/imag/tech/scala/scala06_idea.png)
+![scala06_idea](../../../imag/tech/scala/scala06_idea.png)
 
 以上我们已经完成了 Scala 的开发环境，可以完成一些基础的相关。
 
@@ -104,6 +104,6 @@ java.io.IOException: Could not locate executable null\bin\winutils.exe in the Ha
 
 在 IDEA 中配置 Run Configuration，添加 HADOOP_HOME 变量：
 
-![spark01_edit](../../../imag/../content/imag/tech/scala/spark01_edit.png)
+![spark01_edit](../../../imag/tech/scala/spark01_edit.png)
 
-![spark02_conf](../../../imag/../content/imag/tech/scala/spark02_conf.png)
+![spark02_conf](../../../imag/tech/scala/spark02_conf.png)
