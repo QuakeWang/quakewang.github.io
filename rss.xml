@@ -1,4 +1,64 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>AKA二夕</title><link>https://quakewang.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.69.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (AKA二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (AKA二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Thu, 22 Dec 2022 06:42:57 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>设计模式（一）-- 单例模式 001</title><link>https://quakewang.github.io/tech/designpattern/001_signle%E4%B8%80/</link><guid isPermaLink="true">https://quakewang.github.io/tech/designpattern/001_signle%E4%B8%80/</guid><pubDate>Mon, 28 Feb 2022 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="单例模式">单例模式&lt;/h2>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>AKA二夕</title><link>https://quakewang.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.69.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (AKA二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (AKA二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Thu, 23 Mar 2023 08:37:00 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>Windows 配置 Scala 开发环境</title><link>https://quakewang.github.io/tech/bigdata/scala/</link><guid isPermaLink="true">https://quakewang.github.io/tech/bigdata/scala/</guid><pubDate>Thu, 23 Mar 2023 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="windows-配置-scala-开发环境">Windows 配置 Scala 开发环境&lt;/h1>
+&lt;h2 id="零前言">零、前言&lt;/h2>
+&lt;p>谈起现如今的大数据开发框架，那么 Spark 想必是众所周知的。而 Spark 就是使用 Scala 语言编写的。所以问题来了，该如何配置一套 Scala 的环境呢？&lt;/p>
+&lt;p>其实，有了 Java 的底子之后，配置一套 Scala 开发环境并不是很难，因为 Scala 一门以 JVM 为运行环境并将面向对象和函数式编程的最佳特性结合在一起的
+静态类型编程语言，支持面向对象和函数式编程。&lt;/p>
+&lt;h2 id="一scala-环境搭建">一、Scala 环境搭建&lt;/h2>
+&lt;p>前文提到，Scala 是运行在 JVM 上的，所以首先先保证开发环境已经配置了 JDK，这里不做过多赘述。（我使用的 JDK1.8）&lt;/p>
+&lt;p>1.下载所需要的 Scala 版本，&lt;a href="https://www.scala-lang.org/download/">download&lt;/a>；&lt;/p>
+&lt;p>2.将下载好的 zip 文件压解至无中文的目录下，最好也不要有空格；&lt;/p>
+&lt;p>3.打开 Windows 的系统属性中的环境变量，配置 Scala 的环境变量：&lt;code>SCALA_HOME&lt;/code> 以及所属目录：&lt;code>D:\DevelopmentTool\scala-2.12.11&lt;/code>&lt;/p>
+&lt;p>&lt;img src="../../../imag/../content/imag/tech/scala/scala01_home.png" alt="scala01_home">&lt;/p>
+&lt;p>配置 path 路径，将 bin 目录添加至系统环境 &lt;code>%SCALA_HOME%\bin&lt;/code>&lt;/p>
+&lt;p>&lt;img src="../../../imag/../content/imag/tech/scala/scala02_path.png" alt="scala02_path">&lt;/p>
+&lt;p>4.测试&lt;/p>
+&lt;p>打开 terminal 终端，输入 scala 出现如下图所示表示配置好环境~~&lt;/p>
+&lt;p>&lt;img src="../../../imag/../content/imag/tech/scala/scala03_test.png" alt="scala03_test">&lt;/p>
+&lt;h2 id="二在-idea-中配置-scala-开发环境">二、在 IDEA 中配置 Scala 开发环境&lt;/h2>
+&lt;p>IDEA 懂的都懂 好用就完事了！！！下面将演示如何在 IDEA 集成 Scala 开发环境。&lt;/p>
+&lt;p>1.在 Setting 的 plugins 中搜素 Scala -&amp;gt;点击 Install-&amp;gt;点击 ok-&amp;gt;点击 apply，重启 IDEA；&lt;/p>
+&lt;p>&lt;img src="../../../imag/../content/imag/tech/scala/scala04_idea.png" alt="scala04_idea">&lt;/p>
+&lt;p>2.创建一个 projet，默认是不支持 Scala 的开发。需要手动引入 Scala 框架，在项目上，点击右键-&amp;gt; Add Framework Support... -&amp;gt;选择 Scala-&amp;gt;点击 OK。&lt;/p>
+&lt;p>&lt;img src="../../../imag/../content/imag/tech/scala/scala05_idea.png" alt="scala05_idea">&lt;/p>
+&lt;p>&lt;em>注意：如果是第一次引入框架，Use libary 看不到，需要选择你的 Scala 安装目录，然后工具就会自动识别，就会显示 user libary。&lt;/em>&lt;/p>
+&lt;p>3.测试&lt;/p>
+&lt;p>&lt;img src="../../../imag/../content/imag/tech/scala/scala06_idea.png" alt="scala06_idea">&lt;/p>
+&lt;p>以上我们已经完成了 Scala 的开发环境，可以完成一些基础的相关。&lt;/p>
+&lt;h2 id="三配置-spark-开发环境">三、配置 Spark 开发环境&lt;/h2>
+&lt;p>1.创建 Spark 项目，添加相关依赖：&lt;/p>
+&lt;pre>&lt;code>&amp;lt;dependency&amp;gt;
+&amp;lt;groupId&amp;gt;org.apache.spark&amp;lt;/groupId&amp;gt;
+&amp;lt;artifactId&amp;gt;spark-core_2.12&amp;lt;/artifactId&amp;gt;
+&amp;lt;version&amp;gt;3.0.0&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code>&lt;/pre>&lt;p>添加依赖之后，就可以使用 Spark 相关的 API，但是在运行过程中，控制台可以会出现一些神奇的错误，如下所示：&lt;/p>
+&lt;pre>&lt;code>ERROR Shell: Failed to locate the winutils binary in the hadoop binary path
+java.io.IOException: Could not locate executable null\bin\winutils.exe in the Hadoop binaries.
+at org.apache.hadoop.util.Shell.getQualifiedBinPath(Shell.java:382)
+at org.apache.hadoop.util.Shell.getWinUtilsPath(Shell.java:397)
+at org.apache.hadoop.util.Shell.&amp;lt;clinit&amp;gt;(Shell.java:390)
+at org.apache.hadoop.util.StringUtils.&amp;lt;clinit&amp;gt;(StringUtils.java:80)
+at org.apache.hadoop.security.SecurityUtil.getAuthenticationMethod(SecurityUtil.java:611)
+at org.apache.hadoop.security.UserGroupInformation.initialize(UserGroupInformation.java:274)
+at org.apache.hadoop.security.UserGroupInformation.ensureInitialized(UserGroupInformation.java:262)
+at org.apache.hadoop.security.UserGroupInformation.loginUserFromSubject(UserGroupInformation.java:807)
+at org.apache.hadoop.security.UserGroupInformation.getLoginUser(UserGroupInformation.java:777)
+at org.apache.hadoop.security.UserGroupInformation.getCurrentUser(UserGroupInformation.java:650)
+at org.apache.spark.util.Utils$.$anonfun$getCurrentUserName$1(Utils.scala:2412)
+at scala.Option.getOrElse(Option.scala:189)
+at org.apache.spark.util.Utils$.getCurrentUserName(Utils.scala:2412)
+at org.apache.spark.SparkContext.&amp;lt;init&amp;gt;(SparkContext.scala:303)
+at org.erxi.spark.core.rdd.operator.transform.AdClickCount$.main(AdClickCount.scala:8)
+at org.erxi.spark.core.rdd.operator.transform.AdClickCount.main(AdClickCount.scala)
+&lt;/code>&lt;/pre>&lt;p>这是因为在程序中使用了 Hadoop 相关的内容，比如写入文件到 HDFS。出现这个问题并不是程序的错误，而是windows 系统用到了 hadoop 相关的服务，解决办法是通过配置关联到 windows 的系统依赖就可以了。&lt;/p>
+&lt;h2 id="2解决异常">2.解决异常&lt;/h2>
+&lt;p>安装 Spark：到官网 &lt;a href="https://spark.apache.org/downloads.html">https://spark.apache.org/downloads.html&lt;/a> 选择合适的版本下载，注意 Spark 与Hadoop 版本选择要相对应，建议下载预编译（Pre-built）好的版本，省得麻烦。解压文件，然后与配置 Scala 环境类似配置对应的 &lt;code>SPARK_HOME&lt;/code> 与 path 变量 &lt;code>%SPARK_HOME%\bin&lt;/code>;&lt;/p>
+&lt;p>安装 Hadoop：到官网 &lt;a href="https://hadoop.apache.org/releases.html">https://hadoop.apache.org/releases.html&lt;/a> 下载与上边的 Spark 对应的版本。后与配置 Scala 环境类似配置对应的 &lt;code>HADOOP_HOME&lt;/code> 与 path 变量 &lt;code>%HADOOP_HOME%\bin&lt;/code>。&lt;/p>
+&lt;p>除此之外，还需要到这里 &lt;a href="https://github.com/cdarlint/winutils">https://github.com/cdarlint/winutils&lt;/a> 下载对应版本的 bin 目录中的 hadoop.dll 和 winutils.exe，复制到 hadoop 目录的 bin 目录下。&lt;/p>
+&lt;p>完成上述操作之后，已经在 Windows 环境下搭建了可用于测试的 Spark 环境和 Hadoop 环境。最后还需要再 IDEA 中导入一下 HADOOP_HOME，这样运行程序就不会报错啦~~&lt;/p>
+&lt;p>在 IDEA 中配置 Run Configuration，添加 HADOOP_HOME 变量：&lt;/p>
+&lt;p>&lt;img src="../../../imag/../content/imag/tech/scala/spark01_edit.png" alt="spark01_edit">&lt;/p>
+&lt;p>&lt;img src="../../../imag/../content/imag/tech/scala/spark02_conf.png" alt="spark02_conf">&lt;/p></description></item><item><title>设计模式（一）-- 单例模式 001</title><link>https://quakewang.github.io/tech/designpattern/001_signle%E4%B8%80/</link><guid isPermaLink="true">https://quakewang.github.io/tech/designpattern/001_signle%E4%B8%80/</guid><pubDate>Mon, 28 Feb 2022 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="单例模式">单例模式&lt;/h2>
 &lt;h3 id="为什么使用单例模式">为什么使用单例模式？&lt;/h3>
 &lt;p>&lt;strong>单例设计模式&lt;/strong>：一个类只允许创建一个对象（或者实例），那么这个类就是一个单例类，这种设计模式就叫做单例设计模式，简称单例模式。&lt;/p>
 &lt;p>单例模式的概念并不是很难，一看就能明白。接下来我们思考一下，为什么需要单例这种设计模式？它能解决哪些问题？&lt;/p>
