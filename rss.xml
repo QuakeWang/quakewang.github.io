@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>AKA二夕</title><link>https://quakewang.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.69.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (AKA二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (AKA二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Wed, 14 Jun 2023 15:33:17 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>Rust01——内存：栈与堆？？</title><link>https://quakewang.github.io/tech/rust/prepare/01_memory/</link><guid isPermaLink="true">https://quakewang.github.io/tech/rust/prepare/01_memory/</guid><pubDate>Wed, 14 Jun 2023 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="rust--01--内存值放在栈上还是堆上">RUST--01 ｜ 内存：值，放在栈上还是堆上？？&lt;/h2>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>AKA二夕</title><link>https://quakewang.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.69.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (AKA二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (AKA二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Wed, 14 Jun 2023 15:40:00 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>Rust01——内存：栈与堆？？</title><link>https://quakewang.github.io/tech/rust/prepare/01_memory/</link><guid isPermaLink="true">https://quakewang.github.io/tech/rust/prepare/01_memory/</guid><pubDate>Wed, 14 Jun 2023 00:00:00 +0000</pubDate><author>wangfuzheng0814@foxmail.com (AKA二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="rust--01--内存值放在栈上还是堆上">RUST--01 ｜ 内存：值，放在栈上还是堆上？？&lt;/h2>
 &lt;h3 id="牢骚话">牢骚话&lt;/h3>
 &lt;p>学习 Java、Python 或者 Scala 的时候，通常都会从最基本的语法讲起，为何谈起 Rust 却偏偏要从这些较为抽象的基础知识谈起呢？其实不然，从我自己的经历来说，吃过基础知识没学透，后期回来补课的痛苦。。。&lt;/p>
 &lt;p>比如，以最基础的内存为例，很多人其实并没有搞懂什么时候数据应该放在栈上，什么时候应该在堆上，直到工作中实际出现问题了，才意识到数据的存放方式居然会严重影响并发安全，无奈回头重新补基础，时间精力的耗费都很大。&lt;/p>
@@ -23,7 +23,7 @@
 &lt;li>第三个表示这片内存的总容量（11）;&lt;/li>
 &lt;/ul>
 &lt;p>在 64 位系统下，三个 word 是 24 个字节。也可以看下图，更直观一些：&lt;/p>
-&lt;p>&lt;img src="../../rust/images/01_A_memory.jpg" alt="memory">&lt;/p>
+&lt;p>&lt;img src="https://quakewang.github.io/tech/rust/images/01_A_memory.jpg" alt="memory">&lt;/p>
 &lt;p>刚才例子中的字符串的内容在堆上，而指向字符串的指针等信息在栈上，那么有个问题就是：&lt;strong>数据什么时候可以放在栈上，什么时候需要放在堆上呢&lt;/strong>？&lt;/p>
 &lt;p>这个问题也是比较考验程序员的基本功是否扎实的，很多使用自动内存管理语言比如 Java/Python 的开发者，可能有一些模糊的印象或者规则：&lt;/p>
 &lt;ul>
@@ -36,7 +36,7 @@
 &lt;p>栈是自顶向下增长的，一个程序的调用栈最底部，除去入口帧（entry frame），就是 main() 函数对应的帧，而随着 main() 函数一层层调用，栈会一层层扩展；调用结束，栈又会一层层回溯，把内存释放回去。&lt;/p>
 &lt;p>在调用的过程中，&lt;strong>一个新的帧会分配足够的空间存储寄存器的上下文&lt;/strong>。在函数里使用到的通用寄存器会在栈保存一个副本，当这个函数调用结束，通过副本，可以恢复出原本的寄存器的上下文，就像什么都没有经历一样。此外，函数所需要使用到的局部变量，也都会在帧分配的时候被预留出来。&lt;/p>
 &lt;p>整个过程可以再看看这张图辅助理解：&lt;/p>
-&lt;p>&lt;img src="../../rust/images/01_B_stack.jpg" alt="stack">&lt;/p>
+&lt;p>&lt;img src="https://quakewang.github.io/tech/rust/images/01_B_stack.jpg" alt="stack">&lt;/p>
 &lt;p>那一个函数运行时，怎么确定究竟需要多大的帧呢？这要归功于编译器。在编译并优化代码的时候，一个函数就是一个最小的编译单元。&lt;/p>
 &lt;p>在这个函数里，编译器得知道要用到哪些寄存器、栈上要放哪些局部变量，而这些都要在编译时确定。所以编译器就需要明确每个局部变量的大小，以便于预留空间。&lt;/p>
 &lt;p>于是乎我们可以这么理解：&lt;strong>在编译时，一切无法确定大小或者大小可以改变的数据，都无法安全地放在栈上，最好放在堆上&lt;/strong>。比如一个函数，参数是字符串：&lt;/p>
@@ -80,7 +80,7 @@
 &lt;p>对上面的代码来说，如果说需要多少就分配多少，那列表每次新增值，都要新分配一大块的内存，先拷贝已有数据，再把新的值添加进去，最后释放旧的内存，这样效率很低。所以在堆内存分配时，预留的空间大小 4 会大于需要的实际大小 2 。&lt;/p>
 &lt;p>除了动态大小的内存需要被分配到堆上外，&lt;strong>动态生命周期的内存也需要分配到堆上&lt;/strong>。&lt;/p>
 &lt;p>上文中我们讲到，栈上的内存在函数调用结束之后，所使用的帧被回收，相关变量对应的内存也都被回收待用。所以栈上内存的生命周期是不受开发者控制的，并且局限在当前调用栈。而堆上分配出来的每一块内存需要显式地释放，这就使堆上内存有更加灵活的生命周期，可以在不同的调用栈之间共享数据。&lt;/p>
-&lt;p>&lt;img src="../../rust/images/01_C_heap.jpg" alt="heap">&lt;/p>
+&lt;p>&lt;img src="https://quakewang.github.io/tech/rust/images/01_C_heap.jpg" alt="heap">&lt;/p>
 &lt;h3 id="放在堆上的问题">放在堆上的问题&lt;/h3>
 &lt;p>然而，堆内存的这种灵活性也给内存管理带来很多挑战。&lt;/p>
 &lt;p>如果手工管理堆内存的话，堆上内存分配后忘记释放，就会造成&lt;strong>内存泄漏&lt;/strong>。一旦有内存泄漏，程序运行得越久，就越吃内存，最终会因为占满内存而被操作系统终止运行。&lt;/p>
