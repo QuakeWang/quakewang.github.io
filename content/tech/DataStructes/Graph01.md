@@ -1,7 +1,7 @@
 ---
 title: "图——基本概念以及相关方法"
 date: 2021-01-24
-
+draft: true
 ---
 
 # 图
@@ -85,7 +85,7 @@ date: 2021-01-24
 
      ![graph04](https://github.com/QuakeWang/Figure-bed/blob/master/DataStructures/graph04.gif?raw=true)
      图 4 完全图示意图
-
+    
      具有 n 个顶点的完全图，图中边的数量为 n(n-1)/2；而对于具有 n 个顶点的有向完全图，图中弧的数量为 n(n-1)。
 
 -    稀疏图和稠密图：这两种图是相对存在的，即如果图中具有很少的边（或弧），此图就称为"稀疏图"；反之，则称此图为"稠密图"。
