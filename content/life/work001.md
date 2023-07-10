@@ -3,14 +3,6 @@ title: "Hello LQ"
 date: 2023-04-24
 ---
 
-# 上班第一天
+# Q2 季度小结
 
-this is a test
-
-hello world～～
-
-Hello LQ～～
-
-
-
-add some words for test
+绩效拿了全组最高耶～～
