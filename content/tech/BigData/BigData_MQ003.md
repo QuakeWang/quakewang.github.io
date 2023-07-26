@@ -20,6 +20,8 @@ draft: false
 - 生产者：完成生产相关的功能；
 - 消费者：完成消费相关的功能。
 
+![mq-framework](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/6bff996c03c81391f3fd7fb50fc9a5c4c2d73c28/content/imag/tech/bigdata/mq/03_mq-framework.svg)
+
 其实消息引擎系统，本质上讲就是个 CS 模型，即通过客户端和服务端之间的交互完成生产、消费等行为。那么客户端和服务端之间的通信流程是如何实现的呢？？
 
 这就是今天的重点——**通信协议**。为了完成交互，我们第一步就需要确定服务端和客户端是如何通信的。而通信的第一步就是确定使用哪种通信协议进行通信。
