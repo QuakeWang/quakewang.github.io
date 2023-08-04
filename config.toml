@@ -98,11 +98,11 @@ uglyURLs = false
     # 座右铭或简介
     motto = "求知 寻我 白说、不圆"
     # 头像
-    avatar = "/icons/apple-touch-icon.png"
+    avatar = "/static/favicon.ico"
     # 网站（默认值：baseURL）
     website = "https://quakewang.github.io/"
     # 推特
-    twitter = "QuakeWang"
+    twitter = "WangErxi"
 
 # 相关文章
 [related]
@@ -299,11 +299,11 @@ uglyURLs = false
     # 3. posts     文章摘要
     # 4. page      普通页面
 
-    homeLayout = "posts"
+    homeLayout = "poetry"
 
     ## 「诗意人生」
     # 诗句，支持 Markdown
-    homePoetry = []
+    homePoetry = [ "我认出了风暴", "而激动如大海。", "我舒展开又跌回我自己，",  "又把自己抛出去，", "并且独个儿", "置身在伟大的风暴里。"]
     # 底部链接的内间距，单位：em
     homeLinksPadding = 1
 
@@ -324,11 +324,11 @@ uglyURLs = false
     # 站点信息
 
     # 站点的 LOGO
-    siteLogo = "/icons/apple-touch-icon.png"
+    siteLogo = "/static/favicon.ico"
     # 说明：用于 JSON-LD、Open Graph
 
     # 站点的描述
-    siteDescription = "MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。"
+    siteDescription = "二夕的个人博客，一半献给技术，另一半还在寻找。。。"
     # 说明：用于 HTML 的头部元数据、JSON-LD、
     #      Open Graph、Atom、RSS
 
@@ -704,7 +704,7 @@ uglyURLs = false
     publishedDateIcon = "calendar-alt"
 
     # 是否显示修改时间
-    displayModifiedDate = true
+    displayModifiedDate = false
     # 修改时间的图标
     modifiedDateIcon = "calendar-check"
 
