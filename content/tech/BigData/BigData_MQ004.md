@@ -163,7 +163,7 @@ Reactor 模型是一种处理并发服务请求的事件设计模式，当主流
 
 Kafka 的网络层没有用 Netty 作为底层的通信库，而是直接采用 Java NIO 实现网络通信。在网络模型中，也是参照 Reactor 多线程模型，采用多线程、多 Selector 的设计。
 
-![kafka](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/0dcae473300c80f5bf469c2280596b4b3a3c8ad0/content/imag/tech/bigdata/mq/04_network-kafka.svg)
+![kafka](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/a602648653a511924c6608e2529299122d829d0a/content/imag/tech/bigdata/mq/04_network-kafka.svg)
 
 看整个网络层的结果图，Processor 线程和 Handler 线程之间通过 Request Channel 传递数据，Request Channel 中包含一个 Request Queue 和多个Response Queue。每个 Processor 线程对应一个 Response Queue。
 
