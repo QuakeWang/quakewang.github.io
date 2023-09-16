@@ -41,8 +41,19 @@ paginate = 5
 
 # URL 相关
 disablePathToLower = false
-relativeURLs = false
+relativeURLs = true
 uglyURLs = false
+
+# 评论区配置
+[params.page.comment]
+enable = true
+[params.page.comment.giscus]
+enable = true
+repo = "QuakeWang/quakewang.github.io"
+repoId = "MDEwOlJlcG9zaXRvcnkyNjI1MDk1MDg="
+category = "General"
+categoryId = "DIC_kwDOD6WTxM4CZXSb"
+mapping = "pathname"
 
 # URL 结构
 [permalinks]
