@@ -11,7 +11,7 @@ draft: false
 
 大部分开发者在使用某个组件或框架的时候，都希望能够做到开箱即用，作为一款成熟的产品来说，也确实应该做到。那么，在使用的过程中是否会有疑问，这些框架的 SDK 底层是如何工作的呢，由哪些功能模块所组成的呢？消息队列的客户端主要包含生产、消费、集群管控三类功能。我们先用 MQ 中的生产者为例，来进行一个浅层次的设计分析。。从客户端 SDK 实现的角度来看，生产模块包含**客户端基础功能和生产相关功能**两部分，其中基础功能是客户端所有功能共有的。如下图所示：
 
-![]()
+![producer-framework](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/da51f810a77f65197bb33a1fe7e3914c764d7f47/content/imag/tech/bigdata/mq/06_producer_framework.svg)
 
 基础功能是蓝色部分，包括请求连接管理、心跳检测、内容构建、序列化、重试、容错处理等等。生产功能是黄色部分，包括客户端寻址、分区选择、批量发送、生产错误处理、SSL、幂等和压缩等等。
 
@@ -40,7 +40,7 @@ draft: false
 
 心跳检测是客户端和服务端之间保活的一种机制，检测服务端或者客户端的一方不可用时，另一方可以及时回收资源，避免资源浪费。一般都是通过 ping-pong 的方式来发起探测。之前的内容有提到过，消息队列一般都是基于 TCP 协议通信的。所以客户端和服务端之间的心跳机制的实现，一般有基于 TCP 的 KeepAlive 保活机制和应用层主动探测两种形式。
 
-![]()
+![producer-heart](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/da51f810a77f65197bb33a1fe7e3914c764d7f47/content/imag/tech/bigdata/mq/06_producer_heart.svg)
 
 **基于 TCP 的 KeepAlive 保活机制**：是 TCP/IP协议层内置的功能，需要手动打开 TCP 的 KeepAlive 功能。通过这种方案实现心跳检测，优点是简单，缺点是 KeepAlive 实现是在服务器侧，需要 Server 主动发送检测包，此时如果客户端异常，可能出现很多不可用的 TCP 连接。这种连接会占用服务器内存资源，导致服务器端的性能下降。
 
@@ -49,6 +49,8 @@ draft: false
 ### 错误处理
 
 从请求的角度，有些错误是重试可以恢复的，比如连接断开、Leader 切换、发送偶尔超时和服务端某些异常等；有些错误是不可恢复的，比如 Topic / 分区不存在、服务端 Broker 不存在、集群和 Broker 长时间无响应等。所以，在客户端的处理中，也会将错误分为可重试错误和不可重试错误两类。
+
+![producer-exception](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/da51f810a77f65197bb33a1fe7e3914c764d7f47/content/imag/tech/bigdata/mq/06_producer_exception.svg)
 
 因为网络环境、架构部署的复杂性，集群可能出现短暂网络抖动、Leader 切换等异常，可重试错误就是这类通过一次或多次重试可能恢复的异常；不可重试的错误，就是不管如何重试都无法恢复的异常。
 
@@ -86,7 +88,7 @@ MQ 作为一个分布式系统，分区会分布在集群的不同节点上。�
 
 服务端会提供一个获取全量的 Metadata 的接口，客户端在启动时，首先通过接口拿到集群所有的元数据信息，本地缓存这部分数据信息。然后，客户端发送数据的时候，会根据元数据的内容，得知服务端的地址是什么，要发送的分区在哪台节点上。最后根据这两部分信息，将数据发送到服务端。
 
-![]()
+![producer-seek-metastore](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/da51f810a77f65197bb33a1fe7e3914c764d7f47/content/imag/tech/bigdata/mq/06_producer_seek01.svg)
 
 消息队列的元数据是指 Topic、分区、Group、节点、配置等集群维度的信息。比如 Topic 有几个分区，分区的 Leader 和 Follwer 在哪些节点上，节点的 IP 和端口是什么，有哪些 Group 等等。
 
@@ -142,7 +144,7 @@ MQ 作为一个分布式系统，分区会分布在集群的不同节点上。�
 
 另外一种服务端内部转发机制，客户端不需要经过寻址的过程，写入的时候是随机把数据写入到服务端任意一台 Broker。具体思路是服务端的每一台 Broker 会缓存所有节点的元数据信息，生产者将数据发送给 Broker 后，Broker 如果判断分区不在当前节点上，会先找到这个分区在哪个节点上，然后把数据转发到目标节点。
 
-![]()
+![producer-seek-resend](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/da51f810a77f65197bb33a1fe7e3914c764d7f47/content/imag/tech/bigdata/mq/06_producer_seek02.svg)
 
 这么做的好处是，分区寻址在服务端完成，客户端的实现成本比较低。但是生产流程多了一跳，耗时增加了。另外服务端因为转发多了一跳，会导致服务端的资源损耗多一倍，比如 CPU、内存、网卡，在大流量的场景下，这种损耗会导致集群负载变高，从而导致集群整体性能降低。所以这种方案不适合大流量、高吞吐的消息队列。
 
@@ -152,7 +154,7 @@ MQ 作为一个分布式系统，分区会分布在集群的不同节点上。�
 
 我们知道，数据可以直接写入分区或者写入对应的 Topic。写入 Topic 时，最终数据还是要写入到某个分区。这个数据选择写入到哪个分区的过程，就是生产数据的分区分配过程。过程中的分配策略就是生产分区分配策略。
 
-![]()
+![producer-partition](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/da51f810a77f65197bb33a1fe7e3914c764d7f47/content/imag/tech/bigdata/mq/06_producer_partition.svg)
 
 一般情况下，消息队列默认支持轮询、按 Key Hash、手动指定和自定义分区分配这四种分区分配策略。
 
@@ -180,7 +182,7 @@ partitionSeq = hash(key) % partitionNum;
 
 批量发送的实现思路一般是在客户端内存中维护一个队列，数据写入的时候，先将其写入到这个内存队列，然后通过某个策略从内存队列读取数据，发送到服务端。
 
-![]()
+![producer-batch](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/da51f810a77f65197bb33a1fe7e3914c764d7f47/content/imag/tech/bigdata/mq/06_producer_batch.svg)
 
 批量发送数据的策略和存储模块的刷盘策略很像，都是根据数据条数或时间聚合后，汇总发送到服务端，一般是满足时间或者条数的条件后触发发送操作，也会有立即发送的配置项。
 
@@ -210,7 +212,7 @@ Kafka 是按照时间的策略批量发送的，提供了 linger.ms、max.reques
 
 命令行工具是最基础的支持方式。如下图所示，它的底层主要通过包装客户端 SDK 和服务端的相关功能接口进行交互。程序编码上一般由**命令行、参数包装和底层 SDK 调用**三部分组成。主要流程是接收参数、处理参数和调用 SDK 等相关操作。
 
-![]()
+![producer-cluster](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/da51f810a77f65197bb33a1fe7e3914c764d7f47/content/imag/tech/bigdata/mq/06_producer_cluster.svg)
 
 有的消息队列也会支持 HTTP 接口形式的管控操作。好处是因为 HTTP 协议的通用性，业务可以从各个环节发起管控的调用，不是强制使用 admin SDK。另外客户端封装 HTTP 接口实现命令行工具的成本也比较低。
 
@@ -221,6 +223,8 @@ Kafka 是按照时间的策略批量发送的，提供了 linger.ms、max.reques
 - 网络模块的开发和管理。这部分是为了完成和服务端的通信，比如请求和返回的构建、心跳检测、错误处理和重试机制等；
 - 根据服务端提供的各个接口的协议结构，构建请求，完成序列化和反序列化后，通过网络模块发起请求并获得返回；
 - 在前面两步的基础上，添加各个业务层面的功能，比如生产、消费、事务、幂等和 SSL 这类。
+
+![producer-summary](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/da51f810a77f65197bb33a1fe7e3914c764d7f47/content/imag/tech/bigdata/mq/06_producer_summary.svg)
 
 客户端和服务端交互的过程中，一般要经过元数据寻址，以正确找到分区所在的 Broker。如果我们想避免客户端寻址，只能在服务端内进行转发，但有性能和资源的损耗。所以在主打吞吐的消息队列组件中，转发的方案用的很少。
 
