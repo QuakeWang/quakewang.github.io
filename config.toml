@@ -53,7 +53,7 @@ repo = "QuakeWang/quakewang.github.io"
 repoId = "MDEwOlJlcG9zaXRvcnkyNjI1MDk1MDg="
 category = "General"
 categoryId = "DIC_kwDOD6WTxM4CZXSb"
-mapping = "pathname"
+mapping = "title"
 
 # URL 结构
 [permalinks]
