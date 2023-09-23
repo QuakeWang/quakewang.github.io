@@ -88,7 +88,7 @@ Push 模型是为了解决消费及时性而提出来的。这个模型的本意
 
 Pop 模型想解决的是客户端实现较重，重平衡会暂停消费并且可能时间较长，从而出现消费倾斜的问题。
 
-![pop](https://static001.geekbang.org/resource/image/7f/45/7f6f8e8603b1c9af0c594ec3b954c845.jpg?wh=10666x6000)
+![pop](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/8f6d00d95b0b5561943be6232e5d31ff9246688f/content/imag/tech/bigdata/mq/07_consumer_pop.svg)
 
 它的思路是客户端不需要感知到分区，直接通过 Pop 模型提供的 get 接口去获取到数据，消费成功后 ACK 数据。这就像发起 HTTP 请求去服务端拉取数据一样，不用感知服务端的数据分布情况，只需要拉到数据。这种方案的好处是简化了消费模型，同时服务端可以感知到消费的堆积情况，可以根据堆积情况返回哪些分区的数据给客户端，这样也就简化了消息数据的分配策略。
 
