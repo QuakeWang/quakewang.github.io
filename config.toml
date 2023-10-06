@@ -2,7 +2,7 @@
 # 站点配置
 
 baseURL = "https://quakewang.github.io/"
-title = "AKA二夕"
+title = "二夕说废话的地方"
 languageCode = "zh-CN"
 hasCJKLanguage = true
 # 版权信息（支持 Markdown）
@@ -12,7 +12,7 @@ copyright = "[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0
 theme = "meme"
 
 # `hugo new` 新建文章自动打开的文本编辑器
-newContentEditor = ""
+newContentEditor = "vim"
 
 # i18n
 defaultContentLanguage = "zh"
@@ -103,7 +103,7 @@ mapping = "title"
 # 作者信息
 [author]
     # 名字
-    name = "AKA二夕"
+    name = "二夕"
     # 邮箱
     email = "wangfuzheng0814@foxmail.com"
     # 座右铭或简介
@@ -314,7 +314,7 @@ mapping = "title"
 
     ## 「诗意人生」
     # 诗句，支持 Markdown
-    homePoetry = [ "我认出了风暴", "而激动如大海。", "我舒展开又跌回我自己，",  "又把自己抛出去，", "并且独个儿", "置身在伟大的风暴里。"]
+    homePoetry = [ "我认出了风暴，", "而激动如大海。", "我舒展开又跌回我自己，",  "又把自己抛出去，", "并且独个儿", "置身在伟大的风暴里。"]
     # 底部链接的内间距，单位：em
     homeLinksPadding = 1
 
