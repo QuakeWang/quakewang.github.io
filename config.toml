@@ -2,7 +2,7 @@
 # 站点配置
 
 baseURL = "https://quakewang.github.io/"
-title = "二夕说废话的地方"
+title = "二夕说废话の地方"
 languageCode = "zh-CN"
 hasCJKLanguage = true
 # 版权信息（支持 Markdown）
@@ -41,7 +41,7 @@ paginate = 5
 
 # URL 相关
 disablePathToLower = false
-relativeURLs = true
+relativeURLs = false
 uglyURLs = false
 
 # 评论区配置
@@ -956,7 +956,7 @@ mapping = "title"
     ## 首字下沉
 
     # 是否开启（全局设置）
-    enableDropCap = false
+    enableDropCap = true
     # 说明：文章的 Front Matter 中的 `dropCap`
     #      的优先级高于此处
 
@@ -1036,9 +1036,9 @@ mapping = "title"
     #      的优先级高于此处
 
     # 仓库地址
-    repoURL = ""
+    repoURL = "https://github.com/QuakeWang/quakewang.github.io/"
     # 编辑地址
-    repoEditURL = ""
+    repoEditURL = "https://github.com/QuakeWang/quakewang.github.io/"
 
     # Git 的图标
     gitIcon = "code-branch"
