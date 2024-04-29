@@ -44,7 +44,7 @@ draft: false
 
 在 Redis 中解决哈希冲突的方式时**链式哈希**，是指**同一个哈希桶中的多个元素用一个链表来保存，它们之间依次使用指针连接**。
 
-如下图所示：entry1、entry2 和 entry3 都需要保存在哈希桶 3 中，导致了哈希冲突。此时，entry1 元素会通过一个*next指针指向 entry2，同样，entry2 也会通过*next指针指向 entry3。这样一来，即使哈希桶 3 中的元素有 100 个，我们也可以通过 entry 元素中的指针，把它们连起来。这就形成了一个链表，也叫作哈希冲突链。
+如下图所示：entry1、entry2 和 entry3 都需要保存在哈希桶 3 中，导致了哈希冲突。此时，entry1 元素会通过一个*next 指针指向 entry2，同样，entry2 也会通过*next 指针指向 entry3。这样一来，即使哈希桶 3 中的元素有 100 个，我们也可以通过 entry 元素中的指针，把它们连起来。这就形成了一个链表，也叫作哈希冲突链。
 
 ![Hash_Conflict](https://raw.githubusercontent.com/QuakeWang/quakewang.github.io/da5705cd5fa4db4c6207e5fabcbc756f98bd2b1c/content/imag/tech/redis/01_Hash-Conflict.svg)
 
