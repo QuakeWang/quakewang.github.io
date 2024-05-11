@@ -4,7 +4,7 @@ date: 2024-04-09T09:58:35+08:00
 draft: false
 ---
 
-# Redis02——AOF 日志
+# Redis——AOF 日志
 
 ## 前言
 
