@@ -33,7 +33,7 @@
 {{- end -}}
 
 {{- if .Site.Params.enableLunrSearch -}}
-    {{- $scripts = union $scripts (partial "third-party/lunr-search.html" .) -}}
+    {{- $scripts = union $scripts (slice "js/lunr-search.js") -}}
 {{- end -}}
 
 {{- $scripts = union $scripts (slice "js/custom.js") -}}
@@ -57,3 +57,7 @@
     {{- $script := $processedScripts | resources.Concat $path | resources.Minify -}}
     <script src="{{ $script.RelPermalink }}"></script>
 {{- end }}
+
+{{- if .Params.mermaid | default .Site.Params.enableMermaid -}}
+    {{ partial "third-party/mermaid.html" . }}
+{{- end -}}

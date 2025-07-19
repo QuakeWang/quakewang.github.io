@@ -8,6 +8,13 @@
     {{- $Content = $Content | replaceRE $regexPatternLinkHeadings $regexReplacementLinkHeadings -}}
 {{- end -}}
 
+<!-- Process Mermaid Code Blocks -->
+{{- if .Params.mermaid | default .Site.Params.enableMermaid -}}
+    {{- $regexPatternMermaid := `<pre><code class="language-mermaid">(.+?)</code></pre>` -}}
+    {{- $regexReplacementMermaid := `<div class="mermaid">$1</div>` -}}
+    {{- $Content = $Content | replaceRE $regexPatternMermaid $regexReplacementMermaid -}}
+{{- end -}}
+
 <!-- Headings Anchor -->
 {{- if .Site.Params.enableHeadingsAnchor -}}
     {{- with .Site.Params.headingsOpt -}}
