@@ -578,7 +578,7 @@ mapping = "title"
     # Mermaid (https://github.com/mermaid-js/mermaid)
 
     # 是否开启（全局设置）
-    enableMermaid = false
+    enableMermaid = true
     # 说明：文章的 Front Matter 中的 `mermaid`
     #      的优先级高于此处
 

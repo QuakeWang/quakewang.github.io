@@ -1,7 +1,7 @@
 ---
 title: "macOS 折腾指南——Terminal"
 date: 2025-07-02T17:07:02+08:00
-draft: true
+draft: false
 ---
 
 # 如何打造一个更顺手的 Terminal？
