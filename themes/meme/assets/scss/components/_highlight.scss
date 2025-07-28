@@ -1,32 +1,63 @@
 .highlight {
-    font-size: 0.8rem;
-    margin: 2rem 0;
+    font-size: 0.9em;
+    margin: 2em 0;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background-color: #282c34;
+    border: 1px solid #3e4451;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+
+    &::before {
+        content: attr(data-lang);
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 0.5em 1em;
+        background-color: #21252b;
+        color: var(--color-contrast-medium);
+        font-family: var(--mono-font-family);
+        font-size: 0.8em;
+        text-transform: uppercase;
+        text-align: right;
+        border-bottom: 1px solid #3e4451;
+    }
+
+    .chroma {
+        color: var(--chroma-text-color);
+        background-color: var(--chroma-background-color);
+    }
+
     pre {
         margin: 0 !important;
-        max-height: unset;
+        padding: 2.5em 1.2em 1.2em;
     }
+
     .lntd pre {
         background-color: unset;
         overflow: visible;
     }
+
     table > tbody > tr:nth-of-type(odd) {
         background-color: inherit;
     }
+
     table > tbody > tr:hover {
         background-color: inherit;
     }
 }
+
 span.lnt {
     user-select: none;
     display: block;
-    margin-right: -1em !important;
-    padding: 0 !important;
+    padding: 0 0.5em !important;
     text-align: right;
+    color: var(--color-contrast-medium);
 }
 
 .chroma {
-    color: var(--color-contrast-high);
-    background-color: alpha(var(--color-contrast-lower), 0.5);
+    color: var(--chroma-text-color);
+    background-color: var(--chroma-background-color);
 }
 
 @if ($enableOverflowY) {

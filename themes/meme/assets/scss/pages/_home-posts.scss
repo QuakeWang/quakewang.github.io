@@ -26,9 +26,31 @@ article.content.post.home {
     display: flex;
     justify-content: space-between;
 }
+
+.pagination-prev a,
+.pagination-next a {
+    display: inline-block;
+    padding: 0.8em 1.5em;
+    border: 1px solid var(--color-contrast-low);
+    border-radius: 0.5em;
+    color: var(--color-contrast-high);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px var(--color-shadow);
+
+    &:hover {
+        background-color: var(--color-primary);
+        color: var(--color-bg);
+        border-color: var(--color-primary);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px var(--color-shadow);
+    }
+}
+
 .pagination-prev {
     margin-right: auto;
 }
+
 .pagination-next {
     margin-left: auto;
     text-align: right;

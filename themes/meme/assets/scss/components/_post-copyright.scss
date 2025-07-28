@@ -1,18 +1,17 @@
 .post-copyright {
-    margin: 0;
+    margin: 3em 0;
+    padding: 1.5em;
     list-style: none;
-    margin-top: 5em;
-    padding: 0.5em 1em;
-    background-color: alpha(var(--color-contrast-lower), 0.5);
-    border-left: 3px solid alpha(var(--color-primary), 0.5);
-    line-height: 2;
+    background-color: var(--color-contrast-lower);
+    border-radius: 0.5em;
+    line-height: 1.8;
 }
 
 .copyright-item {
-    line-height: 1.5;
     margin: 0.5em 0;
 }
 
 .copyright-item-text {
-    font-weight: 500;
+    font-weight: bold;
+    color: var(--color-contrast-high);
 }

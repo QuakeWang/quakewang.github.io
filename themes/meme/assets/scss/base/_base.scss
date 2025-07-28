@@ -15,7 +15,48 @@ body {
     overflow-wrap: break-word;
     word-wrap: break-word;
     line-height: 1.618;
-    transition: all $duration;
+    transition: color $duration, background-color $duration;
+    position: relative;
+    background-attachment: fixed; // Fix background to viewport
+
+    // Base animated gradient
+    background-image: radial-gradient(circle at 25% 25%, hsla(180, 100%, 80%, 0.15), transparent 30%),
+                      radial-gradient(circle at 75% 25%, hsla(60, 100%, 80%, 0.15), transparent 30%),
+                      radial-gradient(circle at 25% 75%, hsla(300, 100%, 80%, 0.15), transparent 30%),
+                      radial-gradient(circle at 75% 75%, hsla(240, 100%, 80%, 0.15), transparent 30%);
+    background-size: 300% 300%;
+    animation: gradient-animation 45s ease infinite;
+}
+
+// Spotlight effect on top
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: -1;
+    background: radial-gradient(
+        600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        hsla(0, 0%, 100%, 0.1),
+        transparent 80%
+    );
+}
+
+.dark body::before {
+     background: radial-gradient(
+        600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        hsla(0, 0%, 0%, 0.15),
+        transparent 80%
+    );
+}
+
+@keyframes gradient-animation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .container {

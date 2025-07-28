@@ -1,15 +1,20 @@
 // https://codyhouse.co/ds/globals/colors
 // https://github.com/dracula/dracula-theme/
 
+$accentColorDark: #F596AA, #A0A7D4, #ff7b7b, #99D8CF, #838BC6;
+
 @mixin dark-theme {
     --theme-name: "dark";
-    @include defineColorHSL(--color-primary, $primaryColorDarkH, $primaryColorDarkS, $primaryColorDarkL);
-    @include defineColorHSL(--color-bg, 231, 14%, 10%); // 0%
-    @include defineColorHSL(--color-contrast-lower, 230, 8%, 15%); // 8%
-    @include defineColorHSL(--color-contrast-low, 240, 2%, 25%); // 25%
-    @include defineColorHSL(--color-contrast-medium, 80, 1%, 50%); // 60%
-    @include defineColorHSL(--color-contrast-high, 69, 4%, 68%); // 85%
-    @include defineColorHSL(--color-contrast-higher, 60, 10%, 80%); // 100%
+    --color-primary: #{$darkAccent};
+    --primary-color-h: #{hue($darkAccent)};
+    --primary-color-s: #{saturation($darkAccent)};
+    --primary-color-l: #{lightness($darkAccent)};
+    --color-bg: #1C1C1E;
+    --color-contrast-lower: #2C2C2E;
+    --color-contrast-low: #48484A;
+    --color-contrast-medium: #8E8E93;
+    --color-contrast-high: #FFF;
+    --color-contrast-higher: #FFF;
     .theme-icon-light {
         display: none;
     }

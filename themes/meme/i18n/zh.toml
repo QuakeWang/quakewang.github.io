@@ -164,3 +164,6 @@ other = "八"
 
 [9]
 other = "九"
+
+[readingProgress]
+other = "阅读进度"

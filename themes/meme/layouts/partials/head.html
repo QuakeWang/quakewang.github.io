@@ -29,6 +29,16 @@
     {{ partial "script.html" . }}
 
     <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="/css/lora.css" rel="stylesheet">
+    <link href="/css/zen-maru.css" rel="stylesheet">
+    <link href="/css/noto-sans-sc.css" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     {{- with .Site.Params.fontsLink -}}
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
@@ -107,4 +117,19 @@
     {{- end }}
 
     {{ partial "custom/head.html" . }}
+
+    <!-- 自定义 CSS -->
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- 自定义 JavaScript -->
+    <script src="/js/header-effects.js" defer></script>
+    <script src="/js/theme-switcher.js" defer></script>
+    <script src="/js/search-enhancement.js" defer></script>
+    <script src="/js/layout-enhancement.js" defer></script>
+
+    <!-- 预加载字体 -->
+    <link rel="preload" href="/fonts/LXGWWenKai-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 </head>

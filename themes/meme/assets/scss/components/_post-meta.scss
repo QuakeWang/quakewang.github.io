@@ -1,28 +1,31 @@
 .post-meta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5em;
     color: var(--color-contrast-medium);
-    font-size: 80%;
-    text-align: center;
-    margin: 1rem 0;
+    font-size: 0.9em;
+    margin: 2em 0;
+
     a {
         color: var(--color-contrast-medium);
+        text-decoration: none;
+        transition: color $duration;
+
         &:hover {
             color: var(--color-primary);
         }
     }
 }
 
-.home {
-    .post-meta {
-        margin: 1rem 0;
-    }
-}
-
 .post-meta-item {
-    margin: 0.5em;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
 }
 
 .post-meta-icon {
-    fill: alpha(var(--color-contrast-medium), 0.5);
-    margin-bottom: 0.3em;
+    width: 1.1em;
+    height: 1.1em;
+    fill: currentColor;
 }

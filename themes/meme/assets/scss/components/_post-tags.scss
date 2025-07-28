@@ -1,17 +1,29 @@
 .post-tags {
-    margin-top: 5rem;
+    margin-top: 3em;
     text-align: center;
-    font-size: 90%;
 }
 
 .post-tags-link {
-    color: alpha(var(--color-contrast-medium), 0.9);
-    margin: 0 0.5em;
-    line-height: 2;
     display: inline-block;
+    margin: 0.3em;
+    padding: 0.4em 1em;
+    font-size: 0.85em;
+    color: var(--color-contrast-medium);
+    background-color: var(--color-contrast-lower-alpha);
+    border: 1px solid var(--color-contrast-low);
+    border-radius: 2em; // Pill shape
+    text-decoration: none;
+    transition: all $duration;
+
+    &:hover {
+        color: var(--color-bg);
+        background-color: var(--color-primary);
+        border-color: var(--color-primary);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 6px var(--color-shadow);
+    }
 }
 
 .tag-icon {
     margin-right: 0.3em;
-    font-size: 80%;
 }

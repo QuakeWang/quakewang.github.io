@@ -1,3 +1,13 @@
+{{- $lightColors := slice "#33A6B8" "#FF6666" "#26A69A" "#fb7287" "#69a6cc" -}}
+{{- $darkColors := slice "#F596AA" "#A0A7D4" "#ff7b7b" "#99D8CF" "#838BC6" -}}
+
+{{- $randomColorIndex := (mod (now.Unix) (len $lightColors)) -}}
+{{- $lightAccent := (index $lightColors $randomColorIndex) -}}
+{{- $darkAccent := (index $darkColors $randomColorIndex) -}}
+
+$lightAccent: {{ $lightAccent }};
+$darkAccent: {{ $darkAccent }};
+
 {{ with .Site.Params.fontSize | default 16 }}
     $fontSize: {{ . }}px;
 {{ end }}
@@ -73,43 +83,9 @@
 
 // Font Family
 
-{{ if .Site.Params.enableChinesePunctuationGlyphCorrection }}
-    {{ .Scratch.Set "glyph" "'glyph-correction', " }}
-{{ else }}
-    {{ .Scratch.Set "glyph" "" }}
-{{ end }}
-{{ $glyph := .Scratch.Get "glyph" }}
-
-{{ with .Site.Params.fontFamilySiteBrand }}
-    $fontFamilySiteBrand: {{ $glyph }}{{ . }};
-{{ end }}
-{{ with .Site.Params.fontFamilyMenu }}
-    $fontFamilyMenu: {{ $glyph }}{{ . }};
-{{ end }}
-{{ with .Site.Params.fontFamilyTitle }}
-    $fontFamilyTitle: {{ $glyph }}{{ . }};
-{{ end }}
-{{ with .Site.Params.fontFamilyHeadings }}
-    $fontFamilyHeadings: {{ $glyph }}{{ . }};
-{{ end }}
-{{ with .Site.Params.fontFamilyCode }}
-    $fontFamilyCode: {{ $glyph }}{{ . }};
-{{ end }}
-{{ with .Site.Params.fontFamilyQuote }}
-    $fontFamilyQuote: {{ $glyph }}{{ . }};
-{{ end }}
-{{ with .Site.Params.fontFamilyTOC }}
-    $fontFamilyTOC: {{ $glyph }}{{ . }};
-{{ end }}
-{{ with .Site.Params.fontFamilyCaption }}
-    $fontFamilyCaption: {{ $glyph }}{{ . }};
-{{ end }}
-{{ with .Site.Params.fontFamilyFooter }}
-    $fontFamilyFooter: {{ $glyph }}{{ . }};
-{{ end }}
-{{ with .Site.Params.fontFamilyBody }}
-    $fontFamilyBody: {{ $glyph }}{{ . }};
-{{ end }}
+$fontFamilyBody: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+$fontFamilyTitle: 'Merriweather', "Noto Serif CJK SC","Noto Serif SC",var(--font-serif),"Source Han Serif SC","Source Han Serif",source-han-serif-sc,SongTi SC,SimSum,"Hiragino Sans GB",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,"Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+$fontFamilyCode: "OperatorMonoSSmLig Nerd Font","Cascadia Code PL","FantasqueSansMono Nerd Font","operator mono",JetBrainsMono,"Fira code Retina","Fira code","Consolas", Monaco, "Hannotate SC", monospace, -apple-system;
 
 @import "base/font-family";
 
@@ -273,6 +249,9 @@
 
 
 // Components
+
+@import "components/sidebar";
+@import "components/top-progress";
 
 {{ if and .Site.IsMultiLingual .Site.Params.enableLangToggle }}
     @import "components/multilingual";

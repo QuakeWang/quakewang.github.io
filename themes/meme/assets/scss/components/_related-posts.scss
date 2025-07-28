@@ -1,18 +1,19 @@
 .related-posts {
-    border: 1px solid var(--color-contrast-lower);
-    padding: 0.6em 1em;
-    line-height: 2em;
-    margin-top: 5em;
+    margin-top: 3em;
+    padding: 1.5em;
+    background-color: var(--color-contrast-lower);
+    border-radius: 0.5em;
 }
 
 .related-title {
-    font-size: 1em;
-    margin: 0;
+    font-size: 1.2em;
+    margin-top: 0;
+    margin-bottom: 1em;
+    color: var(--color-contrast-high);
 }
 
 .related-icon {
     float: right;
-    margin-top: 0.4em;
 }
 
 .related-list {
@@ -21,7 +22,14 @@
     list-style: none;
 }
 
+.related-item {
+    margin-bottom: 0.5em;
+}
+
 .related-link {
-    line-height: 1.5;
-    display: inline-block;
+    color: var(--color-contrast-high);
+    text-decoration: none;
+    &:hover {
+        color: var(--color-primary);
+    }
 }

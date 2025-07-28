@@ -10,6 +10,16 @@
 {{- $regexReplacementTOC := `$1<$2 class="toc">` -}}
 {{- $toc = $toc | replaceRE $regexPatternTOC $regexReplacementTOC -}}
 
+<!-- Remove numbers from list items -->
+{{- $regexPatternRemoveNumbers := `<li>\s*(\d+\.\s*)` -}}
+{{- $regexReplacementRemoveNumbers := `<li class="toc-item">` -}}
+{{- $toc = $toc | replaceRE $regexPatternRemoveNumbers $regexReplacementRemoveNumbers -}}
+
+<!-- Add class to all list items -->
+{{- $regexPatternAddClass := `<li>` -}}
+{{- $regexReplacementAddClass := `<li class="toc-item">` -}}
+{{- $toc = $toc | replaceRE $regexPatternAddClass $regexReplacementAddClass -}}
+
 <!-- Inject TOC Title -->
 {{- if .Site.Params.displayTOCTitle -}}
     {{- $regexPatternTOC := `(<nav class="contents">\n.+)(<(ol|ul) class="toc">)` -}}

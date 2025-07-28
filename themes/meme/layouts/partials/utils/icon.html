@@ -1,6 +1,11 @@
 {{- $ := index . "$" -}}
 {{- $name := .name -}}
 {{- $class := .class | default $name -}}
-{{- $icon := index $.Site.Data.SVG $name -}}
+{{- $icon := "" -}}
+{{- if isset $ "Site" -}}
+    {{- $icon = index $.Site.Data.SVG $name -}}
+{{- else -}}
+    {{- $icon = index site.Data.SVG $name -}}
+{{- end -}}
 {{- $class := printf "icon %s" $class -}}
 {{- return (replace $icon "icon" $class | safeHTML) -}}

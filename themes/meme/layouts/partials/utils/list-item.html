@@ -11,19 +11,19 @@
     {{- $pages = $pages | first $limit -}}
 {{- end -}}
 {{- with $pages -}}
-    <ul class="list-part">
+    <div class="list-part">
         {{ range . }}
-            <li class="list-item">
-                <a href="{{ .RelPermalink }}" class="list-item-title">{{ (partial "utils/title.html" (dict "$" . "title" .LinkTitle)).htmlTitle }}</a>
-                <time datetime="{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" }}" class="list-item-time">{{ .PublishDate.Format .Site.Params.listDateFormat }}</time>
-            </li>
+            <a href="{{ .RelPermalink }}" class="list-item">
+                <span class="list-item-title">{{ (partial "utils/title.html" (dict "$" . "title" .LinkTitle)).htmlTitle }}</span>
+                <span class="list-item-time">{{ .PublishDate.Format .Site.Params.listDateFormat }}</span>
+            </a>
         {{ end }}
         {{ if and (gt $limit 0) (gt (len $.Pages) $limit) }}
             {{ with $linkTarget }}
-                <li class="list-read-more">
+                <div class="list-read-more">
                     <a href="{{ $linkTarget.RelPermalink }}">{{ i18n "readMore" }} »</a>
-                </li>
+                </div>
             {{ end }}
         {{ end }}
-    </ul>
+    </div>
 {{ end }}

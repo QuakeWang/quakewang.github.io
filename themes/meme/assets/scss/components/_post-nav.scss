@@ -3,17 +3,27 @@
     padding: 0;
     display: flex;
     justify-content: space-between;
-    border-top: 1px solid var(--color-contrast-lower);
-    font-weight: 700;
-    margin-top: 5em;
-    padding-top: 0.618em;
+    margin-top: 3em;
+    font-size: 1.1em;
 }
+
+.post-nav-prev,
+.post-nav-next {
+    a {
+        color: var(--color-contrast-high);
+        text-decoration: none;
+        transition: color $duration;
+        &:hover {
+            color: var(--color-primary);
+        }
+    }
+}
+
 .post-nav-prev {
     margin-right: auto;
-    max-width: 42%;
 }
+
 .post-nav-next {
     margin-left: auto;
     text-align: right;
-    max-width: 42%;
 }

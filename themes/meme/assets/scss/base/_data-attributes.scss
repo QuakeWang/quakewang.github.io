@@ -79,4 +79,9 @@
             content: counters(item, ".");
         }
     }
+    // Third level and deeper: no number
+    .contents ol ol ol li::before {
+        content: none !important;
+        list-style-type: circle; // Use a simple marker instead
+    }
 }

@@ -1,0 +1,91 @@
+.main-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.main {
+    padding-top: calc(var(--header-height) + 0.5rem);
+    min-height: calc(100vh - var(--header-height));
+    padding-bottom: 2rem;
+    color: var(--text-color);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-inner {
+    width: 100%;
+    max-width: 100%;
+    margin-right: 0;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.single .main-inner {
+    width: 100%;
+    max-width: 8000px;
+    margin: 0 auto 0 0;
+    padding: 2rem 1rem 2rem 0;
+    margin-right: 120px;
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.list .main-inner {
+    width: $listWidth;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 2em 0;
+    background-color: transparent;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+body {
+    background-color: var(--page-background);
+    color: var(--text-color);
+    font-family: 'Lora', 'LXGW WenKai', 'Noto Serif SC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    position: relative;
+}
+
+@media (max-width: 1200px) {
+    .single .main-inner {
+        padding: 2rem 1.5rem;
+        max-width: 95%;
+        margin: 0 auto;
+    }
+    
+    .main-container {
+        padding: 0 0.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-container {
+        padding: 0 0.5rem;
+    }
+    
+    .single .main-inner {
+        padding: 1.5rem 1rem;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 500px) {
+    .main-container {
+        padding: 0 0.3rem;
+    }
+    
+    .single .main-inner {
+        padding: 1.2rem 0.8rem;
+    }
+}

@@ -16,6 +16,7 @@ window.addEventListener("DOMContentLoaded", event => {
 
     function addCopyButtons(clipboard) {
         const divs = document.querySelectorAll('table.lntable, .highlight > pre, .post-body > div > pre');
+        const enableAutoHide = document.body.dataset.enableCopyAutoHide === 'true';
 
         divs.forEach((containerEl) => {
             containerEl.parentNode.style.position = 'relative';
@@ -26,7 +27,14 @@ window.addEventListener("DOMContentLoaded", event => {
             button.innerText = copyText;
 
             if (containerEl.classList.contains('lntable')) {
-                var codeBlock = containerEl.querySelectorAll('.lntd')[1];
+                // Select all span.line elements within the second .lntd (code column)
+                const lines = containerEl.querySelectorAll('.lntd:nth-child(2) .line');
+                let codeContent = '';
+                lines.forEach(line => {
+                    codeContent += line.innerText + '\n'; // Append each line's text and a newline
+                });
+                // Remove the last newline character if present
+                codeBlock = { innerText: codeContent.trimEnd() };
             } else {
                 var codeBlock = containerEl.querySelector('code');
             }
@@ -51,7 +59,7 @@ window.addEventListener("DOMContentLoaded", event => {
 
             containerEl.appendChild(button);
 
-            {{ if .Site.Params.enableCopyAutoHide }}
+            if (enableAutoHide) {
                 containerEl.parentNode.addEventListener('mouseover', () => {
                     button.style = 'visibility: visible; opacity: 1';
                 });
@@ -59,7 +67,7 @@ window.addEventListener("DOMContentLoaded", event => {
                 containerEl.parentNode.addEventListener('mouseout', () => {
                     button.style = 'visibility: hidden; opacity: 0';
                 });
-            {{ end }}
+            }
         });
     }
 

@@ -2,6 +2,7 @@
 <html lang="{{ .Site.LanguageCode }}">
     {{ partial "head.html" . }}
     <body>
+        {{ partial "components/top-progress.html" . }}
         <div class="container">
             {{ partial "header.html" . }}
             {{ if ne .Site.Params.headerLayout "flex" }}
@@ -11,10 +12,15 @@
                 {{ partial "components/multilingual.html" . }}
                 {{ partial "components/dark-mode.html" . }}
             {{ end }}
-            {{ block "main" . }}{{ end }}
+            <div class="main-container">
+                {{ block "main" . }}{{ end }}
+            </div>
             {{ partial "components/back-to-top.html" . }}
             {{ partial "footer.html" . }}
         </div>
+        {{ if .IsPage }}
+            {{ partial "components/sidebar.html" . }}
+        {{ end }}
         {{ partial "third-party/script.html" . }}
     </body>
 </html>

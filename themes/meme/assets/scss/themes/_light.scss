@@ -1,14 +1,19 @@
 // https://codyhouse.co/ds/globals/colors
 
+$accentColorLight: #33A6B8, #FF6666, #26A69A, #fb7287, #69a6cc;
+
 @mixin light-theme {
     --theme-name: "light";
-    @include defineColorHSL(--color-primary, $primaryColorLightH, $primaryColorLightS, $primaryColorLightL);
-    @include defineColorHSL(--color-bg, 0, 0%, 100%);
-    @include defineColorHSL(--color-contrast-lower, 0, 0%, 95%);
-    @include defineColorHSL(--color-contrast-low, 240, 1%, 83%);
-    @include defineColorHSL(--color-contrast-medium, 240, 1%, 48%);
-    @include defineColorHSL(--color-contrast-high, 240, 4%, 20%);
-    @include defineColorHSL(--color-contrast-higher, 240, 8%, 12%);
+    --color-primary: #{$lightAccent};
+    --primary-color-h: #{hue($lightAccent)};
+    --primary-color-s: #{saturation($lightAccent)};
+    --primary-color-l: #{lightness($lightAccent)};
+    --color-bg: #fff;
+    --color-contrast-lower: #F2F2F7;
+    --color-contrast-low: #C7C7CC;
+    --color-contrast-medium: #8E8E93;
+    --color-contrast-high: #000;
+    --color-contrast-higher: #000;
     .theme-icon-light {
         display: inline-block;
     }
