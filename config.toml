@@ -156,8 +156,6 @@ mapping = "title"
     home = ["HTML", "SectionsAtom", "SectionsRSS"]
     section = ["HTML"]
     # 类别
-    taxonomyTerm = ["HTML"]
-    # 类别项
     taxonomy = ["HTML"]
     # 说明：https://github.com/gohugoio/hugo/issues/4528#issuecomment-508488859
 
