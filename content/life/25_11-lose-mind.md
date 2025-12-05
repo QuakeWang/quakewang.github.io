@@ -1,7 +1,7 @@
 ---
 title: "一些杂谈碎碎念"
 date: 2025-11-30T17:04:03+08:00
-draft: true
+draft: false
 ---
 
 ## 碎碎念
