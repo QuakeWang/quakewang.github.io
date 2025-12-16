@@ -1,0 +1,44 @@
+<nav class="nav" id="site-nav" aria-label="Main navigation">
+    <div class="menu-container">
+        <ul class="menu" id="menu">
+            {{ if .Site.Params.activeInSection }}
+                {{ .Scratch.Set "currentPage" (.Site.GetPage (printf `/%s` .Section)) }}
+            {{ else }}
+                {{ .Scratch.Set "currentPage" . }}
+            {{ end }}
+            {{ $currentPage := .Scratch.Get "currentPage" }}
+            {{ $ctx := . }}
+            {{ range .Site.Menus.main }}
+                {{ if and (eq .Identifier "lang-switcher") $.Site.IsMultiLingual $.Site.Params.enableLangToggle }}
+                    {{ if eq $.Site.Params.headerLayout "flex" }}
+                        {{ $switcher := partial "components/multilingual.html" $ctx }}
+                        {{ with $switcher }}
+                            <li class="menu-item">
+                                {{ . }}
+                            </li>
+                        {{ end }}
+                    {{ end }}
+                {{ else if ne .Identifier "theme-switcher" }}
+                    {{ if ne .Identifier "search" }}
+                        {{- $isActive := or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) -}}
+                        <li class="menu-item{{ if $isActive }} active{{ end }}">
+                            {{- $linkType := (string .Pre) -}}
+                            <a href="{{ .URL }}"
+                                {{- if $isActive }} aria-current="page"{{ end -}}
+                                {{- if eq $linkType "external" }} target="_blank" rel="external noopener"{{ end -}}
+                            >
+                                {{- $iconName := (string .Post) -}}
+                                {{- if $iconName -}}
+                                    <i class="menu-item-icon fas fa-{{ $iconName }}" aria-hidden="true"></i>
+                                {{- end -}}
+                                {{- with .Name -}}
+                                    <span class="menu-item-name">{{ . }}</span>
+                                {{- end -}}
+                            </a>
+                        </li>
+                    {{ end }}
+                {{ end }}
+            {{ end }}
+        </ul>
+    </div>
+</nav>

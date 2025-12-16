@@ -1,0 +1,19 @@
+{{ if .Site.Params.enableNavToggle }}
+    <input type="checkbox" id="nav-toggle" aria-hidden="true" />
+    <label
+        for="nav-toggle"
+        class="nav-toggle"
+        role="button"
+        tabindex="0"
+        aria-label="Toggle navigation"
+        aria-controls="site-nav"
+        aria-expanded="false"
+    >
+        <div class="nav-toggle-inner" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </label>
+    <label for="nav-toggle" class="nav-curtain" aria-hidden="true"></label>
+{{ end }}

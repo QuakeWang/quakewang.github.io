@@ -1,2 +1,4 @@
 public/
 .DS_Store
+AGENTS.md
+.hugo_build.lock

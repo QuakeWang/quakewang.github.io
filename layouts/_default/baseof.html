@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+    {{ partial "head.html" . }}
+    <body>
+        <a class="skip-link" href="#content">Skip to content</a>
+        {{ partial "components/top-progress.html" . }}
+        <div class="container">
+            {{ partial "header.html" . }}
+            {{ if ne .Site.Params.headerLayout "flex" }}
+                {{ if or (and .IsHome .Site.Params.displayMenuInHome) (and (not .IsHome) .Site.Params.enableMenu) }}
+                    {{ partial "menu.html" . }}
+                {{ end }}
+                {{ partial "components/multilingual.html" . }}
+                {{ partial "components/dark-mode.html" . }}
+            {{ end }}
+            <div class="main-container" id="content">
+                {{ block "main" . }}{{ end }}
+            </div>
+            {{ partial "components/back-to-top.html" . }}
+            {{ partial "footer.html" . }}
+        </div>
+        {{ partial "third-party/script.html" . }}
+    </body>
+</html>
