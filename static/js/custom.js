@@ -1,119 +1,134 @@
-function getCodeContent(block) {
-    let code = '';
-    
-    const tableContainer = block.querySelector('.table-container');
-    if (tableContainer) {
-        const codeColumn = tableContainer.querySelector('td.lntd:last-child');
-        if (codeColumn) {
-            const codeElement = codeColumn.querySelector('code');
-            if (codeElement) {
-                code = codeElement.textContent;
-            } else {
-                const codeLines = codeColumn.querySelectorAll('.line');
-                if (codeLines && codeLines.length > 0) {
-                    code = Array.from(codeLines).map(line => line.textContent).join('\n');
-                } else {
-                    code = codeColumn.textContent;
-                }
-            }
+function getLanguageFromCodeElement(codeEl) {
+    if (!codeEl) return '';
+
+    const dataLang = codeEl.getAttribute('data-lang');
+    if (dataLang) return dataLang;
+
+    for (const className of codeEl.classList) {
+        if (className.startsWith('language-')) {
+            return className.slice('language-'.length);
         }
     }
-    
-    if (!code.trim()) {
-        const codeElement = block.querySelector('code');
-        if (codeElement) {
-            code = codeElement.textContent;
-        }
-    }
-    
-    if (!code.trim()) {
-        const clone = block.cloneNode(true);
-        
-        clone.querySelectorAll('.lnt, .ln').forEach(el => el.remove());
-        
-        code = clone.textContent;
-    }
-    
-    return cleanCode(code);
+
+    return '';
 }
 
-function cleanCode(code) {
-    if (!code) return '';
-    
-    return code
-        .replace(/^\s+|\s+$/g, '')
-        .replace(/\n\s*\n\s*\n/g, '\n\n')
-        .replace(/\t/g, '    ');
+function getCodeTextFromBlock(block) {
+    if (!block) return '';
+
+    const lineTable = block.querySelector('table.lntable');
+    if (lineTable) {
+        const lines = lineTable.querySelectorAll('.lntd:last-child .line');
+        if (lines.length > 0) {
+            return Array.from(lines)
+                .map(function(line) {
+                    return line.innerText;
+                })
+                .join('\n')
+                .trimEnd();
+        }
+    }
+
+    const codeEl = block.querySelector('code[data-lang]') || block.querySelector('code');
+    if (codeEl) return codeEl.innerText.trimEnd();
+
+    return '';
+}
+
+function copyTextToClipboard(text) {
+    if (!text) return Promise.resolve();
+
+    if (navigator && navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+        return navigator.clipboard.writeText(text);
+    }
+
+    return new Promise(function(resolve, reject) {
+        try {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.setAttribute('readonly', '');
+            textarea.style.position = 'fixed';
+            textarea.style.top = '-9999px';
+            textarea.style.left = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.select();
+
+            const ok = document.execCommand('copy');
+            document.body.removeChild(textarea);
+            if (ok) resolve();
+            else reject(new Error('Copy command was unsuccessful'));
+        } catch (err) {
+            reject(err);
+        }
+    });
+}
+
+function ensureCopyButton(block) {
+    if (!block) return;
+    if (block.querySelector('.copy-button')) return;
+    if (!block.querySelector('code')) return;
+
+    if (getComputedStyle(block).position === 'static') {
+        block.style.position = 'relative';
+    }
+
+    const button = document.createElement('button');
+    button.className = 'copy-button';
+    button.type = 'button';
+    button.innerText = 'Copy';
+    button.setAttribute('aria-label', 'Copy code');
+
+    button.addEventListener('click', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const codeText = getCodeTextFromBlock(block);
+        copyTextToClipboard(codeText)
+            .then(function() {
+                button.innerText = 'Copied';
+                window.setTimeout(function() {
+                    button.innerText = 'Copy';
+                }, 1000);
+            })
+            .catch(function() {
+                button.innerText = 'Error';
+                window.setTimeout(function() {
+                    button.innerText = 'Copy';
+                }, 1000);
+            });
+    });
+
+    block.appendChild(button);
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.copy-button').forEach(btn => btn.remove());
-    
-    const codeBlocks = document.querySelectorAll('.post-body > pre, .post-body > .highlight');
-    
-    codeBlocks.forEach(function(block) {
-        let language = '';
-        
-        const codeEl = block.querySelector('code');
-        if (codeEl && codeEl.className) {
-            const match = codeEl.className.match(/language-(\w+)/);
-            if (match) language = match[1];
-        }
-        
-        if (!language && block.classList.contains('highlight')) {
-            const extraClass = Array.from(block.classList).find(cls => cls !== 'highlight');
-            if (extraClass) language = extraClass;
-        }
-        
-        if (language) {
-            block.setAttribute('data-lang', language);
-            
-            block.querySelectorAll('pre, .chroma').forEach(el => {
-                el.removeAttribute('data-lang');
-                el.removeAttribute('data-language');
-            });
-        }
-        
-        block.addEventListener('click', function(e) {
-            const rect = block.getBoundingClientRect();
-            const isClickInCopyButton = 
-                e.clientX > rect.right - 50 && 
-                e.clientX < rect.right && 
-                e.clientY < rect.top + 30;
-                
-            if (isClickInCopyButton) {
+    document.querySelectorAll('.post-body > .highlight').forEach(function(block) {
+        const codeEl =
+            block.querySelector('code[data-lang]') ||
+            block.querySelector('code[class*="language-"]');
 
-                const code = getCodeContent(block);
-                
-                navigator.clipboard.writeText(code).then(() => {
-                    block.style.setProperty('--copy-text', '"Copied"');
-                    setTimeout(() => {
-                        block.style.setProperty('--copy-text', '"Copy"');
-                    }, 1500);
-                }).catch(err => console.error('Failed to copy: ', err));
-            }
+        const language = getLanguageFromCodeElement(codeEl);
+        if (language) block.setAttribute('data-lang', language);
+        ensureCopyButton(block);
+    });
+
+    document
+        .querySelectorAll('.post-body > pre, .post-body > div > pre')
+        .forEach(function(pre) {
+            const codeEl =
+                pre.querySelector('code[data-lang]') ||
+                pre.querySelector('code[class*="language-"]');
+
+            const language = getLanguageFromCodeElement(codeEl);
+            if (language) pre.setAttribute('data-lang', language);
+            ensureCopyButton(pre);
         });
-    });
-    
-    document.querySelectorAll('.post-body p > code, .post-body li > code').forEach(code => {
-        code.classList.add('inline-code');
-    });
-    
-    document.querySelectorAll('.highlight table').forEach(table => {
-        table.style.width = '100%';
-        table.style.margin = '0';
-        
-        table.querySelectorAll('.lnt, .ln').forEach(cell => {
-            cell.style.width = 'auto';
-            cell.style.minWidth = '0.5em';
-            cell.style.textAlign = 'right';
-            cell.style.paddingRight = '0.1em';
-            cell.style.userSelect = 'none';
-            cell.style.opacity = '0.2';
+
+    document
+        .querySelectorAll('.post-body p > code, .post-body li > code')
+        .forEach(function(code) {
+            code.classList.add('inline-code');
         });
-    });
-    
-    window.disableCopy = true;
 });
 
 document.addEventListener('DOMContentLoaded', function() {
