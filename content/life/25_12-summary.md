@@ -1,5 +1,5 @@
 ---
-title: "25_12 Summary"
+title: "再见 25，写在最后"
 date: 2025-12-30T02:07:35+08:00
 draft: false
 ---
