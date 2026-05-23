@@ -1,4 +1,229 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>二夕说废话の地方</title><link>https://quakewang.github.io/</link><description>二夕的个人博客，一半献给技术，另一半还在寻找。。。</description><generator>Hugo 0.134.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 04 May 2026 05:01:06 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>Doris03 存算分离导入数据的一些杂记</title><link>https://quakewang.github.io/tech/doris/doris003_loaddata/</link><guid isPermaLink="true">https://quakewang.github.io/tech/doris/doris003_loaddata/</guid><pubDate>Fri, 11 Jul 2025 10:47:11 +0800</pubDate><author>wangfuzheng0814@foxmail.com (二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="cluade-code-食用指北存算分离写入的一点杂记">Cluade Code 食用指北：存算分离写入的一点杂记&lt;/h1>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>二夕说废话の地方</title><link>https://quakewang.github.io/</link><description>二夕的个人博客，一半献给技术，另一半还在寻找。。。</description><generator>Hugo 0.134.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sat, 23 May 2026 01:36:02 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>浅谈 Paimon 的 BinaryRow 设计哲学</title><link>https://quakewang.github.io/tech/paimon/paimon001_binaryrow/</link><guid isPermaLink="true">https://quakewang.github.io/tech/paimon/paimon001_binaryrow/</guid><pubDate>Fri, 22 May 2026 22:30:00 +0800</pubDate><author>wangfuzheng0814@foxmail.com (二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="分区表读取任务">分区表读取任务&lt;/h2>
+&lt;p>好久没有写技术博客了，尤其是 AI 泛滥之后，总觉得写技术博客的价值越来越少。不过前段时间，重新回到开源社区，做了让 paimon-rust 支持读取分区表（&lt;a href="https://github.com/apache/paimon-rust/issues/124">Issue #124&lt;/a>）的任务。在完成这个 issue 的过程中，还是学到不少知识的，就随手写写吧。&lt;/p>
+&lt;p>这个任务有一条清晰的依赖链：要读分区表，首先要能解析 Manifest 中的分区信息；而分区信息在 Manifest 的 &lt;code>_PARTITION&lt;/code> 字段中以 Avro &lt;code>bytes&lt;/code> 存储。对 paimon-rust 来说，这段 bytes 是 Paimon 的 serialized BinaryRow：前 4 个字节是 big-endian 的 arity，后面才是 BinaryRow 的原始 payload。也就是说，不搞懂 BinaryRow，分区表就读不了。&lt;/p>
+&lt;p>在大模型的帮助下，读源码的门槛在大幅度降低。看了 BinaryRow 相关的代码之后，觉得这个设计值得单独聊聊——它不只是一个序列化格式，更是 Paimon 在性能和工程实践之间做出的一系列精巧 trade-off 的缩影。&lt;/p>
+&lt;h2 id="binaryrow-到底要解决什么问题">BinaryRow 到底要解决什么问题&lt;/h2>
+&lt;p>要理解 BinaryRow，得先知道它替代了什么。&lt;/p>
+&lt;p>Paimon 内部有一个 &lt;code>InternalRow&lt;/code> 接口，用来表示&amp;quot;一行数据&amp;quot;。最直觉的实现是 &lt;code>GenericRow&lt;/code>，本质上就是一个 Java Object 数组：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">final&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">class&lt;/span> &lt;span class="nc">GenericRow&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">implements&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">InternalRow&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">private&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">final&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Object&lt;/span>&lt;span class="o">[]&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">fields&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1">// [Integer(42), BinaryString(&amp;#34;hello&amp;#34;), null, ...]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这种实现在功能上完全够用，可以通过 &lt;code>fields[0]&lt;/code> 拿到第一个字段，&lt;code>fields[1]&lt;/code> 拿到第二个，什么类型都能存。但在数据密集的场景下——比如 Flink 每秒处理几百万行，或者一次 Compaction 要归并上亿行——GenericRow 会栽在三个地方。&lt;/p>
+&lt;p>&lt;strong>第一是序列化。&lt;/strong> 数据在 shuffle、落盘、跨进程传递的时候，需要把 Object 数组变成 bytes。这意味着要遍历每个字段，判断类型，逐一编码。反过来读的时候再逐一解码。每行都要走一遍这个逻辑，CPU 开销是 O(N) 的。&lt;/p>
+&lt;p>&lt;strong>第二是 GC 压力。&lt;/strong> 一行 10 个字段，就是 10 个 Java Object。如果字段是 int 或 long，还会被装箱成 Integer 和 Long。几百万行就是几千万个小对象散布在堆上，Full GC 一来整个 JVM 都要抖一下。&lt;/p>
+&lt;p>&lt;strong>第三是 Cache 不友好。&lt;/strong> Object 数组存的是引用（指针），实际数据散落在堆内存的各个角落。访问一个字段需要先跳到引用地址，再读取数据——这两次内存访问大概率不在同一个 Cache Line 里，CPU 的 L1/L2 缓存几乎帮不上忙。&lt;/p>
+&lt;p>BinaryRow 的思路非常直接：&lt;strong>把一行数据编码成一段连续的 bytes view&lt;/strong>。不要 Object 数组，不要装箱，不要指针跳转。概念上一行数据就是一段平坦的内存——在 Java 实现中底层是 &lt;code>MemorySegment&lt;/code>（可以指向堆内或堆外内存），不一定真的是单个 &lt;code>byte[]&lt;/code>。&lt;/p>
+&lt;p>这样做的好处是一目了然的：当数据已经处在 BinaryRow 形态时，传输和落盘可以按连续 bytes 复制，避免重复做逐字段类型分派和编码；对象数量从 N 个字段的 N 个 Object 降到极少数几个引用，GC 压力显著降低；逻辑布局紧凑，相较散布在堆上的对象图更 cache-friendly，CPU prefetch 可以高效预取。&lt;/p>
+&lt;p>把两者的核心差异放在一起对比：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: left">维度&lt;/th>
+&lt;th style="text-align: left">GenericRow&lt;/th>
+&lt;th style="text-align: left">BinaryRow&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: left">序列化&lt;/td>
+&lt;td style="text-align: left">逐字段编码，O(N fields)&lt;/td>
+&lt;td style="text-align: left">已编码数据可按 bytes 复制，O(byte length)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">GC 压力&lt;/td>
+&lt;td style="text-align: left">N 个 Object + 装箱&lt;/td>
+&lt;td style="text-align: left">极少数引用&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">Cache 友好性&lt;/td>
+&lt;td style="text-align: left">指针跳转，数据散布&lt;/td>
+&lt;td style="text-align: left">连续内存，可预取&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">随机访问&lt;/td>
+&lt;td style="text-align: left">O(1)（数组下标）&lt;/td>
+&lt;td style="text-align: left">O(1)（偏移计算）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">适用场景&lt;/td>
+&lt;td style="text-align: left">构造 / 临时转换&lt;/td>
+&lt;td style="text-align: left">内部高性能路径&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>从数据流的角度看，两者在 Paimon 中各有分工：&lt;/p>
+&lt;pre tabindex="0">&lt;code class="language-mermaid" data-lang="mermaid">graph LR
+A[&amp;#34;外部数据\n(Parquet/Avro/CSV)&amp;#34;] --&amp;gt; B[&amp;#34;GenericRow\n便捷构造 / 临时转换&amp;#34;]
+B --&amp;gt; C[&amp;#34;BinaryRow\n高性能内部格式&amp;#34;]
+C --&amp;gt; D[&amp;#34;Shuffle / Sort&amp;#34;]
+C --&amp;gt; E[&amp;#34;Manifest 持久化\n(_PARTITION 字段)&amp;#34;]
+C --&amp;gt; F[&amp;#34;比较 / Hash / 去重&amp;#34;]
+style B fill:#f9f3e3,stroke:#d4a017
+style C fill:#e3f2fd,stroke:#1565c0
+&lt;/code>&lt;/pre>&lt;p>简单来说，GenericRow 是&amp;quot;方便的入口&amp;quot;，BinaryRow 是&amp;quot;高效的引擎&amp;quot;。在 Flink Sink 这种高吞吐路径上，数据从 Flink 侧进来时通常已经是 BinaryRow 格式（Flink 内部用同源的 BinaryRowData），不会先建一遍 GenericRow 再转。&lt;/p>
+&lt;p>这个思路并不是 Paimon 首创——它直接继承自 Apache Flink 的 &lt;code>BinaryRowData&lt;/code>，而 Flink 的设计又受到了数据库系统中 &amp;quot;tuple-at-a-time&amp;quot; vs &amp;quot;column-at-a-time&amp;quot; 这类经典讨论的影响。Paimon 从 Flink 独立出来之后保留了这套格式，因为它确实好用。&lt;/p>
+&lt;h2 id="内存布局">内存布局&lt;/h2>
+&lt;p>说了这么多好处，那 BinaryRow 的 bytes 里面到底是什么样的？一段连续内存里怎么找到第 N 个字段？&lt;/p>
+&lt;p>先看去掉 arity 前缀之后的 raw BinaryRow payload。它的内存分为两大块：固定长度部分和变长部分。&lt;/p>
+&lt;pre tabindex="0">&lt;code class="language-mermaid" data-lang="mermaid">flowchart TB
+subgraph Fixed[&amp;#34;Fixed-Length Part&amp;#34;]
+direction LR
+HN[&amp;#34;Header + Null Bits\n(8-byte aligned)\nRowKind + 1 bit per field&amp;#34;]
+F[&amp;#34;Field Values\n(8 bytes × arity)\n定长类型 inline\n变长类型存 offset|length&amp;#34;]
+HN --- F
+end
+subgraph Var[&amp;#34;Variable-Length Part&amp;#34;]
+direction LR
+V0[&amp;#34;var data 0&amp;#34;] --- V1[&amp;#34;var data 1&amp;#34;] --- V2[&amp;#34;var data 2&amp;#34;] --- VN[&amp;#34;...&amp;#34;]
+end
+Fixed --&amp;gt; Var
+style HN fill:#fff3e0,stroke:#e65100
+style F fill:#e3f2fd,stroke:#1565c0
+style Var fill:#fce4ec,stroke:#c62828
+&lt;/code>&lt;/pre>&lt;p>&lt;strong>Header + Null Bits&lt;/strong> 共同占据 raw payload 的开头区域，并按 8 字节对齐。逻辑上的 Header 只用第 0 个字节存 RowKind——这行数据是新增（INSERT）、更新前（UPDATE_BEFORE）、更新后（UPDATE_AFTER）还是删除（DELETE）。这个信息在 changelog 语义和 Compaction 归并时至关重要。&lt;/p>
+&lt;p>&lt;strong>Null Bits&lt;/strong> 从 bit 8 开始，用 1 个 bit 表示一个字段是否为 null。bit 为 1 就是 null，为 0 就是有值。这个开头区域的宽度计算公式是 &lt;code>((arity + 63 + 8) / 64) * 8&lt;/code>。拆解一下：&lt;code>+8&lt;/code> 是因为 RowKind 占了前 8 个 bit，null 位从第 8 个 bit 开始计数；&lt;code>+63&lt;/code> 配合整除 64 实现&lt;strong>向上取整到 8 字节边界&lt;/strong>。在当前 Rust 实现里，源码常量名是 &lt;code>HEADER_SIZE_IN_BYTES = 8&lt;/code>，它参与 bit offset 和 bitset width 的计算，最终得到这个对齐后的 header/null-bits 区域宽度。&lt;/p>
+&lt;p>&lt;strong>Field Values&lt;/strong> 是最关键的部分。不管字段实际是什么类型，&lt;strong>每个字段固定占 8 个字节&lt;/strong>。int 占 4 字节？也给它分 8 字节。boolean 只要 1 字节？也是 8 字节。这看起来有点浪费，但换来了一个极其重要的性质：&lt;strong>第 N 个字段的偏移位置可以用一次乘法算出来&lt;/strong>（&lt;code>nullBitSetSize + N × 8&lt;/code>），不需要遍历前面的字段。O(1) 的随机访问能力，在排序、比较、hash 等操作中价值巨大。&lt;/p>
+&lt;p>&lt;strong>Variable-Length Part&lt;/strong> 放在最后面，存那些在 8 个字节里装不下的数据——比如超过 7 字节的字符串、大 DECIMAL、嵌套的 Array/Map/Row 等。固定长度部分里对应的 8 字节 slot 存的是一个&amp;quot;指针&amp;quot;：高 32 位是 offset（数据在 variable part 中的起始位置），低 32 位是 length（数据长度）。&lt;/p>
+&lt;h3 id="举个">举个🌰&lt;/h3>
+&lt;p>假设有一个分区表的分区 schema 是 &lt;code>(region STRING, year INT, city STRING)&lt;/code>，写入一行 &lt;code>(&amp;quot;cn&amp;quot;, 2024, &amp;quot;shanghai&amp;quot;)&lt;/code>。arity = 3，RowKind = INSERT。&lt;/p>
+&lt;p>先算各区域大小。Header + null bits 宽度 = &lt;code>((3 + 63 + 8) / 64) × 8 = 8&lt;/code> 字节。固定长度部分 = 8（header + null bits）+ 8 × 3（三个字段）= 32 字节。Variable part 需要存 &amp;quot;shanghai&amp;quot;（8 字节，超过了 7 字节阈值），而 &amp;quot;cn&amp;quot; 只有 2 字节，不需要放到 variable part。&lt;/p>
+&lt;p>完整的内存布局如下（小端序，按逐字节 dump 展示）：&lt;/p>
+&lt;pre tabindex="0">&lt;code>地址 字节值 说明
+────── ────────────── ────────────────────────────────────
+── Header + Null Bit Set（8 bytes）──
+[0] 00 Header: RowKind = INSERT
+[1] 00 Null bits：全 0，三个字段都非 null
+[2-7] 00 00 00 00 padding 至 8 字节对齐
+00 00
+── Field 0: region = &amp;#34;cn&amp;#34;（inline）──
+[8] 63 &amp;#39;c&amp;#39;
+[9] 6E &amp;#39;n&amp;#39;
+[10-14] 00 00 00 00 00 padding
+[15] 82 0x80 | 2 = 最高 bit 标记 inline，长度 = 2
+── Field 1: year = 2024（i32）──
+[16-19] E8 07 00 00 2024 的小端序表示（i32 只占 4 字节）
+[20-23] 00 00 00 00 高位补零
+── Field 2: city = &amp;#34;shanghai&amp;#34;（引用 variable part）──
+[24-27] 08 00 00 00 length = 8（低 32 位，小端 i32）
+[28-31] 20 00 00 00 offset = 32（高 32 位，小端 i32，variable part 起始位置）
+── Variable-Length Part ──
+[32-39] 73 68 61 6E &amp;#34;shanghai&amp;#34; 实际字符串数据
+67 68 61 69
+Total: 40 bytes
+&lt;/code>&lt;/pre>&lt;p>整行数据，40 个字节，连续排列在一段内存中。读取第 1 个字段（year）的逻辑是：算出偏移 &lt;code>8 + 1 × 8 = 16&lt;/code>，读 &lt;code>data[16..20]&lt;/code> 转成 i32 = 2024。没有任何指针跳转，没有任何类型判断，一次内存访问就拿到了值。&lt;/p>
+&lt;h2 id="设计上的-trade-off">设计上的 trade-off&lt;/h2>
+&lt;p>上面的例子中，&amp;quot;cn&amp;quot; 和 &amp;quot;shanghai&amp;quot; 虽然都是 STRING 类型，但编码方式完全不同。这是 BinaryRow 最精巧的设计之一——对变长字段有两种编码策略。&lt;/p>
+&lt;p>&lt;strong>策略 A：短数据直接塞进 8 字节 slot（inline）。&lt;/strong> 如果一个字符串或 binary 数据不超过 7 个字节，它可以直接存在固定长度部分的 8 字节 slot 里。编码规则：把 8 字节 slot 视为一个 64-bit word，&lt;strong>最高字节&lt;/strong>（big-endian 意义上的最高位字节）用于存储标记和长度——最高 bit 置 1 表示“这是 inline 数据”，低 7 bits 存数据长度（0~127）；剩下的 7 个字节存实际数据。&lt;/p>
+&lt;p>在 little-endian 内存中，这个“最高字节”落在 8-byte slot 的最后一个地址——上面示例中 &lt;code>[15]&lt;/code> 位置的 &lt;code>0x82&lt;/code> 就是它。源码在读取时会显式处理字节序（参见 &lt;code>MemorySegmentUtils&lt;/code> 中的 byte order 逻辑）。以 &lt;code>&amp;quot;cn&amp;quot;&lt;/code> 为例：数据只有 2 字节，标记字节 = &lt;code>0x80 | 2 = 0x82&lt;/code>，slot 的低 2 字节存了 &lt;code>'c'&lt;/code> 和 &lt;code>'n'&lt;/code>。&lt;/p>
+&lt;p>&lt;strong>策略 B：长数据放到 variable part，slot 里存&amp;quot;指针&amp;quot;（引用）。&lt;/strong> 超过 7 字节的数据放不进 slot，就存到 variable-length part 里，slot 中存 offset 和 length。最高 bit 为 0，表示这是一个引用而不是 inline 数据。&lt;/p>
+&lt;p>读取的时候怎么区分？看最高 bit。如果是 1，数据就在 slot 里，直接读；如果是 0，按 offset+length 去 variable part 取。当前 Rust 实现里，按 &lt;code>Datum&lt;/code> 写入的路径会对 &lt;code>len &amp;lt;= 7&lt;/code> 的 string/binary 自动选择 inline；底层的 &lt;code>write_string&lt;/code> / &lt;code>write_binary&lt;/code> 仍然是显式写 variable part 的 API。整个决策过程如下：&lt;/p>
+&lt;pre tabindex="0">&lt;code class="language-mermaid" data-lang="mermaid">flowchart TD
+A[&amp;#34;读取变长字段的 8B slot&amp;#34;] --&amp;gt; B{&amp;#34;最高 bit = ?&amp;#34;}
+B --&amp;gt;|&amp;#34;1 (inline)&amp;#34;| C[&amp;#34;从 slot 低 7 字节\n直接读取数据&amp;#34;]
+B --&amp;gt;|&amp;#34;0 (引用)&amp;#34;| D[&amp;#34;取高 32 位 = offset\n取低 32 位 = length&amp;#34;]
+D --&amp;gt; E[&amp;#34;跳到 Variable Part\n读取 data 中 offset..offset+length&amp;#34;]
+C --&amp;gt; F[&amp;#34;返回数据&amp;#34;]
+E --&amp;gt; F
+style C fill:#e8f5e9,stroke:#2e7d32
+style E fill:#fff3e0,stroke:#e65100
+&lt;/code>&lt;/pre>&lt;p>只需要一次位运算就能决定走哪条路径。&lt;/p>
+&lt;p>这个设计背后的 trade-off 很有意思。inline 策略牺牲了 1 bit 的表示空间（最高 bit 被占用了），但换来的是：&lt;strong>对于短字符串，一次内存访问就能拿到数据，不需要跳到 variable part&lt;/strong>。在实际业务中，分区字段的值往往很短——日期 &amp;quot;2024-01-15&amp;quot; 是 10 字节（刚好超过 7 字节，走引用），但如果分区是按小时 &amp;quot;00&amp;quot;~&amp;quot;23&amp;quot; 只有 2 字节，或者地区缩写 &amp;quot;us&amp;quot;、&amp;quot;cn&amp;quot; 也只有 2 字节，都能享受 inline 的收益。&lt;/p>
+&lt;p>这 7 字节的阈值也不是随便选的。一个 slot 8 字节，最高字节的 1 bit 做标记、7 bit 存长度（0~127），剩下正好 7 个字节放数据。刚好把 8 字节用满，没有任何浪费。&lt;/p>
+&lt;h2 id="设计哲学的几个提炼">设计哲学的几个提炼&lt;/h2>
+&lt;p>回过头看 BinaryRow 的整体设计，有几个反复出现的思路值得提炼。&lt;/p>
+&lt;h3 id="用空间换-o1-随机访问">用空间换 O(1) 随机访问&lt;/h3>
+&lt;p>每字段固定 8 字节是最典型的例子。boolean 只需要 1 字节，给它分 8 字节确实浪费了 7 字节。但换来的 O(1) 随机访问能力让后续所有操作——排序时比较第 K 列、hash 时定位到主键列——都变成了常数时间的偏移计算，不需要像 Protocol Buffer 那样逐字段解析 varint 来找到目标字段。&lt;/p>
+&lt;p>举个具体的数字来感受：假设一行有 20 个字段，你要读取第 19 个字段。BinaryRow 的计算是 &lt;code>8 + 19 × 8 = 160&lt;/code>，一次乘法一次加法，直接跳到目标偏移。而 Protobuf 需要从第 1 个字段开始，逐个解析 tag 和 varint length，跳过前 18 个字段之后才能到达第 19 个。当你在 Compaction 中对上亿行做归并排序，每行都要反复访问主键列时，在频繁随机访问场景下两者会有显著的性能差距。&lt;/p>
+&lt;p>在数据密集的系统中，可预测的性能往往比极致的压缩率更重要。宁可多占一些内存，也不希望某个字段因为前面有一个超长字符串，访问延迟突然翻了好几倍。&lt;/p>
+&lt;h3 id="让热路径做最少的事">让热路径做最少的事&lt;/h3>
+&lt;p>&lt;strong>inline 编码就是这个思路的体现。&lt;/strong> 分区值、主键值是被读取频率最高的字段——每次 scan 都要读分区值来决定路径，每次 compaction 都要读主键来做归并。把这些高频访问的短数据直接放在 fixed part 里，省掉一次间接寻址，积累起来就是可观的性能差异。&lt;/p>
+&lt;p>算一笔账就能感受到这个&amp;quot;积累&amp;quot;有多大：一个表有 1000 个分区、每个分区 100 个数据文件，一次全表 scan 要读 10 万条 ManifestEntry，每条都要取 &lt;code>_PARTITION&lt;/code> 中的分区值。如果分区字段是 &lt;code>hr='08'&lt;/code>（2 字节，走 inline），这 10 万次取值每次都是直接从 fixed part 的 slot 里读取，省掉了 10 万次跳到 variable part 的间接寻址。在 Manifest 解码、分区提取、排序比较这类 CPU 热路径里，少一次内存间接访问的收益会被放大到非常可观的程度。&lt;/p>
+&lt;h3 id="二进制层面的可比较性">二进制层面的可比较性&lt;/h3>
+&lt;p>BinaryRow 的 &lt;code>equals()&lt;/code> 和 &lt;code>hashCode()&lt;/code> 直接在 bytes 层面操作——比较两行是否相等就是 memcmp，计算 hash 就是对 bytes 做 hash。不需要逐字段拆箱、比较、再装箱。这在 hash join、hash aggregate、去重等场景中的收益是巨大的。&lt;/p>
+&lt;p>但这也带来了一个隐含的约束：&lt;strong>如果两个 BinaryRow 表示相同的数据，它们的 bytes 必须完全一致&lt;/strong>。这个约束在处理 null 字段时尤为关键。如果一个字段被设为 null，仅仅设置 null bit 是不够的——slot 里可能还残留着之前的脏数据。虽然业务逻辑上这个值不会被读取，但 memcmp 会比较到它。所以 Java 源码里 &lt;code>setNullAt&lt;/code> 不仅设置 null bit，还会把对应的 8 字节 slot 清零。逻辑上可以概括为：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">void&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">setNullAt&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">bitSet&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">HEADER_SIZE_IN_BITS&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1">// 设置 null bit&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">segment&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">putLong&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">getFieldOffset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">),&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">0&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1">// 清零 slot，保证 memcmp 一致性&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>看起来多写了一行代码，但保住了整个 equals/hash 语义的正确性。&lt;/p>
+&lt;h2 id="从-java-到-rust跨语言实现的思考">从 Java 到 Rust：跨语言实现的思考&lt;/h2>
+&lt;p>参与 paimon-rust 的开发过程中，我对 BinaryRow 做了 Java → Rust 的移植（&lt;a href="https://github.com/apache/paimon-rust/pull/133">PR #133&lt;/a>）。这个过程中有一些有趣的发现。&lt;/p>
+&lt;p>&lt;strong>有些 Java 层面的复杂性在 Rust 中可以直接消失。&lt;/strong> 最明显的是 &lt;code>MemorySegment&lt;/code>。Java Paimon 的 BinaryRow 不直接操作 &lt;code>byte[]&lt;/code>，而是通过 &lt;code>MemorySegment&lt;/code> 抽象访问——这层抽象是为了支持堆外内存（off-heap），规避 GC。&lt;code>BinarySection&lt;/code>（BinaryRow 的基类）实际上持有 &lt;code>MemorySegment[]&lt;/code> 引用，一个 BinaryRow 可以跨多个 segment 存储。但在当前的 Rust 实现里，不需要引入 Java 那样的 MemorySegment 抽象——没有 GC，&lt;code>Vec&amp;lt;u8&amp;gt;&lt;/code> 或 &lt;code>&amp;amp;[u8]&lt;/code> 本身就是高效的连续内存，直接用 slice 操作就够了。&lt;/p>
+&lt;p>&lt;strong>二进制格式本身必须 bit-for-bit 一致。&lt;/strong> Paimon 的 Manifest 文件可能由 Java 端写入，Rust 端要读取。&lt;code>_PARTITION&lt;/code> 字段里的 bytes 是 serialized BinaryRow，Rust 端会先解析 4 字节 big-endian arity 前缀，再用完全相同的规则解码 raw payload——小端序、null bit 从第 8 位开始、inline 标记在最高 bit。格式兼容性是跨语言实现的生命线。&lt;/p>
+&lt;p>&lt;strong>Rust 的所有权模型天然解决了 Java 的一个隐患。&lt;/strong> Java 的 BinaryRow 通过 &lt;code>pointTo(segment, offset, size)&lt;/code> 指向外部内存。它本身并不拥有底层数据，只是保存了对 &lt;code>MemorySegment[]&lt;/code> 的引用，本质上相当于一次没有类型系统约束的隐式 borrow。风险出现在底层 buffer 被复用或覆写的时候，比如流式处理中，同一段 segment 内存被下一个 batch 的数据覆盖，BinaryRow 后续读到的内容也会随之改变。对 GC 来说，这个引用依然合法，程序通常不会因为内存安全问题直接失败；真正失效的是对象和底层数据之间原本约定的生命周期关系。在 Java 里，这类风险需要通过清晰的接口约定、文档说明，以及必要时的主动拷贝来控制。&lt;/p>
+&lt;p>在 Rust 中，这个问题在编译期就被解决了：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-rust" data-lang="rust">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Owned：数据被 move 进 BinaryRow，生命周期没有任何歧义
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">row&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">BinaryRow&lt;/span>::&lt;span class="n">from_bytes&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">arity&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1">// data 的所有权转移给 row
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c1">// 如果未来需要零拷贝读取，可以用带生命周期约束的引用：
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">row_ref&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">BinaryRowRef&lt;/span>::&lt;span class="n">from_slice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">arity&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">buffer&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">offset&lt;/span>&lt;span class="o">..&lt;/span>&lt;span class="p">]);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c1">// 编译器保证 buffer 的生命周期 &amp;gt;= row_ref，不存在悬垂引用
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>Vec&amp;lt;u8&amp;gt;&lt;/code> 做 owned 时数据跟着 BinaryRow 走，&lt;code>&amp;amp;'a [u8]&lt;/code> 做 borrow 时编译器强制检查引用有效性。这种安全性不需要额外的运行时开销，是 Rust 类型系统带来的“免费午餐”。&lt;/p>
+&lt;h2 id="binaryrow-在分区表链路中的角色">BinaryRow 在分区表链路中的角色&lt;/h2>
+&lt;p>啰里八唆扯了一堆，现在回到最初的那个任务——有了 BinaryRow 的完整实现之后，分区表读取链路的最后一块拼图也就到位了。来看一下实际的数据流：&lt;/p>
+&lt;p>在 Paimon 中，每个数据文件的元数据都记录在 Manifest 文件中，而 Manifest 中有一个关键字段 &lt;code>_PARTITION&lt;/code>，它的类型是 &lt;code>bytes&lt;/code>。这段 bytes 是分区值经过 BinaryRow 编码后的 serialized 结果：它包含 arity 前缀和 raw BinaryRow payload。&lt;/p>
+&lt;p>比如一个按 &lt;code>(dt STRING, hr INT)&lt;/code> 分区的表，分区值 &lt;code>(&amp;quot;2024-01-15&amp;quot;, 12)&lt;/code> 会被编码成 serialized BinaryRow bytes，然后存进 Manifest 的 Avro 文件中。整条读取链路如下：&lt;/p>
+&lt;pre tabindex="0">&lt;code class="language-mermaid" data-lang="mermaid">flowchart LR
+S[&amp;#34;Snapshot\n(JSON)&amp;#34;] --&amp;gt; ML[&amp;#34;ManifestList\n(Avro)&amp;#34;]
+ML --&amp;gt; MF[&amp;#34;ManifestFile\n(Avro)&amp;#34;]
+MF --&amp;gt; ME[&amp;#34;ManifestEntry\n_PARTITION: bytes&amp;#34;]
+ME --&amp;gt; BR[&amp;#34;BinaryRow::from_serialized_bytes\nget_string(0) → 2024-01-15\nget_int(1) → 12&amp;#34;]
+BR --&amp;gt; PP[&amp;#34;PartitionComputer / PartitionPathUtils\ndt=2024-01-15/hr=12&amp;#34;]
+PP --&amp;gt; DF[&amp;#34;读取 Parquet\n数据文件&amp;#34;]
+style BR fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+style ME fill:#fff3e0,stroke:#e65100
+&lt;/code>&lt;/pre>&lt;p>读取时，Rust 端需要：&lt;/p>
+&lt;ol>
+&lt;li>从 Avro 中取出这段 bytes&lt;/li>
+&lt;li>用 &lt;code>BinaryRow::from_serialized_bytes(data)&lt;/code> 读取 arity 前缀，并还原出 BinaryRow&lt;/li>
+&lt;li>调用 &lt;code>row.get_string(0)&lt;/code> 得到 &lt;code>&amp;quot;2024-01-15&amp;quot;&lt;/code>，&lt;code>row.get_int(1)&lt;/code> 得到 &lt;code>12&lt;/code>&lt;/li>
+&lt;li>拼出分区路径 &lt;code>dt=2024-01-15/hr=12&lt;/code>&lt;/li>
+&lt;li>用这个路径去对象存储上找到实际的 Parquet 数据文件&lt;/li>
+&lt;/ol>
+&lt;p>这条链路把前面提到的很多概念串了起来：Snapshot 是读取入口，ManifestList 列出所有 Manifest 文件，ManifestFile 中的 ManifestEntry 包含 &lt;code>_PARTITION&lt;/code> 的 serialized BinaryRow bytes，解码后生成分区路径，最终定位到 Parquet 数据文件。BinaryRow 就像一颗不起眼但关键的螺丝钉，拧在整个链路的中间位置。&lt;/p>
+&lt;h2 id="结语">结语&lt;/h2>
+&lt;p>BinaryRow 的设计其实不复杂——把一行数据编码成连续 bytes，固定宽度的 slot 保证 O(1) 访问，短数据 inline 减少间接寻址，长数据用 offset+length 引用。没有什么魔法，每个决策背后都是朴素的 trade-off 分析。&lt;/p>
+&lt;p>但正是这种“每个字节都不浪费、每个 bit 都有用途”的精细设计，让 Paimon 在处理海量数据时能保持高吞吐和低延迟。在分区、主键、统计信息、bucket 分配、比较和 hash 等内部路径中，BinaryRow 承载着紧凑、可随机访问的行式表示；而在数据文件主体读取这类分析链路里，Parquet / Arrow 这样的列式格式仍然各司其职。&lt;/p>
+&lt;p>不过，BinaryRow 毕竟是一个行式格式（row format）。在列式存储主导的分析型世界里——Parquet 用列式编码，Arrow 用列式内存布局——并非所有链路都适合行式表达。一个更有针对性的问题是：Paimon 内部的哪些链路应该继续保持 row-oriented（比如主键去重、changelog 生成这类天然按行操作的逻辑），而哪些链路值得做 vectorized / columnar 化（比如大批量的分析型扫描和聚合）？有机会的话，继续在下一篇展开聊聊。（bushi 又挖坑了。&lt;/p>
+&lt;hr>
+&lt;h2 id="延伸阅读">延伸阅读&lt;/h2>
+&lt;ul>
+&lt;li>Java 源码：&lt;a href="https://github.com/apache/paimon/blob/master/paimon-common/src/main/java/org/apache/paimon/data/BinaryRow.java">BinaryRow.java&lt;/a>、&lt;a href="https://github.com/apache/paimon/blob/master/paimon-common/src/main/java/org/apache/paimon/data/BinarySection.java">BinarySection.java&lt;/a>、&lt;a href="https://github.com/apache/paimon/blob/master/paimon-common/src/main/java/org/apache/paimon/data/BinaryRowWriter.java">BinaryRowWriter.java&lt;/a>&lt;/li>
+&lt;li>Flink 上游同源实现：&lt;a href="https://github.com/apache/flink/blob/master/flink-table/flink-table-common/src/main/java/org/apache/flink/table/data/binary/BinaryRowData.java">BinaryRowData.java&lt;/a>（Paimon BinaryRow 直接继承自此设计）&lt;/li>
+&lt;li>Rust 实现：&lt;a href="https://github.com/apache/paimon-rust/pull/133">PR #133 — BinaryRow Deserialization&lt;/a>、&lt;a href="https://github.com/apache/paimon-rust/pull/127">PR #127 — PartitionPathUtils&lt;/a>&lt;/li>
+&lt;li>上游 Issue：&lt;a href="https://github.com/apache/paimon-rust/issues/124">#124 — Support reading partitioned tables&lt;/a>、&lt;a href="https://github.com/apache/paimon-rust/issues/126">#126 — BinaryRow getters&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Doris03 存算分离导入数据的一些杂记</title><link>https://quakewang.github.io/tech/doris/doris003_loaddata/</link><guid isPermaLink="true">https://quakewang.github.io/tech/doris/doris003_loaddata/</guid><pubDate>Fri, 11 Jul 2025 10:47:11 +0800</pubDate><author>wangfuzheng0814@foxmail.com (二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="cluade-code-食用指北存算分离写入的一点杂记">Cluade Code 食用指北：存算分离写入的一点杂记&lt;/h1>
 &lt;h2 id="背景">背景&lt;/h2>
 &lt;p>最近接触 Doris 存算分离的场景比较多，在存算分离架构中，计算与存储资源不再是耦合在一起，通常是把数据持久化在&lt;strong>对象存储&lt;/strong>中，而非 BE 节点本地。BE 节点专注于查询计算，仅&lt;strong>缓存&lt;/strong>热数据，无需管理底层存储。这种架构实现了存储和计算资源的独立扩缩容，降低了总拥有成本，同时通过多层缓存机制保证了查询性能。&lt;/p>
 &lt;p>这么一看存算分离的优点很明确，但最近在使用的过程中，遇见一个问题，那就是数据既然是直接存在对象存储中，但为什么当有大量数据写入的时候，BE 节点的 IO 会很高，甚至达到瓶颈。大概率猜到是写入本地缓存的原因导致，但具体是先写入本地缓存，还是先写入对象存储，一直比较模糊，所以想借助 Claude Code 分析源码来一探究竟。&lt;/p>
