@@ -1,4 +1,300 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>二夕说废话の地方</title><link>https://quakewang.github.io/</link><description>二夕的个人博客，一半献给技术，另一半还在寻找。。。</description><generator>Hugo 0.134.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 01 Jun 2026 14:40:53 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>浅谈 Paimon 的 BinaryRow 设计哲学</title><link>https://quakewang.github.io/tech/paimon/paimon001_binaryrow/</link><guid isPermaLink="true">https://quakewang.github.io/tech/paimon/paimon001_binaryrow/</guid><pubDate>Fri, 22 May 2026 22:30:00 +0800</pubDate><author>wangfuzheng0814@foxmail.com (二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="分区表读取任务">分区表读取任务&lt;/h2>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>二夕说废话の地方</title><link>https://quakewang.github.io/</link><description>二夕的个人博客，一半献给技术，另一半还在寻找。。。</description><generator>Hugo 0.134.1 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>wangfuzheng0814@foxmail.com (二夕)</managingEditor><webMaster>wangfuzheng0814@foxmail.com (二夕)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Thu, 25 Jun 2026 07:57:59 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://quakewang.github.io/rss.xml"/><item><title>记一次 paimon-rust CI hang 的排查记录</title><link>https://quakewang.github.io/tech/paimon/paimon002_ci-hang/</link><guid isPermaLink="true">https://quakewang.github.io/tech/paimon/paimon002_ci-hang/</guid><pubDate>Wed, 24 Jun 2026 23:31:36 +0800</pubDate><author>wangfuzheng0814@foxmail.com (二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="问题背景">问题背景&lt;/h2>
+&lt;p>一个稳定的 CI 对于开源项目来说是至关重要的，如果提交 PR 大概率因为 CI 不稳定导致爆红，对于贡献者来说是比较打击积极性的。在前段时间，paimon-rust 的 GitHub CI 频繁卡在 Vortex 相关测试上。修过几轮，每次看起来好了，过几天又会复发，很是烦人。好在成功修复了，写这篇博客来简单记录一下。&lt;/p>
+&lt;p>最近一次比较完整的现场是 &lt;a href="https://github.com/apache/paimon-rust/actions/runs/27869393079">CI run 27869393079&lt;/a>：&lt;code>integration&lt;/code> job 里的 &lt;code>DataFusion Vortex Integration Test&lt;/code> step 卡在 &lt;code>test_vortex_file_format_sql_e2e&lt;/code>，日志停在 &lt;code>has been running for over 60 seconds&lt;/code>，之后一直没有新的测试输出。这个 step 从 2026-06-20 11:21:40 UTC 跑到 17:12:06 UTC，接近 6 小时后被 Actions 取消。从现象来看可以定位是测试 hang 住了。不过比较奇怪的一点，在自己的开发环境，执行对应的测试，复现不出来（后面在 AI 的帮助下通过限制 CPU 能够大概率复现）。&lt;/p>
+&lt;p>既然不好复现，倒不如直接顺着支持 Vortex 的时间线重新梳理一遍，如下：&lt;/p>
+&lt;p>Vortex 支持最早来自 &lt;a href="https://github.com/apache/paimon-rust/pull/260">&lt;code>feat: add Vortex columnar file format support as optional feature&lt;/code>&lt;/a>。这个 PR 在 &lt;code>crates/paimon/Cargo.toml&lt;/code> 里引入了 Vortex &lt;code>0.68&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-toml" data-lang="toml">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">vortex&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">version&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;0.68&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">features&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;tokio&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="nx">optional&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">true&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>简单概括下这个 RP 的内容：新增了 &lt;code>crates/paimon/src/arrow/format/vortex.rs&lt;/code>，实现 Vortex 文件读写、predicate pushdown 和 row selection，并把 &lt;code>vortex&lt;/code> feature 加进 clippy、build 和 unit CI。也就是说，从 #260 开始，Vortex 读写路径进入了常规 CI。&lt;/p>
+&lt;p>但这次挂住的 DataFusion SQL e2e 测试不是 #260 带来的，而是后面的 &lt;a href="https://github.com/apache/paimon-rust/pull/321">&lt;code>test(datafusion): add vortex SQL e2e&lt;/code>&lt;/a>。#321 新增了 &lt;code>crates/integrations/datafusion/tests/vortex_tables.rs&lt;/code>，并在 CI 里加了单独的 &lt;code>DataFusion Vortex Integration Test&lt;/code> step：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cargo &lt;span class="nb">test&lt;/span> -p paimon-datafusion --features vortex --test vortex_tables
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>第一次比较明确的 Vortex hang 线索出现在 &lt;a href="https://github.com/apache/paimon-rust/pull/353">&lt;code>build: pin unicode-segmentation for vortex tests&lt;/code>&lt;/a>。当时 revert 其他改动后，main CI 仍然 hanging。对比挂住的 Ubuntu unit job，差异集中在 Vortex tests 解析出来的依赖集合上。#353 先把 &lt;code>unicode-segmentation&lt;/code> pin 到 &lt;code>=1.13.2&lt;/code>，目标很直接：先让 CI 恢复。&lt;/p>
+&lt;p>之后问题又复发，我顺着这个方向提了个 PR，从依赖解析转向 Vortex 读写路径本身。&lt;a href="https://github.com/apache/paimon-rust/pull/375">&lt;code>fix: keep Vortex runtime alive during async IO&lt;/code>&lt;/a> 处理的是 runtime handle 生命周期：旧代码直接用 &lt;code>VortexSession::default()&lt;/code>，async read/write 可能比临时 runtime owner 活得更久，后面的 background IO task 没有可用 executor 时就会 stall。&lt;/p>
+&lt;p>再后面是之信老师提的 &lt;a href="https://github.com/apache/paimon-rust/pull/387">&lt;code>fix: stabilize Vortex runtime for async IO&lt;/code>&lt;/a>。这个 PR 把 Vortex read/write 移到 dedicated blocking thread 和 &lt;code>CurrentThreadRuntime&lt;/code> 上；读取时改用 &lt;code>open_buffer&lt;/code>，写入时先序列化到内存 buffer，同时绕开 Vortex &lt;code>0.68&lt;/code> 的 filtered-scan 路径。&lt;/p>
+&lt;p>回头看，这几次修复都不是无效的。它们分别处理了当时暴露出来的依赖解析、runtime 生命周期、scan/write 问题，所以 CI 能阶段性恢复。但这次 integration cancellation 又把问题收窄到了另一条路径：打开 Vortex 文件、读取 footer、构建 layout。&lt;/p>
+&lt;h2 id="先确认现象">先确认现象&lt;/h2>
+&lt;p>我把问题先拆成两类：&lt;/p>
+&lt;ol>
+&lt;li>Vortex 读写路径是否会 hang。&lt;/li>
+&lt;li>integration tests 是否只是缺少外部 fixture。&lt;/li>
+&lt;/ol>
+&lt;p>复现时聚焦 DataFusion 的 Vortex 表测试，并加上 timeout：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">timeout 150s taskset -c &lt;span class="m">0&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> cargo &lt;span class="nb">test&lt;/span> -p paimon-datafusion --features vortex --test vortex_tables -- --nocapture
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>在 Vortex &lt;code>0.68&lt;/code> 路径上，测试可以卡在 &lt;code>test_vortex_file_format_sql_e2e&lt;/code>，直到 timeout。这个现象和 &lt;a href="https://github.com/apache/paimon-rust/actions/runs/27869393079">CI run 27869393079&lt;/a> 对得上：step 编译完成后运行 1 个测试，&lt;code>test_vortex_file_format_sql_e2e&lt;/code> 超过 60 秒没有结束，之后长时间没有新的输出，最后只看到 &lt;code>The operation was canceled&lt;/code>。&lt;/p>
+&lt;p>通过 &lt;code>taskset -c 0&lt;/code> 只是让本地更接近受限 runner 的调度环境，然后可以高概率的复现出 hang 的现象，在后面的排查中发现并不是根因哦。&lt;/p>
+&lt;p>CI 里对应的 step 跑在 &lt;code>ubuntu-latest&lt;/code> 上：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cargo &lt;span class="nb">test&lt;/span> -p paimon-datafusion --features vortex --test vortex_tables
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>另一个干扰项也要排掉：有些 integration tests 如果缺少预置 Paimon 表 fixture，会以 &lt;code>TableNotExist&lt;/code> 失败，例如 &lt;code>default.partitioned_log_table&lt;/code>、&lt;code>default.multi_partitioned_log_table&lt;/code>。这类失败会明确 panic，和测试进程无输出卡住不是一回事。&lt;/p>
+&lt;h2 id="paimon-rust-是怎么触发的">paimon-rust 是怎么触发的&lt;/h2>
+&lt;p>paimon-rust 的 Vortex reader 会在 blocking task 中创建 Vortex session，然后打开 Vortex 文件：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-rust" data-lang="rust">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">runtime&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">CurrentThreadRuntime&lt;/span>::&lt;span class="n">new&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kd">let&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">session&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">VortexSession&lt;/span>::&lt;span class="n">default&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="n">with_handle&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">runtime&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">handle&lt;/span>&lt;span class="p">());&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">read_vortex_batches&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">runtime&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">session&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">ByteBuffer&lt;/span>::&lt;span class="n">from&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">bytes&lt;/span>&lt;span class="p">),&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">plan&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>后面的 &lt;code>read_vortex_batches&lt;/code> 会通过 Vortex open/scan API 读取文件。DataFusion SQL 层、paimon-rust 的 projection/filter 逻辑都只是入口；真正卡住的位置在 Vortex 打开文件并读取 footer 的过程中。&lt;/p>
+&lt;h2 id="回到-vortex-068-源码">回到 Vortex 0.68 源码&lt;/h2>
+&lt;p>有了上述的排查过程，根据 Vortex 0.68 的源码来一探究竟，可以发现 footer 反序列化代码在 &lt;code>vortex-file/src/footer/mod.rs&lt;/code>。关键调用长这样：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-rust" data-lang="rust">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">root_layout&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">layout_from_flatbuffer_with_options&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">layout_bytes&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">dtype&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">layout_read_ctx&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">array_read_ctx&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">session&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">layouts&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="n">registry&lt;/span>&lt;span class="p">(),&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">session&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">allows_unknown&lt;/span>&lt;span class="p">(),&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">?&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这里有两个参数看起来都只是读 session：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>session.layouts().registry()&lt;/code>&lt;/li>
+&lt;li>&lt;code>session.allows_unknown()&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>问题就藏在这两个参数的求值过程中。&lt;/p>
+&lt;p>先看 &lt;code>session.layouts()&lt;/code>。它来自 &lt;code>vortex-layout/src/session.rs&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-rust" data-lang="rust">&lt;span class="line">&lt;span class="cl">&lt;span class="k">fn&lt;/span> &lt;span class="nf">layouts&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>-&amp;gt; &lt;span class="nc">Ref&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="nb">&amp;#39;_&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">LayoutSession&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">get&lt;/span>::&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">LayoutSession&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>registry()&lt;/code> 返回的是 &lt;code>&amp;amp;LayoutRegistry&lt;/code>。为了把这个引用传给 &lt;code>layout_from_flatbuffer_with_options(...)&lt;/code>，&lt;code>session.layouts()&lt;/code> 返回的 &lt;code>Ref&amp;lt;'_, LayoutSession&amp;gt;&lt;/code> 需要至少活到这次函数调用结束。这个 &lt;code>Ref&lt;/code> 内部包着 DashMap 的 read guard。&lt;/p>
+&lt;p>再补一层 Rust 的求值语义：函数调用参数会按源码顺序求值。也就是说，&lt;code>session.layouts().registry()&lt;/code> 先拿到 &lt;code>LayoutSession&lt;/code> 的 guard；等右侧 &lt;code>session.allows_unknown()&lt;/code> 开始执行时，前面的 guard 还没释放。&lt;/p>
+&lt;p>接着看 &lt;code>session.allows_unknown()&lt;/code>。Vortex &lt;code>0.68&lt;/code> 里的实现是：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-rust" data-lang="rust">&lt;span class="line">&lt;span class="cl">&lt;span class="k">pub&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">fn&lt;/span> &lt;span class="nf">allows_unknown&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>-&amp;gt; &lt;span class="kt">bool&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="bp">Self&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">as&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">SessionExt&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>::&lt;span class="n">get&lt;/span>::&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">UnknownPluginPolicy&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="n">allow_unknown&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这里的 &lt;code>get::&amp;lt;V&amp;gt;()&lt;/code> 不是纯读。session var 不存在时，它会懒插入默认值：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-rust" data-lang="rust">&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">let&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">Some&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mf">0.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">TypeId&lt;/span>::&lt;span class="n">of&lt;/span>::&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">V&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">())&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">return&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Ref&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">..&lt;/span>&lt;span class="p">.);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">Ref&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">entry&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">TypeId&lt;/span>::&lt;span class="n">of&lt;/span>::&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">V&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">())&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">or_insert_with&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">||&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">Box&lt;/span>::&lt;span class="n">new&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">V&lt;/span>::&lt;span class="n">default&lt;/span>&lt;span class="p">()))&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">downgrade&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">map&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">..&lt;/span>&lt;span class="p">.))&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>self.0&lt;/code> 是 &lt;code>DashMap&amp;lt;TypeId, Box&amp;lt;dyn SessionVar&amp;gt;, ...&amp;gt;&lt;/code>。所以 &lt;code>allows_unknown()&lt;/code> 这个名字虽然像读操作，但当 &lt;code>UnknownPluginPolicy&lt;/code> 还没初始化时，它会走到 &lt;code>entry(...).or_insert_with(...)&lt;/code>，需要拿对应 shard 的写锁。&lt;/p>
+&lt;p>这也解释了为什么受限 runner 或 &lt;code>taskset -c 0&lt;/code> 更容易复现。DashMap 的默认 shard 数量来自 &lt;code>(available_parallelism * 4).next_power_of_two()&lt;/code>；可用 CPU 越少，默认 shard 越少，&lt;code>LayoutSession&lt;/code> 和 &lt;code>UnknownPluginPolicy&lt;/code> 落到同一个 shard 的概率越高。资源约束放大的是概率，不是根因。根因仍然是 footer 解析期间，一个看似只读的 session 查询走进了写路径。&lt;/p>
+&lt;p>整个链路可以画成这样：&lt;/p>
+&lt;pre tabindex="0">&lt;code class="language-mermaid" data-lang="mermaid">flowchart TD
+A[&amp;#34;paimon-rust opens a Vortex file&amp;#34;] --&amp;gt; B[&amp;#34;Vortex 0.68 reads the footer&amp;#34;]
+B --&amp;gt; C[&amp;#34;Build root_layout arguments&amp;#34;]
+C --&amp;gt; D[&amp;#34;Evaluate session.layouts().registry() first&amp;#34;]
+D --&amp;gt; E[&amp;#34;SessionExt::get::&amp;lt;LayoutSession&amp;gt;()&amp;#34;]
+E --&amp;gt; F[&amp;#34;Hold a DashMap shard read guard&amp;#34;]
+C --&amp;gt; G[&amp;#34;Then evaluate session.allows_unknown()&amp;#34;]
+G --&amp;gt; H[&amp;#34;SessionExt::get::&amp;lt;UnknownPluginPolicy&amp;gt;()&amp;#34;]
+H --&amp;gt; I{&amp;#34;UnknownPluginPolicy exists?&amp;#34;}
+I -- &amp;#34;No&amp;#34; --&amp;gt; J[&amp;#34;entry(...).or_insert_with(default)&amp;#34;]
+J --&amp;gt; K[&amp;#34;Needs a write guard for the shard&amp;#34;]
+F --&amp;gt; L{&amp;#34;Same shard?&amp;#34;}
+K --&amp;gt; L
+L -- &amp;#34;Yes&amp;#34; --&amp;gt; M[&amp;#34;Same thread waits while holding the read guard&amp;#34;]
+M --&amp;gt; N[&amp;#34;Self-deadlock&amp;#34;]
+L -- &amp;#34;No&amp;#34; --&amp;gt; O[&amp;#34;This run does not hang&amp;#34;]
+&lt;/code>&lt;/pre>&lt;p>所以这里不是普通的多线程竞态。一条线程就够了：它先持有一个 shard 的 read guard，又在同一个调用语句里尝试拿同一个 shard 的 write guard，于是把自己等死。表现出来就是没有 panic、没有错误返回，测试进程安静地卡在那里。&lt;/p>
+&lt;h2 id="上游代码的印证">上游代码的印证&lt;/h2>
+&lt;p>Vortex 的历史 PR 可以把这条链路串起来。&lt;/p>
+&lt;p>先看 &lt;a href="https://github.com/vortex-data/vortex/pull/7347">vortex-data/vortex#7347&lt;/a>（&lt;code>Allow loading &amp;quot;foreign&amp;quot; plugins for UI/TUI/Serde&lt;/code>）。这个 PR 在 2026-04-09 合入，做了两件和本问题相关的事：&lt;/p>
+&lt;ol>
+&lt;li>在 &lt;code>vortex-session/src/lib.rs&lt;/code> 中新增 &lt;code>UnknownPluginPolicy&lt;/code>、&lt;code>allow_unknown()&lt;/code> 和 &lt;code>allows_unknown()&lt;/code>。&lt;/li>
+&lt;li>在 &lt;code>vortex-file/src/footer/mod.rs&lt;/code> 中把 footer layout 解析改成 &lt;code>layout_from_flatbuffer_with_options(...)&lt;/code>，并传入 &lt;code>session.layouts().registry()&lt;/code> 和 &lt;code>session.allows_unknown()&lt;/code>。&lt;/li>
+&lt;/ol>
+&lt;p>当时 &lt;code>allows_unknown()&lt;/code> 用的是 &lt;code>get::&amp;lt;UnknownPluginPolicy&amp;gt;()&lt;/code>，因此默认 policy 不存在时会懒初始化，也就是会写 session map。&lt;/p>
+&lt;p>随后 &lt;a href="https://github.com/vortex-data/vortex/pull/7606">vortex-data/vortex#7606&lt;/a>（&lt;code>fix deadlock on unknown policy request&lt;/code>）改了 &lt;code>allows_unknown()&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="line">&lt;span class="cl"> pub fn allows_unknown(&amp;amp;self) -&amp;gt; bool {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">- &amp;lt;Self as SessionExt&amp;gt;::get::&amp;lt;UnknownPluginPolicy&amp;gt;(self).allow_unknown
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">&lt;/span>&lt;span class="gi">+ &amp;lt;Self as SessionExt&amp;gt;::get_opt::&amp;lt;UnknownPluginPolicy&amp;gt;(self)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ .map(|p| p.allow_unknown)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ .unwrap_or(false)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">&lt;/span> }
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这里要把证据边界说清楚：#7606 的触发场景来自 Vortex 自己的 FFI tests，不是 paimon-rust 的复现。但它改掉的正是同一个机制：&lt;code>allows_unknown()&lt;/code> 从懒写入变成只读查询；policy 不存在时直接返回 &lt;code>false&lt;/code>。这样 footer 解析期间就不会一边持有 &lt;code>LayoutSession&lt;/code> borrow，一边再去写 session map。&lt;/p>
+&lt;p>再看当前 &lt;code>upstream/develop&lt;/code>。同一块代码后来继续演进，footer 读取仍然会把 &lt;code>session.allows_unknown()&lt;/code> 的结果传给 layout 反序列化：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-rust" data-lang="rust">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">root_layout&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">layout_from_flatbuffer_with_options&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">layout_bytes&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">dtype&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">layout_read_ctx&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">array_read_ctx&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">session&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">session&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">allows_unknown&lt;/span>&lt;span class="p">(),&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">?&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>但 session 实现已经变成 immutable map：session variables 在构造后固定，读取时返回普通引用，不再通过 DashMap guard 管理生命周期。当前 &lt;code>allows_unknown()&lt;/code> 也是纯读：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-rust" data-lang="rust">&lt;span class="line">&lt;span class="cl">&lt;span class="k">pub&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">fn&lt;/span> &lt;span class="nf">allows_unknown&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>-&amp;gt; &lt;span class="kt">bool&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">get_opt&lt;/span>::&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">UnknownPluginPolicy&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">is_some_and&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="n">p&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">p&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">allow_unknown&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这里也要区分版本：paimon-rust 最终升级到的 Vortex &lt;code>0.75.0&lt;/code> 已经包含 #7606，因此 &lt;code>allows_unknown()&lt;/code> 不再懒写入；但 &lt;code>0.75.0&lt;/code> 的 session 还没有变成 immutable map。immutable map 是当前 &lt;code>develop&lt;/code> 的进一步演进，它说明上游后来从更底层把这类读写锁生命周期问题也收掉了，但不是 paimon-rust 修复这次 CI hang 的必要条件。&lt;/p>
+&lt;h2 id="解决方案">解决方案&lt;/h2>
+&lt;p>对 paimon-rust 来说，合适的修复边界在依赖升级和 API 适配上。也可以在 paimon-rust 侧针对 Vortex &lt;code>0.68&lt;/code> 写 workaround，比如提前初始化 &lt;code>UnknownPluginPolicy&lt;/code>，但这会把 Vortex 内部实现细节漏到 paimon-rust 里，后续维护成本也会留在自己这边。和之信老师讨论之后，决定还是升级依赖更合适。&lt;/p>
+&lt;p>Vortex &lt;code>0.75.0&lt;/code> 已经包含 #7606。同样的 footer 读取路径下，&lt;code>session.allows_unknown()&lt;/code> 不再写 session map，也就不会在持有 &lt;code>LayoutSession&lt;/code> borrow 的同时再申请写锁。&lt;/p>
+&lt;p>对应 paimon-rust 的修复收敛成三部分：&lt;/p>
+&lt;ol>
+&lt;li>将 &lt;code>crates/paimon/Cargo.toml&lt;/code> 中的 Vortex 依赖从 &lt;code>0.68&lt;/code> 升级到 &lt;code>0.75.0&lt;/code>。&lt;/li>
+&lt;li>适配新版 Vortex Arrow conversion API，用 session execution API 替代 deprecated &lt;code>IntoArrowArray::into_arrow&lt;/code>。&lt;/li>
+&lt;li>将 workspace &lt;code>rust-version&lt;/code> 从 &lt;code>1.86.0&lt;/code> 提到 &lt;code>1.91.0&lt;/code>，同时把 &lt;code>constant_time_eq&lt;/code> 从 &lt;code>&amp;lt;0.5.1&lt;/code> 收紧到 &lt;code>&amp;lt;0.5.0&lt;/code>。原因是 &lt;code>constant_time_eq 0.5.0&lt;/code> 要求 Rust &lt;code>1.95.0&lt;/code>，fresh resolver 选到它以后会超过当前 workspace MSRV。&lt;/li>
+&lt;/ol>
+&lt;p>对应修复已经通过 &lt;a href="https://github.com/apache/paimon-rust/pull/402">&lt;code>fix(vortex): avoid footer read deadlock&lt;/code>&lt;/a> 合并。&lt;/p>
+&lt;h2 id="验证">验证&lt;/h2>
+&lt;p>验证分两步：先证明 hang 消失，再确认依赖升级没有破坏常规检查。&lt;/p>
+&lt;p>关键回归测试还是同一个：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">timeout 120s taskset -c &lt;span class="m">0&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> cargo &lt;span class="nb">test&lt;/span> -p paimon-datafusion --features vortex --test vortex_tables -- --nocapture
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>升级到 Vortex &lt;code>0.75.0&lt;/code> 并适配 API 后，这个测试可以稳定完成，&lt;code>test_vortex_file_format_sql_e2e&lt;/code> 通过。&lt;/p>
+&lt;p>paimon-rust 的修复 PR &lt;a href="https://github.com/apache/paimon-rust/pull/402">apache/paimon-rust#402&lt;/a> 于 2026-06-22 合入。对应 &lt;a href="https://github.com/apache/paimon-rust/actions/runs/27923915415">CI run 27923915415&lt;/a> 全部通过，其中 &lt;code>integration&lt;/code> job 和 &lt;code>DataFusion Vortex Integration Test&lt;/code> step 都是 &lt;code>success&lt;/code>。&lt;/p>
+&lt;p>常规检查包括：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cargo fmt --all -- --check
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cargo clippy --all-targets --workspace --features fulltext,vortex,mosaic -- -D warnings
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cargo build --features fulltext,vortex,mosaic
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cargo &lt;span class="nb">test&lt;/span> -p paimon --all-targets --features fulltext,vortex,mosaic
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>其中 &lt;code>paimon&lt;/code> crate 的测试覆盖了 Vortex reader/writer 单元测试、predicate 读取、empty projection、row selection 和并发 predicate read 等路径。&lt;/p>
+&lt;p>最后再强调一下 fixture 问题：依赖外部 fixture 的 integration read tests 如果缺少预置表，会以 &lt;code>TableNotExist&lt;/code> 失败。这类失败和本次 Vortex hang 是两条线，不能混成一个根因。&lt;/p>
+&lt;h2 id="最新状态">最新状态&lt;/h2>
+&lt;p>这篇文章写完时，相关修复已经进入 main，PR &lt;a href="https://github.com/apache/paimon-rust/pull/402">apache/paimon-rust#402&lt;/a>。合入后的 main push CI 是 &lt;a href="https://github.com/apache/paimon-rust/actions/runs/27925299942">run 27925299942&lt;/a>，结果为 &lt;code>success&lt;/code>；其中 &lt;code>DataFusion Vortex Integration Test&lt;/code> 也能够正常跑通。&lt;/p>
+&lt;p>目前来看 paimon-rust 的 PR 可以发现已经可以正常运行，没有再出现 Vortex test 夯住的情况了。想要参与的同学可以一起来愉快地玩耍啦~&lt;/p>
+&lt;h2 id="结论">结论&lt;/h2>
+&lt;p>啰里八唆写了一堆，简单总结下这次 CI hang 的根因，是 Vortex &lt;code>0.68&lt;/code> 的 session 读取接口里藏了一条写路径：&lt;/p>
+&lt;ul>
+&lt;li>footer 解析时，先通过 &lt;code>session.layouts().registry()&lt;/code> 保留了 &lt;code>LayoutSession&lt;/code> 的 session borrow；&lt;/li>
+&lt;li>同一个函数调用里，又继续执行 &lt;code>session.allows_unknown()&lt;/code>；&lt;/li>
+&lt;li>Vortex &lt;code>0.68&lt;/code> 的 &lt;code>allows_unknown()&lt;/code> 会通过 &lt;code>get::&amp;lt;UnknownPluginPolicy&amp;gt;()&lt;/code> 懒插入默认 policy；&lt;/li>
+&lt;li>如果这次写入和前面尚未释放的 &lt;code>LayoutSession&lt;/code> borrow 落到同一个 DashMap shard，同一线程就会在持有 read guard 的情况下等待 write guard，形成自死锁。&lt;/li>
+&lt;/ul>
+&lt;p>Vortex 上游已经通过 &lt;a href="https://github.com/vortex-data/vortex/pull/7606">vortex-data/vortex#7606&lt;/a> 把 &lt;code>allows_unknown()&lt;/code> 改成 &lt;code>get_opt()&lt;/code>，让默认 &lt;code>false&lt;/code> 变成真正的只读路径。paimon-rust 侧升级到包含这个修复的 Vortex 版本，并完成必要 API 适配，是边界最清楚的修法。&lt;/p></description></item><item><title>浅谈 Paimon 的 BinaryRow 设计哲学</title><link>https://quakewang.github.io/tech/paimon/paimon001_binaryrow/</link><guid isPermaLink="true">https://quakewang.github.io/tech/paimon/paimon001_binaryrow/</guid><pubDate>Fri, 22 May 2026 22:30:00 +0800</pubDate><author>wangfuzheng0814@foxmail.com (二夕)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="分区表读取任务">分区表读取任务&lt;/h2>
 &lt;p>好久没有写技术博客了，尤其是 AI 泛滥之后，总觉得写技术博客的价值越来越少。不过前段时间，重新回到开源社区，做了让 paimon-rust 支持读取分区表（&lt;a href="https://github.com/apache/paimon-rust/issues/124">Issue #124&lt;/a>）的任务。在完成这个 issue 的过程中，还是学到不少知识的，就随手写写吧。&lt;/p>
 &lt;p>这个任务有一条清晰的依赖链：要读分区表，首先要能解析 Manifest 中的分区信息；而分区信息在 Manifest 的 &lt;code>_PARTITION&lt;/code> 字段中以 Avro &lt;code>bytes&lt;/code> 存储。对 paimon-rust 来说，这段 bytes 是 Paimon 的 serialized BinaryRow：前 4 个字节是 big-endian 的 arity，后面才是 BinaryRow 的原始 payload。也就是说，不搞懂 BinaryRow，分区表就读不了。&lt;/p>
 &lt;p>在大模型的帮助下，读源码的门槛在大幅度降低。看了 BinaryRow 相关的代码之后，觉得这个设计值得单独聊聊——它不只是一个序列化格式，更是 Paimon 在性能和工程实践之间做出的一系列精巧 trade-off 的缩影。&lt;/p>
