@@ -1,48 +1,51 @@
 document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('.header');
-    const headerWrapper = document.querySelector('.header-wrapper');
     const navToggle = document.getElementById('nav-toggle');
     const navToggleLabel = document.querySelector('.nav-toggle');
-    const navCurtain = document.querySelector('.nav-curtain');
+    const backToTop = document.getElementById('back-to-top');
 
     if (!(header instanceof HTMLElement)) return;
 
-    if (headerWrapper instanceof HTMLElement) {
-        headerWrapper.addEventListener('mousemove', (event) => {
-            const rect = headerWrapper.getBoundingClientRect();
-            const x = event.clientX - rect.left;
-            const y = event.clientY - rect.top;
-
-            document.documentElement.style.setProperty('--mouse-x', `${x}px`);
-            document.documentElement.style.setProperty('--mouse-y', `${y}px`);
-        });
-    }
-
     const isNavToggleEnabled =
         navToggle instanceof HTMLInputElement &&
-        navToggleLabel instanceof HTMLElement &&
-        navCurtain instanceof HTMLElement;
+        navToggleLabel instanceof HTMLElement;
 
-    const applyNavState = (isOpen) => {
-        if (!isNavToggleEnabled) return;
+    let inactiveElements = [];
 
+    const applyNavState = (isOpen, restoreFocus = true) => {
+        navToggle.checked = isOpen;
         navToggleLabel.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        if (isOpen === header.classList.contains('open')) return;
 
         if (isOpen) {
-            header.classList.add('open');
-            navToggleLabel.classList.add('open');
-            navCurtain.style.display = 'block';
+            const scrollbarWidth = Math.max(0,
+                window.innerWidth - document.documentElement.getBoundingClientRect().width);
+            document.documentElement.style.setProperty('--nav-scrollbar-width', `${scrollbarWidth}px`);
+        }
+
+        header.classList.toggle('open', isOpen);
+        document.documentElement.classList.toggle('nav-open', isOpen);
+
+        if (isOpen) {
+            // Leave the header interactive while isolating the covered page.
+            inactiveElements = [...document.body.children, ...header.parentElement.children]
+                .filter((element) => element instanceof HTMLElement &&
+                    element.tagName !== 'SCRIPT' && !element.contains(header) && !element.inert);
+            inactiveElements.forEach((element) => { element.inert = true; });
+            header.querySelector('.nav a, .nav button')?.focus({ preventScroll: true });
             return;
         }
 
-        header.classList.remove('open');
-        navToggleLabel.classList.remove('open');
-        navCurtain.removeAttribute('style');
-        header.classList.remove('fade');
+        inactiveElements.forEach((element) => { element.inert = false; });
+        inactiveElements = [];
+        if (restoreFocus) navToggleLabel.focus({ preventScroll: true });
     };
 
     if (isNavToggleEnabled) {
-        applyNavState(navToggle.checked);
+        applyNavState(false, false);
+
+        window.addEventListener('pagehide', () => applyNavState(false, false));
+        window.addEventListener('pageshow', () => applyNavState(false, false));
 
         navToggle.addEventListener('change', () => {
             applyNavState(navToggle.checked);
@@ -55,19 +58,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         document.addEventListener('keydown', (event) => {
-            if (event.key !== 'Escape') return;
             if (!navToggle.checked) return;
 
-            navToggle.checked = false;
-            applyNavState(false);
-            navToggleLabel.focus();
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                applyNavState(false);
+            } else if (event.key === 'Tab') {
+                const controls = [...header.querySelectorAll('a[href], button, [tabindex="0"]')];
+                const first = controls[0];
+                const last = controls[controls.length - 1];
+                if (event.shiftKey && document.activeElement === first) {
+                    event.preventDefault();
+                    last.focus();
+                } else if (!event.shiftKey && document.activeElement === last) {
+                    event.preventDefault();
+                    first.focus();
+                }
+            }
         });
 
         header.querySelectorAll('.nav a').forEach((link) => {
             link.addEventListener('click', () => {
-                if (!navToggle.checked) return;
-                navToggle.checked = false;
-                applyNavState(false);
+                applyNavState(false, false);
             });
         });
 
@@ -76,10 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const mediaQuery = window.matchMedia(`(max-width: ${maxWidth.trim()})`);
             const onMediaChange = (event) => {
                 if (event.matches) return;
-                if (!navToggle.checked) return;
-
-                navToggle.checked = false;
-                applyNavState(false);
+                applyNavState(false, false);
             };
 
             if (typeof mediaQuery.addEventListener === 'function') {
@@ -97,6 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isNavToggleEnabled && navToggle.checked) return;
 
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (backToTop) backToTop.classList.toggle('show', scrollTop > 100);
 
         if (scrollTop > 10) {
             header.classList.add('header-scrolled');
