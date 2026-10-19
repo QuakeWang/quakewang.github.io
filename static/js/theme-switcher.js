@@ -71,6 +71,9 @@
         const styles = getComputedStyle(root);
         const primaryValue = styles.getPropertyValue('--color-primary');
         const contrastMediumValue = styles.getPropertyValue('--color-contrast-medium');
+        document.querySelector('meta[name="theme-color"]')?.setAttribute(
+            'content', styles.getPropertyValue('--color-bg').trim()
+        );
 
         const primaryRgb = parseCssColorToRgb(primaryValue);
         if (primaryRgb) {
@@ -103,7 +106,13 @@
         if (theme === 'dark' || theme === 'light') {
             root.dataset.theme = theme;
             root.classList.toggle('dark', theme === 'dark');
-            if (persist) localStorage.setItem(storageKey, theme);
+            if (persist) {
+                try {
+                    localStorage.setItem(storageKey, theme);
+                } catch {
+                    // Theme switching must work even when storage is unavailable.
+                }
+            }
             updateDerivedColorTokens();
             return;
         }

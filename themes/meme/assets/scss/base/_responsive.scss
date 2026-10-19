@@ -19,107 +19,148 @@
         }
         @if ($enableNavToggle) {
             .header-inner {
-                display: block;
+                display: flex;
+                height: 64px;
+                padding: 0 112px 0 24px;
                 margin: 0;
             }
-            .nav-toggle {
-                display: block;
+            .header .header-wrapper {
+                padding: 0;
             }
-            .nav {
+            .header .site-brand {
+                margin: 0;
+            }
+            .header .brand {
+                font-size: 16px;
+                white-space: nowrap;
+            }
+            .header .nav,
+            .header .menu-container {
+                display: contents;
+            }
+            .header .menu {
                 display: none;
-                text-align: center;
-                margin: 2em 0;
-            }
-            .menu {
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
-                align-items: center;
-            }
-            .menu-item {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                box-sizing: border-box;
                 margin: 0;
-                padding: 1em;
-                .icon {
-                    margin: 0;
-                }
+                padding: 8px 24px 16px;
+                max-height: calc(100dvh - 64px);
+                overflow-y: auto;
+                overscroll-behavior: contain;
+                background: var(--header-background);
+                border-bottom: 1px solid var(--header-border-color);
+                text-align: left;
             }
-            .menu-item-name {
+            .header .menu-item {
                 display: block;
+            }
+            .header .menu-item a {
+                position: relative;
+                width: 100%;
+                min-height: 44px;
+                padding: 10px 0 !important;
+                font-size: 15px !important;
+                transform: none;
+            }
+            .header .menu-item-name {
+                font-size: inherit;
+                padding: 0;
+            }
+            .header .menu-item-name::after {
+                content: none;
+            }
+            .header .menu-item.active a::after {
+                top: 50%;
+                bottom: auto;
+                left: -12px;
+                right: auto;
+                width: 2px;
+                height: 14px;
+                transform: translateY(-50%);
+            }
+            .header .menu-item-theme {
+                position: absolute;
+                top: 10px;
+                right: 60px;
+            }
+            .header .theme-toggle-btn {
+                width: 44px;
+                height: 44px;
+                margin: 0;
+                padding: 0;
+            }
+            .header .theme-icon-light,
+            .header .theme-icon-dark {
+                line-height: 0;
+            }
+            .header .nav-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                top: 10px;
+                right: 16px;
+                margin: 0;
+                width: 44px;
+                height: 44px;
+            }
+            .header .nav-toggle-inner {
+                position: relative;
+                width: 18px;
+                height: 18px;
+                padding: 0;
+            }
+            .header .nav-toggle span {
+                width: 18px;
+                height: 1.5px;
+                left: 0;
+                &:nth-child(1) { top: 3px; }
+                &:nth-child(2) { top: 8px; }
+                &:nth-child(3) { top: 13px; }
+            }
+            .header .nav-curtain {
+                background: rgba(0, 0, 0, 0.06);
+            }
+            .dark .header .nav-curtain {
+                background: rgba(0, 0, 0, 0.1);
+            }
+            .header .nav-toggle:focus-visible,
+            .header .menu-item a:focus-visible {
+                outline: 2px solid var(--color-primary);
+                outline-offset: 4px;
+            }
+            html.nav-open {
+                overflow: hidden;
+                box-sizing: border-box;
+                padding-right: var(--nav-scrollbar-width, 0px);
             }
             .header.open {
-                .nav {
-                    display: block;
-                    animation: appear $duration;
-                    animation-iteration-count: 1;
-                    animation-fill-mode: forwards;
+                width: calc(100% - var(--nav-scrollbar-width, 0px));
+                .header-wrapper {
+                    border-bottom-color: transparent;
                 }
-                @keyframes appear {
-                    0% {
-                        opacity: 0;
-                        height: 0;
-                        margin: 0;
-                        transform: scaleY(0);
-                        transform-origin: top;
-                    }
-                    100% {
-                        opacity: 1;
-                        height: $navHeight;
-                        margin: 2em 0;
-                        transform: scaleY(1);
-                        transform-origin: top;
-                    }
+                .nav-toggle span {
+                    &:nth-child(1),
+                    &:nth-child(3) { top: 8px; }
+                    &:nth-child(2) { width: 0; }
                 }
                 .nav-curtain {
-                    animation: appearCurtain $duration;
-                    animation-iteration-count: 1;
-                    animation-fill-mode: forwards;
-                }
-                @keyframes appearCurtain {
-                    0% {
-                        visibility: hidden;
-                        opacity: 0;
-                    }
-                    100% {
-                        visibility: visible;
-                        opacity: 1;
-                    }
-                }
-            }
-            .header.fade {
-                .nav {
                     display: block;
-                    animation: fade $duration;
-                    animation-iteration-count: 1;
-                    animation-fill-mode: forwards;
                 }
-                @keyframes fade {
-                    0% {
-                        opacity: 1;
-                        height: $navHeight;
-                        margin: 2em 0;
-                        transform: scaleY(1);
-                        transform-origin: top;
-                    }
-                    100% {
+                .menu {
+                    display: block;
+                    animation: mobile-nav-appear 160ms ease-out;
+                }
+                @keyframes mobile-nav-appear {
+                    from {
                         opacity: 0;
-                        height: 0;
-                        margin: 0;
-                        transform: scaleY(0);
-                        transform-origin: top;
+                        transform: translateY(-4px);
                     }
-                }
-                .nav-curtain {
-                    animation: fadeCurtain $duration;
-                    animation-iteration-count: 1;
-                    animation-fill-mode: forwards;
-                }
-                @keyframes fadeCurtain {
-                    0% {
-                        visibility: visible;
+                    to {
                         opacity: 1;
-                    }
-                    100% {
-                        visibility: hidden;
-                        opacity: 0;
+                        transform: translateY(0);
                     }
                 }
             }

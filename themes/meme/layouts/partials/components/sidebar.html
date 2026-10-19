@@ -7,14 +7,10 @@
             <div class="toc-container">
                 {{ .TableOfContents }}
             </div>
-            <div class="sidebar-progress">
-                <div class="progress-info">
-                    <span class="progress-percentage">0%</span> 已阅读
-                </div>
-                <div class="reading-progress-bar-container">
-                    <div class="reading-progress-bar"></div>
-                </div>
-            </div>
+        </div>
+        <div class="reading-progress" role="progressbar" aria-label="{{ i18n "readingProgress" }}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <span>{{ i18n "readingProgress" }}</span>
+            <span class="progress-percentage" aria-hidden="true">0%</span>
         </div>
     </div>
-</div> 
+</div>

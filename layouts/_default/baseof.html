@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.LanguageCode }}">
     {{ partial "head.html" . }}
-    <body>
+    <body{{ if and .IsHome (eq .Site.Params.homeLayout "poetry") }} class="home-poetry"{{ end }}>
         <a class="skip-link" href="#content">Skip to content</a>
         {{ partial "components/top-progress.html" . }}
         <div class="container">

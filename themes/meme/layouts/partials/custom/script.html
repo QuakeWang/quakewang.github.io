@@ -1,2 +1,4 @@
-<script src="{{ "js/custom.js" | relURL }}" defer></script>
-<script src="{{ "js/reading-progress.js" | relURL }}" defer></script>
+{{- $customVersion := readFile "static/js/custom.js" | sha256 -}}
+<script src="{{ printf "js/custom.js?v=%s" $customVersion | relURL }}" defer></script>
+{{- $progressVersion := readFile "static/js/reading-progress.js" | sha256 -}}
+<script src="{{ printf "js/reading-progress.js?v=%s" $progressVersion | relURL }}" defer></script>

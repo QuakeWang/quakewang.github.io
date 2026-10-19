@@ -1,6 +1,9 @@
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.language-mermaid').forEach(function(code) {
+            code.setAttribute('data-code-source', code.textContent);
+        });
         mermaid.initialize({
             startOnLoad: true,
             theme: 'default',
