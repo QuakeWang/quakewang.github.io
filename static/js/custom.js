@@ -22,7 +22,7 @@ function getCodeTextFromBlock(block) {
         if (lines.length > 0) {
             return Array.from(lines)
                 .map(function(line) {
-                    return line.innerText;
+                    return line.textContent.replace(/\r?\n$/, '');
                 })
                 .join('\n')
                 .trimEnd();
@@ -30,7 +30,7 @@ function getCodeTextFromBlock(block) {
     }
 
     const codeEl = block.querySelector('code[data-lang]') || block.querySelector('code');
-    if (codeEl) return codeEl.innerText.trimEnd();
+    if (codeEl) return (codeEl.getAttribute('data-code-source') ?? codeEl.textContent).trimEnd();
 
     return '';
 }
@@ -68,10 +68,6 @@ function ensureCopyButton(block) {
     if (block.querySelector('.copy-button')) return;
     if (!block.querySelector('code')) return;
 
-    if (getComputedStyle(block).position === 'static') {
-        block.style.position = 'relative';
-    }
-
     const button = document.createElement('button');
     button.className = 'copy-button';
     button.type = 'button';
@@ -98,62 +94,48 @@ function ensureCopyButton(block) {
             });
     });
 
-    block.appendChild(button);
+    block.querySelector('.code-header').appendChild(button);
+}
+
+function prepareCodeBlock(element) {
+    if (element.closest('.code-block')) return;
+    const code = element.querySelector('code[data-lang]') || element.querySelector('code');
+    if (!code) return;
+
+    let block = element;
+    if (element.tagName === 'PRE') {
+        block = document.createElement('div');
+        element.before(block);
+        block.appendChild(element);
+    }
+    block.classList.add('code-block');
+    block.classList.toggle('code-compact', getCodeTextFromBlock(block).split('\n').length <= 3);
+
+    const scroll = block.querySelector('.table-container') || block.querySelector('pre');
+    scroll.classList.add('code-scroll');
+    scroll.setAttribute('tabindex', '0');
+    scroll.setAttribute('role', 'region');
+    scroll.setAttribute('aria-label', 'Code content');
+
+    const header = document.createElement('div');
+    header.className = 'code-header';
+    const language = document.createElement('span');
+    language.className = 'code-language';
+    language.textContent = getLanguageFromCodeElement(code);
+    header.appendChild(language);
+    block.prepend(header);
+    ensureCopyButton(block);
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.post-body > .highlight').forEach(function(block) {
-        const codeEl =
-            block.querySelector('code[data-lang]') ||
-            block.querySelector('code[class*="language-"]');
-
-        const language = getLanguageFromCodeElement(codeEl);
-        if (language) block.setAttribute('data-lang', language);
-        ensureCopyButton(block);
+    document.querySelectorAll('.post-body .highlight, .post-body pre').forEach(function(element) {
+        if (element.tagName === 'PRE' && element.closest('.highlight')) return;
+        prepareCodeBlock(element);
     });
-
-    document
-        .querySelectorAll('.post-body > pre, .post-body > div > pre')
-        .forEach(function(pre) {
-            const codeEl =
-                pre.querySelector('code[data-lang]') ||
-                pre.querySelector('code[class*="language-"]');
-
-            const language = getLanguageFromCodeElement(codeEl);
-            if (language) pre.setAttribute('data-lang', language);
-            ensureCopyButton(pre);
-        });
 
     document
         .querySelectorAll('.post-body p > code, .post-body li > code')
         .forEach(function(code) {
             code.classList.add('inline-code');
         });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    const codeBlocks = document.querySelectorAll('.post-body pre, .post-body .highlight');
-    
-    codeBlocks.forEach(function(block) {
-        const errorElements = block.querySelectorAll('.err');
-        
-        errorElements.forEach(function(errorEl) {
-            const text = errorEl.textContent;
-            if (text === 'unlikely' || text === 'likely' || 
-                text === 'fallthrough' || text === 'nodiscard' || 
-                text === 'noreturn' || text === 'maybe_unused') {
-                
-                let prev = errorEl.previousElementSibling;
-                let next = errorEl.nextElementSibling;
-                
-                if (prev && prev.classList.contains('o') && prev.textContent === '[' &&
-                    next && next.classList.contains('o') && next.textContent === ']') {
-                    prev.style.display = 'none';
-                    next.style.display = 'none';
-                }
-                
-                errorEl.style.display = 'none';
-            }
-        });
-    });
 });

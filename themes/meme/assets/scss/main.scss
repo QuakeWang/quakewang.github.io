@@ -1,12 +1,5 @@
-{{- $lightColors := slice "#33A6B8" "#FF6666" "#26A69A" "#fb7287" "#69a6cc" -}}
-{{- $darkColors := slice "#F596AA" "#A0A7D4" "#ff7b7b" "#99D8CF" "#838BC6" -}}
-
-{{- $randomColorIndex := (mod (now.Unix) (len $lightColors)) -}}
-{{- $lightAccent := (index $lightColors $randomColorIndex) -}}
-{{- $darkAccent := (index $darkColors $randomColorIndex) -}}
-
-$lightAccent: {{ $lightAccent }};
-$darkAccent: {{ $darkAccent }};
+$lightAccent: #326b62;
+$darkAccent: #91c0b1;
 
 {{ with .Site.Params.fontSize | default 16 }}
     $fontSize: {{ . }}px;
@@ -37,10 +30,6 @@ $darkAccent: {{ $darkAccent }};
 
 {{ if .Site.Params.enableNavToggle }}
     $enableNavToggle: true;
-
-    {{ with .Site.Params.navHeight | default "10em" }}
-        $navHeight: {{ . }};
-    {{ end }}
 {{ else }}
     $enableNavToggle: false;
 {{ end }}
@@ -172,10 +161,6 @@ $fontFamilyCode: "OperatorMonoSSmLig Nerd Font","Cascadia Code PL","FantasqueSan
 // Header
 
 {{ if .Site.Params.enableHeader }}
-    {{ with .Site.Params.headerBackground }}
-        $headerBackground: {{ . }};
-    {{ end }}
-
     {{ if .Site.Params.siteBrandSVG }}
         $siteBrandSVG: true;
         $siteBrandSVGWidth: {{ .Site.Params.siteBrandSVGWidth }}px;
@@ -335,8 +320,6 @@ $fontFamilyCode: "OperatorMonoSSmLig Nerd Font","Cascadia Code PL","FantasqueSan
 // Homepage Layout
 
 {{ if eq .Site.Params.homeLayout "poetry" }}
-    $homeLinksPadding: {{ .Site.Params.homeLinksPadding }}em;
-
     @import "pages/home-poetry";
 {{ end }}
 

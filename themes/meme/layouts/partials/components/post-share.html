@@ -33,7 +33,10 @@
 
             {{ if .Site.Params.shareOnTwitter }}
                 <div class="share-item twitter">
-                    {{ $url := (printf `https://twitter.com/share?url=%s&text=%s&hashtags=%s&via=%s` .Permalink $title ($hashtags.Get "tags" | default "") .Site.Params.siteTwitter) }}
+                    {{ $url := (printf `https://twitter.com/share?url=%s&text=%s&hashtags=%s` .Permalink $title ($hashtags.Get "tags" | default "")) }}
+                    {{ with .Site.Params.siteTwitter }}
+                        {{ $url = printf `%s&via=%s` $url . }}
+                    {{ end }}
                     <a href="{{ $url }}" title="{{ i18n "shareOnTitle" }}{{ i18n "twitter" }}" target="_blank" rel="noopener">
                         {{- partial "utils/icon.html" (dict "$" . "name" "twitter" "class" "twitter-icon") -}}
                     </a>

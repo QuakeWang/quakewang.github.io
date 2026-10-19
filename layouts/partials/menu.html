@@ -6,7 +6,7 @@
             {{ else }}
                 {{ .Scratch.Set "currentPage" . }}
             {{ end }}
-            {{ $currentPage := .Scratch.Get "currentPage" }}
+            {{ $currentPage := .Scratch.Get "currentPage" | default . }}
             {{ $ctx := . }}
             {{ range .Site.Menus.main }}
                 {{ if and (eq .Identifier "lang-switcher") $.Site.IsMultiLingual $.Site.Params.enableLangToggle }}
@@ -20,7 +20,7 @@
                     {{ end }}
                 {{ else if ne .Identifier "theme-switcher" }}
                     {{ if ne .Identifier "search" }}
-                        {{- $isActive := or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) -}}
+                        {{- $isActive := or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) (eq $currentPage.RelPermalink .URL) -}}
                         <li class="menu-item{{ if $isActive }} active{{ end }}">
                             {{- $linkType := (string .Pre) -}}
                             <a href="{{ .URL }}"
@@ -29,7 +29,7 @@
                             >
                                 {{- $iconName := (string .Post) -}}
                                 {{- if $iconName -}}
-                                    <i class="menu-item-icon fas fa-{{ $iconName }}" aria-hidden="true"></i>
+                                    {{ partial "utils/icon.html" (dict "$" $ctx "name" (printf "nav-%s" $iconName) "class" "navigation-icon") }}
                                 {{- end -}}
                                 {{- with .Name -}}
                                     <span class="menu-item-name">{{ . }}</span>
@@ -40,5 +40,13 @@
                 {{ end }}
             {{ end }}
         </ul>
+        {{ if and .Site.Params.enableDarkMode (not .Site.Params.hideThemeToggle) (or (not .IsHome) (not .Site.Params.hideThemeToggleInHome)) }}
+            <div class="menu-item menu-item-theme">
+                <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="Switch color theme">
+                    <span class="theme-icon-light" aria-hidden="true">{{ partial "utils/icon.html" (dict "$" . "name" "nav-moon" "class" "navigation-icon") }}</span>
+                    <span class="theme-icon-dark" aria-hidden="true">{{ partial "utils/icon.html" (dict "$" . "name" "nav-sun" "class" "navigation-icon") }}</span>
+                </button>
+            </div>
+        {{ end }}
     </div>
 </nav>

@@ -1,123 +1,90 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const progressBar = document.querySelector('.reading-progress-bar');
-    const progressPercentage = document.querySelector('.progress-percentage');
+function getReadingProgress(rect, viewportHeight, readingOffset) {
+    if (rect.height <= 0) return 0;
+
+    const travel = rect.height - (viewportHeight - readingOffset);
+    const fraction = travel > 0
+        ? (readingOffset - rect.top) / travel
+        : (viewportHeight - rect.top) / rect.height;
+
+    return Math.min(100, Math.max(0, fraction * 100));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
     const article = document.querySelector('.post-body');
-    const tocLinks = document.querySelectorAll('.toc-container a');
-    const body = document.body;
-    
     if (!article) return;
-    
-    const headings = Array.from(document.querySelectorAll('.post-body h1, .post-body h2, .post-body h3, .post-body h4, .post-body h5, .post-body h6'));
-    const headingMap = new Map();
-    
-    tocLinks.forEach(link => {
-        const href = link.getAttribute('href');
-        if (href && href.startsWith('#')) {
-            const id = href.substring(1);
-            headingMap.set(id, link);
+
+    const header = document.querySelector('.header');
+    const percentage = document.querySelector('.progress-percentage');
+    const progress = document.querySelector('.reading-progress');
+    const sidebar = document.querySelector('.sidebar-body');
+    const sections = Array.from(document.querySelectorAll('.toc-container a'), (link) => ({
+        link,
+        heading: document.getElementById(decodeURIComponent(link.hash.slice(1))),
+    })).filter(({ heading }) => heading);
+    let activeLink = null;
+    let frame = null;
+
+    function update() {
+        frame = null;
+        const offset = (header ? header.offsetHeight : 0) + 16;
+        const rect = article.getBoundingClientRect();
+        const value = getReadingProgress(rect, window.innerHeight, offset);
+        const rounded = Math.round(value);
+
+        document.documentElement.style.setProperty('--reading-progress', `${value}%`);
+        article.style.setProperty('--reading-offset', `${offset}px`);
+        if (percentage) percentage.textContent = `${rounded}%`;
+        if (progress) progress.setAttribute('aria-valuenow', rounded);
+
+        const positions = sections.map(({ heading }) => heading.getBoundingClientRect().top);
+        sections.forEach(({ link }, index) => {
+            const start = positions[index];
+            const end = index + 1 < sections.length ? positions[index + 1] : rect.top + rect.height;
+            const fraction = value === 100 ? 1 : Math.min(1, Math.max(0,
+                (offset - start) / Math.max(1, end - start)));
+            link.style.setProperty('--chapter-progress', `${fraction * 100}%`);
+        });
+
+        let current = rect.top < window.innerHeight ? sections[0] : null;
+        for (let index = 0; index < sections.length; index++) {
+            if (positions[index] > offset + 1) break;
+            current = sections[index];
         }
-    });
-    
-    function updateReadingProgress() {
-        const articleRect = article.getBoundingClientRect();
-        const articleTop = window.scrollY - (article.offsetTop - window.scrollY);
-        const articleHeight = article.offsetHeight;
-        const windowHeight = window.innerHeight;
-        const documentHeight = Math.max(
-            document.body.scrollHeight,
-            document.documentElement.scrollHeight,
-            document.body.offsetHeight,
-            document.documentElement.offsetHeight
-        );
-        const scrollTop = window.scrollY || document.documentElement.scrollTop;
-        const scrollHeight = documentHeight - windowHeight;
-        
-        let readPercentage = 0;
-        
-        if (articleHeight <= windowHeight) {
-            const visibleHeight = Math.min(
-                windowHeight,
-                articleRect.bottom > 0 ? 
-                    (articleRect.bottom < windowHeight ? articleRect.bottom : windowHeight) - 
-                    (articleRect.top > 0 ? articleRect.top : 0) : 0
-            );
-            readPercentage = (visibleHeight / articleHeight) * 100;
-        } else {
-            readPercentage = (scrollTop / scrollHeight) * 100;
-        }
-        
-        readPercentage = Math.min(100, Math.max(0, readPercentage));
-        
-        if (progressBar && progressPercentage) {
-            progressBar.style.width = `${readPercentage}%`;
-            progressPercentage.textContent = `${Math.round(readPercentage)}%`;
-        }
-        
-        body.classList.add('reading-progress');
-        body.style.setProperty('--reading-progress', `${readPercentage}%`);
-        
-        updateActiveHeading();
-    }
-    
-    function updateActiveHeading() {
-        if (headings.length === 0 || !tocLinks.length) return;
-        
-        let currentHeading = null;
-        const scrollOffset = 100;
-        
-        for (let i = 0; i < headings.length; i++) {
-            const heading = headings[i];
-            const rect = heading.getBoundingClientRect();
-            
-            if (rect.top <= scrollOffset) {
-                currentHeading = heading;
-            } else {
-                break;
+        if (value === 100 && sections.length) current = sections[sections.length - 1];
+
+        const link = current ? current.link : null;
+        if (link !== activeLink) {
+            if (activeLink) {
+                activeLink.classList.remove('active');
+                activeLink.removeAttribute('aria-current');
             }
-        }
-        
-        tocLinks.forEach(link => link.classList.remove('active'));
-        
-        if (currentHeading) {
-            const id = currentHeading.getAttribute('id');
-            if (id) {
-                const activeLink = headingMap.get(id);
-                if (activeLink) {
-                    activeLink.classList.add('active');
-                    
-                    const tocContainer = document.querySelector('.toc-container');
-                    if (tocContainer) {
-                        const linkRect = activeLink.getBoundingClientRect();
-                        const containerRect = tocContainer.getBoundingClientRect();
-                        
-                        if (linkRect.top < containerRect.top || linkRect.bottom > containerRect.bottom) {
-                            activeLink.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        }
-                    }
-                    
-                    let parent = activeLink.parentElement;
-                    while (parent && parent.classList.contains('collapsible')) {
-                        parent.classList.remove('collapsed');
-                        parent = parent.parentElement ? parent.parentElement.closest('li') : null;
-                    }
+            activeLink = link;
+            if (link) {
+                link.classList.add('active');
+                link.setAttribute('aria-current', 'location');
+                let item = link.closest('li');
+                while (item) {
+                    item.classList.remove('collapsed');
+                    item = item.parentElement.closest('li');
                 }
             }
         }
+
+        if (link && sidebar && sidebar.clientHeight) {
+            const bounds = sidebar.getBoundingClientRect();
+            const target = link.getBoundingClientRect();
+            if (target.top < bounds.top) sidebar.scrollTop += target.top - bounds.top;
+            else if (target.bottom > bounds.bottom) sidebar.scrollTop += target.bottom - bounds.bottom;
+        }
     }
-    
-    function debounce(func, wait) {
-        let timeout;
-        return function() {
-            const context = this;
-            const args = arguments;
-            clearTimeout(timeout);
-            timeout = setTimeout(() => func.apply(context, args), wait);
-        };
+
+    function scheduleUpdate() {
+        if (frame === null) frame = window.requestAnimationFrame(update);
     }
-    
-    window.addEventListener('scroll', debounce(updateReadingProgress, 50), { passive: true });
-    
-    window.addEventListener('resize', debounce(updateReadingProgress, 100), { passive: true });
-    
-    updateReadingProgress();
-}); 
+
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    window.addEventListener('resize', scheduleUpdate, { passive: true });
+    window.addEventListener('pageshow', scheduleUpdate);
+    new ResizeObserver(scheduleUpdate).observe(article);
+    update();
+});

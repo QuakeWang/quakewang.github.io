@@ -252,7 +252,7 @@ mapping = "title"
     # 说明：对弹性布局的顶栏无效
 
     # 背景
-    headerBackground = "linear-gradient(90deg, #f795331a 0, #f370551a 15%, #ef4e7b1a 30%, #a166ab1a 44%, #5073b81a 58%, #1098ad1a 72%, #07b39b1a 86%, #6dba821a 100%)"
+    headerBackground = "none"
     # 说明：https://developer.mozilla.org/zh-CN/docs/Web/CSS/background
 
     # 顶栏布局
@@ -261,9 +261,6 @@ mapping = "title"
 
     # 在窄视图下隐藏菜单栏并显示一个按钮？
     enableNavToggle = true
-
-    navHeight = "10em"
-    # 说明：菜单栏展开时的高度
 
 
     ######################################
@@ -295,7 +292,7 @@ mapping = "title"
     # 说明：对弹性布局的顶栏无效
 
     # 是否按文章分区高亮当前菜单项
-    activeInSection = false
+    activeInSection = true
     # 说明：如果开启，那么当某一文章的分区名是某
     #      一菜单项中的 `url` 时，该文章页面中
     #      的该菜单项也会被高亮
@@ -335,7 +332,7 @@ mapping = "title"
     # 站点信息
 
     # 站点的 LOGO
-    siteLogo = "/static/favicon.ico"
+    siteLogo = "/favicon.ico"
     # 说明：用于 JSON-LD、Open Graph
 
     # 站点的描述
@@ -519,8 +516,8 @@ mapping = "title"
     #      manifest.json，并检查和修改相关内容
     #      （图标的路径）。
 
-    themeColor = "#fff"
-    themeColorDark = "#16171d"
+    themeColor = "#f8f9f7"
+    themeColorDark = "#222428"
     safariMaskColor = "#2a6df4"
     msApplicationTileColor = "#fff"
 
@@ -1183,9 +1180,9 @@ mapping = "title"
     # 年份与作者之间的图标，留空（""）则无
     iconBetweenYearAndAuthor = "heart"
     # 图标颜色
-    iconColor = "#f06292"
+    iconColor = "var(--color-primary)"
     # 是否开启图标的跳动效果
-    iconAnimation = true
+    iconAnimation = false
 
     # 是否显示 Hugo 和 MemE 的链接
     displayPoweredBy = true
@@ -1234,7 +1231,7 @@ mapping = "title"
     # 是否开启竖直滚动
     enableOverflowY = true
     # 最大高度
-    maxHeight = 20
+    maxHeight = 38.4
     # 单位：em
 
     # 是否开启复制

@@ -1,69 +1,162 @@
-.highlight {
-    font-size: 0.9em;
-    margin: 2em 0;
-    border-radius: var(--radius);
-    overflow: hidden;
-    background-color: #282c34;
-    border: 1px solid #3e4451;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-
-    &::before {
-        content: attr(data-lang);
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        padding: 0.5em 1em;
-        background-color: #21252b;
-        color: var(--color-contrast-medium);
-        font-family: var(--mono-font-family);
-        font-size: 0.8em;
-        text-transform: uppercase;
-        text-align: right;
-        border-bottom: 1px solid #3e4451;
-    }
-
-    .chroma {
-        color: var(--chroma-text-color);
+.post-body {
+    .highlight,
+    .code-block {
+        margin: 1.5rem 0;
+        padding: 0;
+        overflow: hidden;
+        border: 1px solid var(--chroma-border-color);
+        border-radius: 3px;
         background-color: var(--chroma-background-color);
+        color: var(--chroma-text-color);
+        box-shadow: none;
+        font-size: 0.9375rem;
+        line-height: 1.6;
     }
 
-    pre {
-        margin: 0 !important;
-        padding: 2.5em 1.2em 1.2em;
+    .code-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 1.75rem;
+        padding: 0 0.5rem 0 1rem;
+        font-family: var(--mono-font-family);
+        font-size: 0.6875rem;
+        color: var(--chroma-comment-color);
     }
 
-    .lntd pre {
-        background-color: unset;
+    .code-language {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-transform: uppercase;
+    }
+
+    .copy-button {
+        flex-shrink: 0;
+        min-width: 3.5rem;
+        min-height: 1.75rem;
+        margin-left: auto;
+        padding: 0 0.5rem;
+        border: 0;
+        border-radius: 3px;
+        background: transparent;
+        color: var(--chroma-comment-color);
+        font: inherit;
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--chroma-border-color);
+            color: var(--chroma-keyword-color);
+        }
+    }
+
+    .code-block pre {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        font-size: inherit;
+        line-height: inherit;
+    }
+
+    .code-block code {
+        display: block;
+        margin: 0;
+        padding: 0.25rem 1rem 0.75rem;
+        border-radius: 0;
+        background: transparent;
+        color: inherit;
+        font-family: var(--mono-font-family);
+        font-size: inherit;
+        line-height: inherit;
+        white-space: pre;
+        tab-size: 4;
+    }
+
+    .code-block .code-scroll {
+        margin: 0;
+        padding: 0;
+        overflow: auto;
+        scrollbar-width: thin;
+        scrollbar-color: var(--chroma-border-color) transparent;
+
+        @if ($enableOverflowY) {
+            max-height: calc(#{$maxHeight} + 0.25rem);
+        }
+    }
+
+    .copy-button:focus-visible,
+    .code-scroll:focus-visible {
+        outline: 2px solid var(--chroma-keyword-color);
+        outline-offset: -2px;
+    }
+
+    .code-block .lntable {
+        display: table;
+        width: max-content;
+        min-width: 100%;
+        margin: 0;
+        border: 0;
+        border-spacing: 0;
+        border-collapse: collapse;
         overflow: visible;
     }
 
-    table > tbody > tr:nth-of-type(odd) {
-        background-color: inherit;
+    .code-block .lntable tr,
+    .code-block .lntable td {
+        padding: 0;
+        border: 0;
+        background: transparent;
     }
 
-    table > tbody > tr:hover {
-        background-color: inherit;
+    .code-block .lntable pre {
+        overflow: visible;
+    }
+
+    .code-block .lntd:first-child {
+        position: sticky;
+        left: 0;
+        width: 1%;
+        border-right: 1px solid var(--chroma-border-color);
+        background-color: var(--chroma-background-color);
+        user-select: none;
+    }
+
+    .code-block .lntd:first-child code {
+        padding-right: 0.75rem;
+    }
+
+    .code-block .lnt,
+    .code-block .ln {
+        display: block;
+        margin: 0;
+        padding: 0;
+        color: var(--chroma-line-numbers-color);
+        font-variant-numeric: tabular-nums;
+        text-align: right;
+        user-select: none;
+    }
+
+    .code-compact .lntd:first-child,
+    .code-compact .ln {
+        display: none;
     }
 }
 
-span.lnt {
-    user-select: none;
-    display: block;
-    padding: 0 0.5em !important;
-    text-align: right;
-    color: var(--color-contrast-medium);
+@media (max-width: 600px) {
+    .post-body .code-block {
+        font-size: 0.875rem;
+    }
+
+    .post-body .copy-button {
+        min-height: 2.75rem;
+    }
 }
 
 .chroma {
     color: var(--chroma-text-color);
     background-color: var(--chroma-background-color);
-}
-
-@if ($enableOverflowY) {
-    .lntable, .highlight > pre {
-        max-height: $maxHeight;
-    }
 }
 
 /* The following is the output of `hugo gen chromastyles --style=dracula` */
@@ -76,21 +169,21 @@ span.lnt {
 /* LineNumbers */ .chroma .ln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: var(--chroma-line-numbers-color) }
 /* Keyword */ .chroma .k { color: var(--chroma-keyword-color) }
 /* KeywordConstant */ .chroma .kc { color: var(--chroma-keyword-color) }
-/* KeywordDeclaration */ .chroma .kd { color: var(--chroma-declaration-color); font-style: italic }
-/* KeywordNamespace */ .chroma .kn { color: var(--chroma-name-color) }
+/* KeywordDeclaration */ .chroma .kd { color: var(--chroma-declaration-color) }
+/* KeywordNamespace */ .chroma .kn { color: var(--chroma-keyword-color) }
 /* KeywordPseudo */ .chroma .kp { color: var(--chroma-keyword-color) }
 /* KeywordReserved */ .chroma .kr { color: var(--chroma-keyword-color) }
-/* KeywordType */ .chroma .kt { color: var(--chroma-name-color) }
+/* KeywordType */ .chroma .kt { color: var(--chroma-keyword-color) }
 /* NameAttribute */ .chroma .na { color: var(--chroma-attribute-color) }
-/* NameBuiltin */ .chroma .nb { color: var(--chroma-name-color); font-style: italic }
+/* NameBuiltin */ .chroma .nb { color: var(--chroma-name-color) }
 /* NameClass */ .chroma .nc { color: var(--chroma-attribute-color) }
 /* NameFunction */ .chroma .nf { color: var(--chroma-attribute-color) }
-/* NameLabel */ .chroma .nl { color: var(--chroma-name-color); font-style: italic }
+/* NameLabel */ .chroma .nl { color: var(--chroma-name-color) }
 /* NameTag */ .chroma .nt { color: var(--chroma-keyword-color) }
-/* NameVariable */ .chroma .nv { color: var(--chroma-name-color); font-style: italic }
-/* NameVariableClass */ .chroma .vc { color: var(--chroma-name-color); font-style: italic }
-/* NameVariableGlobal */ .chroma .vg { color: var(--chroma-name-color); font-style: italic }
-/* NameVariableInstance */ .chroma .vi { color: var(--chroma-name-color); font-style: italic }
+/* NameVariable */ .chroma .nv { color: var(--chroma-name-color) }
+/* NameVariableClass */ .chroma .vc { color: var(--chroma-name-color) }
+/* NameVariableGlobal */ .chroma .vg { color: var(--chroma-name-color) }
+/* NameVariableInstance */ .chroma .vi { color: var(--chroma-name-color) }
 /* LiteralString */ .chroma .s { color: var(--chroma-literal-color) }
 /* LiteralStringAffix */ .chroma .sa { color: var(--chroma-literal-color) }
 /* LiteralStringBacktick */ .chroma .sb { color: var(--chroma-literal-color) }
@@ -112,7 +205,7 @@ span.lnt {
 /* LiteralNumberInteger */ .chroma .mi { color: var(--chroma-number-color) }
 /* LiteralNumberIntegerLong */ .chroma .il { color: var(--chroma-number-color) }
 /* LiteralNumberOct */ .chroma .mo { color: var(--chroma-number-color) }
-/* Operator */ .chroma .o { color: var(--chroma-keyword-color) }
+/* Operator */ .chroma .o { color: var(--chroma-text-color) }
 /* OperatorWord */ .chroma .ow { color: var(--chroma-keyword-color) }
 /* Comment */ .chroma .c { color: var(--chroma-comment-color) }
 /* CommentHashbang */ .chroma .ch { color: var(--chroma-comment-color) }

@@ -118,17 +118,20 @@
 
     {{ partial "custom/head.html" . }}
 
-    <!-- 自定义 CSS -->
-    <link rel="stylesheet" href="/css/custom.css">
+    <!-- Custom CSS -->
+    {{- $customCSSVersion := readFile "static/css/custom.css" | sha256 -}}
+    <link rel="stylesheet" href="{{ printf "/css/custom.css?v=%s" $customCSSVersion | relURL }}">
     
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- 自定义 JavaScript -->
-    <script src="/js/header-effects.js" defer></script>
-    <script src="/js/theme-switcher.js" defer></script>
-    <script src="/js/search-enhancement.js" defer></script>
-    <script src="/js/layout-enhancement.js" defer></script>
+    {{- $headerVersion := readFile "static/js/header-effects.js" | sha256 -}}
+    <script src="{{ printf "/js/header-effects.js?v=%s" $headerVersion | relURL }}" defer></script>
+    {{- $themeVersion := readFile "static/js/theme-switcher.js" | sha256 -}}
+    <script src="{{ printf "/js/theme-switcher.js?v=%s" $themeVersion | relURL }}" defer></script>
+    {{- $layoutVersion := readFile "static/js/layout-enhancement.js" | sha256 -}}
+    <script src="{{ printf "/js/layout-enhancement.js?v=%s" $layoutVersion | relURL }}" defer></script>
 
     <!-- 预加载字体 -->
     <link rel="preload" href="/fonts/LXGWWenKai-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">

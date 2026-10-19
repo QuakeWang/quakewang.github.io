@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!tocItems.length) return;
 
     tocItems.forEach((item) => {
-        const subList = item.querySelector('ul');
+        const subList = item.querySelector(':scope > ul, :scope > ol');
         if (!subList) return;
 
         item.classList.add('collapsible');

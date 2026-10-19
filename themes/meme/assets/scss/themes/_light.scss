@@ -1,19 +1,29 @@
 // https://codyhouse.co/ds/globals/colors
 
-$accentColorLight: #33A6B8, #FF6666, #26A69A, #fb7287, #69a6cc;
-
 @mixin light-theme {
     --theme-name: "light";
+    color-scheme: light;
     --color-primary: #{$lightAccent};
+    --color-primary-rgb: #{red($lightAccent)}, #{green($lightAccent)}, #{blue($lightAccent)};
     --primary-color-h: #{hue($lightAccent)};
     --primary-color-s: #{saturation($lightAccent)};
     --primary-color-l: #{lightness($lightAccent)};
-    --color-bg: #fff;
-    --color-contrast-lower: #F2F2F7;
-    --color-contrast-low: #C7C7CC;
-    --color-contrast-medium: #8E8E93;
-    --color-contrast-high: #000;
-    --color-contrast-higher: #000;
+    --color-bg: #f8f9f7;
+    --color-bg-h: #{hue(#f8f9f7)};
+    --color-bg-s: #{saturation(#f8f9f7)};
+    --color-bg-l: #{lightness(#f8f9f7)};
+    --header-background: #fdfefc;
+    --header-border-color: #e0e5e1;
+    --color-contrast-lower: #f4f5f6;
+    --color-contrast-low: #e4e7eb;
+    --color-contrast-medium: #626b76;
+    --color-contrast-high: #3c4148;
+    --color-contrast-higher: #242a31;
+    --sidebar-label-color: var(--color-contrast-medium);
+    --toc-hover-background: var(--color-contrast-lower);
+    --toc-active-background: #edf0f2;
+    --scrollbar-thumb-color: #cbd1d7;
+    --scrollbar-thumb-hover-color: #9ca5b0;
     .theme-icon-light {
         display: inline-block;
     }
@@ -21,19 +31,20 @@ $accentColorLight: #33A6B8, #FF6666, #26A69A, #fb7287, #69a6cc;
         display: none;
     }
     @if ($enableHighlight) {
-        /* https://xyproto.github.io/splash/docs/all.html */
-        /* Color values matching manni style */
-
-        --chroma-line-numbers-background: #ffffcc;
-        --chroma-line-numbers-color: #7f7f7f;
-        --chroma-keyword-color: #006699;
-        --chroma-name-color: #9999ff;
-        --chroma-attribute-color: #330099;
-        --chroma-literal-color: #cc3300;
-        --chroma-number-color: #ff6600;
-        --chroma-comment-color: #0099ff;
-        --chroma-deleted-color: #ffcccc;
-        --chroma-output-color: #aaaaaa;
+        --chroma-background-color: #f6f7f8;
+        --chroma-border-color: #e4e7eb;
+        --chroma-text-color: #303640;
+        --chroma-line-numbers-background: #e9edf2;
+        --chroma-line-numbers-color: var(--chroma-comment-color);
+        --chroma-keyword-color: #465f91;
+        --chroma-name-color: var(--chroma-text-color);
+        --chroma-attribute-color: var(--chroma-text-color);
+        --chroma-literal-color: #47705c;
+        --chroma-number-color: #8a6340;
+        --chroma-comment-color: #6b7280;
+        --chroma-deleted-color: #963f45;
+        --chroma-output-color: var(--chroma-comment-color);
+        --chroma-declaration-color: var(--chroma-keyword-color);
     }
 }
 

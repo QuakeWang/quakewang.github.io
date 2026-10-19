@@ -1,6 +1,8 @@
+{{- $compact := and .IsHome (eq .Site.Params.homeLayout "poetry") -}}
 {{ if or (and .IsHome .Site.Params.displayFooterInHome) (and (not .IsHome) .Site.Params.enableFooter) }}
     <footer id="footer" class="footer">
         <div class="footer-inner">
+            {{ if $compact }}<div class="home-footer-meta">{{ end }}
             <div class="site-info">
               {{- if .Site.Params.displayCopyrightSymbol -}}
                   ©&nbsp;
@@ -11,7 +13,7 @@
               {{- end -}}
               {{- now.Format "2006" -}}
 
-              {{- with .Site.Params.iconBetweenYearAndAuthor -}}
+              {{- with cond $compact "" .Site.Params.iconBetweenYearAndAuthor -}}
                   &nbsp;{{- partial "utils/icon.html" (dict "$" $ "name" . "class" "footer-icon") -}}&nbsp;
               {{- else -}}
                   &nbsp;
@@ -20,7 +22,7 @@
               {{- .Site.Author.name -}}
             </div>
 
-            {{- if .Site.Params.displayPoweredBy }}
+            {{- if and (not $compact) .Site.Params.displayPoweredBy }}
                 {{- $raw := `Powered by [Hugo](https://github.com/gohugoio/hugo) | Theme is [MemE](https://github.com/reuixiy/hugo-theme-meme)` -}}
                 <div class="powered-by">{{ partial "utils/markdownify.html" (dict "$" $ "raw" $raw "isContent" false) }}</div>
             {{- end }}
@@ -29,6 +31,7 @@
                 {{- $raw := .Site.Copyright -}}
                 <div class="site-copyright">{{ partial "utils/markdownify.html" (dict "$" $ "raw" $raw "isContent" false) }}</div>
             {{- end }}
+            {{ if $compact }}</div>{{ end }}
 
             {{- with .Site.Params.customFooter }}
                 {{- $raw := . -}}
